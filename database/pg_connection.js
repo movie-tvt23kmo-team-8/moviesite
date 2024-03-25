@@ -7,7 +7,7 @@ const pgPool = new Pool({
     database: process.env.PG_DATABASE,
     user: process.env.USER,
     password: process.env.PG_PW,
-    // renderiin ssl: true
+    ssl: true
 });
 
 pgPool.connect((err) => {
