@@ -28,6 +28,9 @@ export default function TopBar() {
           <li className='topListItem'>
             <Link to="/reviews" className='link'>ARVOSTELUT</Link>
           </li>
+          <li className='topListItem'>
+            <Link to="/register" className='link'>REKISTERÖIDY</Link>
+          </li>
         </ul>
       </div>
       <div className='topRight'>
