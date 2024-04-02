@@ -1,7 +1,7 @@
 const pgPool = require('./pg_connection');
 
 const sql = {
-    REGISTER: 'INSERT INTO group (groupname, groupdetails, grouprole) VALUES ($1, $2, $3)'
+    REGISTER: 'INSERT INTO "group" (groupname, groupdetails, grouprole) VALUES ($1, $2, $3)'
 }
 
 async function addGroup(groupname, groupdetails, grouprole) {
