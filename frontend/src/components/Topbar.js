@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom'
 import { useUser } from '../context/useUser'
 
 export default function TopBar() {
-  //  const {user} = useUser()
-  const user = true
+  const {user} = useUser()
   return (
     <div className='top'>
       <div className='topLeft'>
