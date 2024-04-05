@@ -1,1 +1,14 @@
+section.allGroups {
+    display: inline-block;
+    margin: 15em;
+}
 
+section.allGroups a {
+    margin: 1px;
+    background-color: greenyellow;
+    display: block;
+}
+
+section.createGroup {
+    display: contents;
+}
