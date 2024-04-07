@@ -26,6 +26,7 @@ export default function Shows() {
     return parsedShowtime;
   }
 
+
   const haeNaytokset = () => {
     // Haetaan XML-dokumentti ja käsitellään se
     console.log("fetchin haku: https://www.finnkino.fi/xml/Schedule/?area=" + area + "&dt=" + date2Finkino(date))
@@ -46,16 +47,22 @@ export default function Shows() {
             let id = shows[i].getElementsByTagName('ID')[0].textContent;
             let showtime = shows[i].getElementsByTagName('dttmShowStart')[0].textContent;
             let image = shows[i].getElementsByTagName('EventMediumImagePortrait')[0].textContent;//Small||Medium||Large
-            console.log("Title: "+title+" ID:"+id+" imageAdress: "+image);
+            let linkki = shows[i].getElementsByTagName('ShowURL')[0].textContent;
+            console.log("Title: "+title+" ID:"+id+" imageAdress: "+image +" ja linkki: "+linkki);
 
             let kuvaElementti = <img src={image} alt={title}/>
 
             let tekstiElementti = <span>{"Title: "+title+ ", ID: "+id+" Näytösaika: "+parseroiShowtime(showtime)}</span>;
 
+            let jaaElementti = <button onClick={() =>lisaaRyhmanSivulle(shows[i])}>Jaa näytös ryhmään</button>
+
+            let linkkiElementti = <a href = {linkki} target="_blank">Linkki esityksen Finnkinon-sivuille</a>
             let elokuvaElementti = (
               <li key={id}>
                 {kuvaElementti}
                 {tekstiElementti}
+                {linkkiElementti}
+                {jaaElementti}
               </li>
             );
             elokuvat.push(elokuvaElementti);
@@ -65,15 +72,23 @@ export default function Shows() {
         .catch(error => console.error('Error:', error));
 
   }
-  
+
+  const lisaaRyhmanSivulle = (data) => {
+    let title = data.getElementsByTagName('Title')[0].textContent;
+    let id = data.getElementsByTagName('ID')[0].textContent;
+    let showtime = parseroiShowtime(data.getElementsByTagName('dttmShowStart')[0].textContent);
+    let image = data.getElementsByTagName('EventMediumImagePortrait')[0].textContent;//Small||Medium||Large
+    let linkki = data.getElementsByTagName('ShowURL')[0].textContent;
+    let teatteri = data.getElementsByTagName('TheatreAndAuditorium')[0].textContent;
+    console.log("Lisätty elokuva: Title: "+title+" ID:"+id+" imageAdress: "+image +" teatteri: "+teatteri+ " showtime: "+showtime+" osta liput: "+linkki);
+  }
+
   const [area, setArea] = useState(1029);
   const [date, setDate] = useState(setTodayDate());
   const [elokuvatLista, setElokuvatLista] = useState([]);
   useEffect(() =>{
     haeNaytokset();
   }, [area, date]);
-
-  //console.log("sivu ladattu, arean arvo: " + area + " date: " + date);
 
   return (
     <>
@@ -115,6 +130,4 @@ export default function Shows() {
       </div>
     </>
   )
-
-
 }
