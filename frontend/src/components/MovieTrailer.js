@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
-import './movietrailer.css'; // Tuodaan CSS-tiedosto ulkoasun määrittelyä varten
+import './movietrailer.css';
 
 function MovieTrailer() {
-  // Tilamuuttujat trailerin tiedoille ja autoplay-tilalle
+  // Tilamuuttujat trailerin tiedoille
   const [trailerInfo, setTrailerInfo] = useState(null);
   const [autoplay, setAutoplay] = useState(true);
 
@@ -24,7 +24,7 @@ function MovieTrailer() {
           .sort((a, b) => {
             const dateA = new Date(a.querySelector('dtLocalRelease').textContent);
             const dateB = new Date(b.querySelector('dtLocalRelease').textContent);
-            return dateB - dateA; // Järjestetään laskevassa järjestyksessä
+            return dateB - dateA; 
           });
 
         const today = new Date();
@@ -79,7 +79,7 @@ function MovieTrailer() {
 
   // Jos trailerInfo ei ole vielä saatavilla, näytä 'Loading...'
   if (!trailerInfo) {
-    return <div>Lataa...</div>;
+    return <div>Loading...</div>;
   }
 
   // Renderöi trailerivideo ja otsikko
