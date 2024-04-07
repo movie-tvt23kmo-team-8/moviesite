@@ -3,11 +3,17 @@ import './home.css'
 import Header from '../components/Header'
 import PopularMoviesPanel from '../components/PopularMoviesPanel'
 import PopularSeriesPanel from '../components/PopularSeriesPanel'
+import CinemaTrailer from '../components/MovieTrailer'
 
 export default function Home() {
   return (
-    <>
+    <div className='home-container'>
+      <div className='trailer-back'>
+        <header>
       <Header />
+    </header>
+      </div>
+    
       <div className='home'>
         <h3>Movies</h3>
        <PopularMoviesPanel /> 
@@ -15,6 +21,6 @@ export default function Home() {
        <PopularSeriesPanel />
       </div>    
 
-    </>
+    </div>
   )
 }

@@ -1,14 +1,51 @@
-.home{
-    position: absolute;
-    top: 30%;
-    width: 100%;
+.home-container {
+    margin-top: 120%;
     display: flex;
     flex-direction: column;
-    margin-bottom: 10%;
+}
+
+
+header {
+    background-color: black;
+    width: 100%;
+}
+
+
+.home {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2%;
+    background-color: #808080;
+}
+
+h3 {
+    text-align: left;
+    margin-left: 5%;
+}
+
+@media (max-width: 1200px){
+    .home-container {
+        margin-top: 110%;
+    }
+}
+
+@media (max-width: 800px){
+    .home-container {
+        margin-top: 100%;
+    }
 
 }
 
-h3{
-    text-align: left;
-    margin-left: 5%;
+@media (max-width: 400px){
+    .home-container {
+        margin-top: 150%;
+    }
+
+    header {
+        margin-left: -10%;
+    }
+         
+    .home {
+        margin-top: 5%;
+    }
 }
