@@ -1,33 +1,4 @@
-.header {
-    margin-top: 0%;
-}
-
-.headerTitles{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-family: "Rock Salt", cursive;
-    color: darkgreen;
-    text-shadow: 5px 5px rgb(255, 255, 255);
-}
-
-.headerTitleSm{
-    position: absolute;
-    top: 10%;
-    font-size: 500%;
-}
-
-.headerTitleLg{
-    position: absolute;
-    top: 15%;
-    font-size: 700%;
-}
-
-.headerImg{
-    width: 10%;
-    margin-top: 0;
-    margin-left: 35%;
-    border-radius: 50%;
-    transform: scaleX(-1);
+.trailer{
+    margin-top: 20%;
 }
 

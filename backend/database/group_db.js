@@ -11,6 +11,7 @@ async function addGroup(idaccount, groupname, groupdetails, grouprole) {
     return result.rows[0];
 }
 
+
 async function getGroups() {  
     const result = await pgPool.query(sql.GET_GROUPS);
     return result.rows;

@@ -1,15 +1,12 @@
-import React from 'react'
-import './header.css'
+import React, { useState, useEffect } from 'react';
+import './header.css';
+import CinemaTrailer from './MovieTrailer';
 
 export default function Header() {
+
   return (
-    <div className='header'>
-      <img className='headerImg' src={require('../img/logo.png')} alt="topimg" />
-    <div className='headerTitles'>
-        <span className='headerTitleSm'>Filmi</span>
-        <span className='headerTitleLg'>Verkko</span>
+    <div className="header">
+      <CinemaTrailer />
     </div>
-    
-</div>
-  )
+  );
 }

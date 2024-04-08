@@ -4,12 +4,17 @@ import { Link } from 'react-router-dom'
 import { useUser } from '../context/useUser'
 
 export default function TopBar() {
-  //  const {user} = useUser()
-  const user = true
+  const { user } = useUser()
   return (
     <div className='top'>
       <div className='topLeft'>
+        <div className='websitename'>
+          <p>Filmi</p>
+          <p>verkko</p>
+        </div>
         <a href="/"><img className='topLeftImg' src={require('../img/logo.png')} alt="topimg" /></a>
+
+
       </div>
       <div className='topCenter'>
         <ul className='topList'>
@@ -40,9 +45,9 @@ export default function TopBar() {
               <>
                 <ul className='topLogout'><li className='topLogoutItem'>
                   <Link to="/profile"><img className='topRightImg' src={require('../img/logo.png')} alt="topimg" /></Link>
-                    </li><li className='topLogoutItem'>
-                  <Link className='link logout' to="/logout">LOGOUT</Link>
-                </li></ul>
+                </li><li className='topLogoutItem'>
+                    <Link className='link logout' to="/logout">LOGOUT</Link>
+                  </li></ul>
               </>
             ) : (
               <>
