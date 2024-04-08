@@ -1,4 +1,4 @@
-const { addGroup } = require('../database/group_db');
+const { addGroup, getGroups } = require('../database/group_db');
 
 const router = require('express').Router();
 
@@ -16,6 +16,11 @@ router.post('/addGroup', async (req, res) => {
     }catch(error) {
         console.error('Error adding group:', error);
     }
+});
+
+router.get('/allGroups', async (req, res) => {
+    const groups = await getGroups();
+    res.json(groups);
 });
 
 module.exports = router;
