@@ -13,8 +13,8 @@ export default function Shows() {
   }
 
   const date2Finkino = (date) => {
-    let  splittedDate= date.split('-');
-    let finnkinoDate = splittedDate[2]+'.'+splittedDate[1]+'.'+splittedDate[0];
+    let splittedDate = date.split('-');
+    let finnkinoDate = splittedDate[2] + '.' + splittedDate[1] + '.' + splittedDate[0];
     return finnkinoDate;
   }
 
@@ -22,7 +22,7 @@ export default function Shows() {
     let parsittavaShowtime = showTime.split('T');//tulos on muodossa yyyy-mm-ddTHH:MM:SS
     let date = parsittavaShowtime[0].split('-');
     let time = parsittavaShowtime[1].split(':');
-    let parsedShowtime = date[2]+'.'+date[1]+'.'+date[0]+' klo '+time[0]+':'+time[1];//muotoillaan haluttuun muotoon (dd.mm.yyyy klo hh:mm)
+    let parsedShowtime = date[2] + '.' + date[1] + '.' + date[0] + ' klo ' + time[0] + ':' + time[1];//muotoillaan haluttuun muotoon (dd.mm.yyyy klo hh:mm)
     return parsedShowtime;
   }
 
@@ -31,71 +31,96 @@ export default function Shows() {
     // Haetaan XML-dokumentti ja käsitellään se
     console.log("fetchin haku: https://www.finnkino.fi/xml/Schedule/?area=" + area + "&dt=" + date2Finkino(date))
     fetch('https://www.finnkino.fi/xml/Schedule/?area=' + area + '&dt=' + date2Finkino(date))
-        .then(response => response.text())
-        .then(data => {
+      .then(response => response.text())
+      .then(data => {
 
-          let parser = new DOMParser();
-          let xmlDoc = parser.parseFromString(data, 'text/xml');
+        let parser = new DOMParser();
+        let xmlDoc = parser.parseFromString(data, 'text/xml');
 
-          //haetaan kaikki <Show> -elementit
-          let shows = xmlDoc.getElementsByTagName('Show');
+        //haetaan kaikki <Show> -elementit
+        let shows = xmlDoc.getElementsByTagName('Show');
 
-          //käydään läpi jokainen elementti ja lisätään halutut tiedot niistä listaan
-          let elokuvat = [];
-          for (let i = 0; i < shows.length; i++) {
-            let title = shows[i].getElementsByTagName('Title')[0].textContent;
-            let id = shows[i].getElementsByTagName('ID')[0].textContent;
-            let showtime = shows[i].getElementsByTagName('dttmShowStart')[0].textContent;
-            let image = shows[i].getElementsByTagName('EventMediumImagePortrait')[0].textContent;//Small||Medium||Large
-            let linkki = shows[i].getElementsByTagName('ShowURL')[0].textContent;
-            console.log("Title: "+title+" ID:"+id+" imageAdress: "+image +" ja linkki: "+linkki);
+        //käydään läpi jokainen elementti ja lisätään halutut tiedot niistä listaan
+        let elokuvat = [];
+        for (let i = 0; i < shows.length; i++) {
+          let title = shows[i].getElementsByTagName('Title')[0].textContent;
+          let id = shows[i].getElementsByTagName('ID')[0].textContent;
+          let showtime = shows[i].getElementsByTagName('dttmShowStart')[0].textContent;
+          let image = shows[i].getElementsByTagName('EventSmallImagePortrait')[0].textContent;//Small||Medium||Large
+          let linkki = shows[i].getElementsByTagName('ShowURL')[0].textContent;
+          //console.log("Title: "+title+" ID:"+id+" imageAdress: "+image +" ja linkki: "+linkki);
 
-            let kuvaElementti = <img src={image} alt={title}/>
+          let kuvaElementti = <img src={image} alt={title} />
 
-            let tekstiElementti = <span>{"Title: "+title+ ", ID: "+id+" Näytösaika: "+parseroiShowtime(showtime)}</span>;
+          let tekstiElementti = (<><span>{title}</span><br></br><span>{"Näytösaika: " + parseroiShowtime(showtime)}</span></>);
 
-            let jaaElementti = <button onClick={() =>lisaaRyhmanSivulle(shows[i])}>Jaa näytös ryhmään</button>
+          let jaaElementti = <button onClick={() => lisaaRyhmanSivulle(shows[i])}>Jaa näytös ryhmään</button>
 
-            let linkkiElementti = <a href = {linkki} target="_blank">Linkki esityksen Finnkinon-sivuille</a>
-            let elokuvaElementti = (
-              <li key={id}>
-                {kuvaElementti}
-                {tekstiElementti}
-                {linkkiElementti}
-                {jaaElementti}
-              </li>
-            );
-            elokuvat.push(elokuvaElementti);
-          }
-          setElokuvatLista(elokuvat);
-        })
-        .catch(error => console.error('Error:', error));
+          let linkkiElementti = <a href={linkki} target="_blank">Osta liput</a>
+          let elokuvaElementti = (
+            <li key={id}>
+              {kuvaElementti}
+              <br></br>
+              {tekstiElementti}
+              <br></br>
+              {linkkiElementti}
+              <br></br>
+              {jaaElementti}
+            </li>
+          );
+          elokuvat.push(elokuvaElementti);
+        }
+        setElokuvatLista(elokuvat);
+      })
+      .catch(error => console.error('Error:', error));
 
   }
 
   const lisaaRyhmanSivulle = (data) => {
-    let title = data.getElementsByTagName('Title')[0].textContent;
-    let id = data.getElementsByTagName('ID')[0].textContent;
-    let showtime = parseroiShowtime(data.getElementsByTagName('dttmShowStart')[0].textContent);
-    let image = data.getElementsByTagName('EventMediumImagePortrait')[0].textContent;//Small||Medium||Large
-    let linkki = data.getElementsByTagName('ShowURL')[0].textContent;
-    let teatteri = data.getElementsByTagName('TheatreAndAuditorium')[0].textContent;
-    console.log("Lisätty elokuva: Title: "+title+" ID:"+id+" imageAdress: "+image +" teatteri: "+teatteri+ " showtime: "+showtime+" osta liput: "+linkki);
+    const title = data.getElementsByTagName('Title')[0].textContent;
+    const id = data.getElementsByTagName('ID')[0].textContent;
+    const showtime = parseroiShowtime(data.getElementsByTagName('dttmShowStart')[0].textContent);
+    const image = data.getElementsByTagName('EventSmallImagePortrait')[0].textContent;
+    const linkki = data.getElementsByTagName('ShowURL')[0].textContent;
+    const teatteri = data.getElementsByTagName('TheatreAndAuditorium')[0].textContent;
+
+    const formData = new FormData();
+    formData.append('idgroup', 'ryhmänID')
+    formData.append('data', JSON.stringify({ title, id, showtime, image, linkki, teatteri }));
+
+    /*fetch('http://localhost:3001/group/addToWatchlist', {
+      method: 'POST',
+      body: formData
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Lisätty ryhmän sivulle:', data);
+      })
+      .catch(error => {
+        console.error('Virhe: ', error);
+      })*/
+      
+
   }
 
   const [area, setArea] = useState(1029);
   const [date, setDate] = useState(setTodayDate());
   const [elokuvatLista, setElokuvatLista] = useState([]);
-  useEffect(() =>{
+  useEffect(() => {
     haeNaytokset();
   }, [area, date]);
 
   return (
     <>
-      <div>Finnkinon esitysajat</div>
+      <div id="otsikko">Finnkinon esitysajat</div>
       <div id="alue">
         <h3>Mistä teatterista haetaan näytöstä?</h3>
-        <select name="area" id="area" onChange={e=> setArea(e.target.value)}>
+        <select name="area" id="area" onChange={e => setArea(e.target.value)}>
           <option value="1029">Kaikki</option>
           <option value="1014">Pääkaupunkiseutu</option>
           <option value="1012">Espoo</option>
@@ -123,10 +148,10 @@ export default function Shows() {
       </div>
       <div id="pvm">
         <h3>Minkä päivän esityksiä haetaan?</h3>
-        <input type="date" id="dateInput" onChange={e=> setDate(e.target.value)}></input>
+        <input type="date" id="dateInput" onChange={e => setDate(e.target.value)}></input>
       </div>
       <div id="elokuvat">
-      <ul id="elokuvatLista">{elokuvatLista}</ul>
+        <ul id="elokuvatLista">{elokuvatLista}</ul>
       </div>
     </>
   )
