@@ -51,23 +51,28 @@ export default function Shows() {
           //console.log("Title: "+title+" ID:"+id+" imageAdress: "+image +" ja linkki: "+linkki);
 
           let kuvaElementti = <img src={image} alt={title} />
-
-          let tekstiElementti = (<><span>{title}</span><br></br><span>{"Näytösaika: " + parseroiShowtime(showtime)}</span></>);
-
+          let tekstiElementti = (
+            <>
+              <span className="title">{title}</span>
+              <br />
+              <span className="showtime">{"Näytösaika: " + parseroiShowtime(showtime)}</span>
+            </>
+          );
           let jaaElementti = <button onClick={() => lisaaRyhmanSivulle(shows[i])}>Jaa näytös ryhmään</button>
-
           let linkkiElementti = <a href={linkki} target="_blank">Osta liput</a>
+
           let elokuvaElementti = (
             <li key={id}>
               {kuvaElementti}
-              <br></br>
+              <br />
               {tekstiElementti}
-              <br></br>
+              <br />
               {linkkiElementti}
-              <br></br>
+              <br />
               {jaaElementti}
             </li>
           );
+          
           elokuvat.push(elokuvaElementti);
         }
         setElokuvatLista(elokuvat);
@@ -77,6 +82,7 @@ export default function Shows() {
   }
 
   const lisaaRyhmanSivulle = (data) => {
+    console.log('Lisätään ryhmän sivulle:', data);
     const title = data.getElementsByTagName('Title')[0].textContent;
     const id = data.getElementsByTagName('ID')[0].textContent;
     const showtime = parseroiShowtime(data.getElementsByTagName('dttmShowStart')[0].textContent);
@@ -104,7 +110,7 @@ export default function Shows() {
       .catch(error => {
         console.error('Virhe: ', error);
       })*/
-      
+
 
   }
 
@@ -117,7 +123,8 @@ export default function Shows() {
 
   return (
     <>
-      <div id="otsikko">Finnkinon esitysajat</div>
+    <div id="container">
+      <div id="otsikko"><h1>Finnkinon esitysajat</h1></div>
       <div id="alue">
         <h3>Mistä teatterista haetaan näytöstä?</h3>
         <select name="area" id="area" onChange={e => setArea(e.target.value)}>
@@ -150,8 +157,12 @@ export default function Shows() {
         <h3>Minkä päivän esityksiä haetaan?</h3>
         <input type="date" id="dateInput" onChange={e => setDate(e.target.value)}></input>
       </div>
-      <div id="elokuvat">
-        <ul id="elokuvatLista">{elokuvatLista}</ul>
+
+      <div className="container">
+        <div id="elokuvat">
+          <ul id="elokuvatLista">{elokuvatLista}</ul>
+        </div>
+      </div>
       </div>
     </>
   )

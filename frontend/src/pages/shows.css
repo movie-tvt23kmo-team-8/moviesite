@@ -1,5 +1,64 @@
+#otsikko {
+  background-color: bisque;
+  margin-top: 260px;
+  margin-bottom: 10px;
+}
+
+#alue {
+  background-color: blueviolet;
+  width: 100%;
+}
+
+#pvm {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: brown;
+}
+
 #elokuvatLista {
+  background-color: aqua;
     list-style: none;
     padding: 10px;
     position: absolute;
+    margin-bottom: 280px;
+    padding-bottom: 60px;
+}
+
+/* Näytetään enintään neljä elokuvaa rinnakkain */
+@media (min-width: 768px) {
+  #elokuvatLista li {
+    width: 25%;
+    float: right;
+    box-sizing: border-box;
+    padding: 10px;
   }
+}
+
+/* Jos näyttö on kapeampi, näytetään elokuvat kokonaisina */
+@media (max-width: 767px) {
+  #elokuvatLista li {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+  }
+}
+
+.teksti {
+  margin-bottom: 10px; /* Lisää tilaa teksti-divin alapuolelle */
+}
+
+.napit {
+  margin-top: auto; /* Siirtää napit alas */
+}
+
+.title {
+  margin-bottom: 5px; /* Lisää tilaa otsikon alapuolelle */
+}
+
+.showtime {
+  margin-bottom: 5px; /* Lisää tilaa näytösaika-tekstin alapuolelle */
+}
+
+
+
