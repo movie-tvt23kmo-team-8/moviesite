@@ -58,8 +58,8 @@ export default function Shows() {
               <span className="showtime">{"Näytösaika: " + parseroiShowtime(showtime)}</span>
             </>
           );
-          let jaaElementti = <button onClick={() => lisaaRyhmanSivulle(shows[i])}>Jaa näytös ryhmään</button>
           let linkkiElementti = <a href={linkki} target="_blank">Osta liput</a>
+          let jaaElementti = <button onClick={() => lisaaRyhmanSivulle(shows[i])}>Jaa näytös ryhmään</button>
 
           let elokuvaElementti = (
             <li key={id}>

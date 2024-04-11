@@ -44,21 +44,13 @@
   }
 }
 
-.teksti {
-  margin-bottom: 10px; /* Lisää tilaa teksti-divin alapuolelle */
-}
-
-.napit {
-  margin-top: auto; /* Siirtää napit alas */
-}
-
 .title {
+  background-color: blueviolet;
   margin-bottom: 5px; /* Lisää tilaa otsikon alapuolelle */
 }
 
 .showtime {
+  background-color: antiquewhite;
   margin-bottom: 5px; /* Lisää tilaa näytösaika-tekstin alapuolelle */
 }
-
-
 
