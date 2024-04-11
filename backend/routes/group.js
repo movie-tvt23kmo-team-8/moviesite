@@ -1,11 +1,6 @@
-<<<<<<< HEAD:routes/group.js
-const { addGroup } = require('../database/group_db');
-const { getUserID } = require('../database/users_db');
-const { auth } = require('../middleware/auth');
-=======
-
 const { addGroup, getGroups } = require('../database/group_db');
->>>>>>> 9391f4c93dd2ffdfa7792eb59c6eb49d69d4c070:backend/routes/group.js
+const { getUserID } = require('../database/users_db');
+const { auth } = require('../middleware/auth')
 
 const router = require('express').Router();
 

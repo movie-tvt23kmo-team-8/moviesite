@@ -1,12 +1,13 @@
 require('dotenv').config();
 const users = require('./routes/users');
-const auth = require('./routes/auth');
+const register = require('./routes/register');
 const group = require('./routes/group');
-
 const tmdb = require('./routes/tmdb');
+const login = require('./routes/login');
 
 const cors = require('cors');
 const express = require('express');
+const { log } = require('console');
 const app = express();
 
 app.use(express.urlencoded({extended: true}));
@@ -20,11 +21,10 @@ app.listen(PORT,() => {
 });
 
 app.use('/users', users);
-app.use('/auth', auth);
 app.use('/group', group);
 app.use('/tmdb', tmdb);
-
-
+app.use('/', login);
+app.use('/', register);
 
 app.get('/', (req, res) => {
     res.send('Welcome to moviesite website')
