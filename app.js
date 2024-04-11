@@ -1,7 +1,8 @@
 require('dotenv').config();
 const users = require('./routes/users');
-const auth = require('./routes/auth');
+const register = require('./routes/register');
 const group = require('./routes/group');
+const login  = require('./routes/login');
 const cors = require('cors');
 const express = require('express');
 const app = express();
@@ -17,8 +18,9 @@ app.listen(PORT,() => {
 });
 
 app.use('/users', users);
-app.use('/auth', auth);
+app.use('/', register);
 app.use('/group', group);
+app.use('/', login);
 
 app.get('/', (req, res) => {
     res.send('Welcome to moviesite website')

@@ -1,4 +1,5 @@
 const { getUsers, getUserID } = require('../database/users_db');
+const { auth } = require('../middleware/auth');
 
 const router = require('express').Router();
 
@@ -8,9 +9,18 @@ router.get('/all', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-    const userID = await getUserID(req.query.username);
-    console.log(userID);
+    const username = req.body.username;
+    const userID = await getUserID(username);
     res.json(userID);
+});
+
+router.get('/personal', auth, async (req,res)=>{
+    try{
+       const username = res.locals.username;
+       res.status(200).json({username: username});
+    }catch(err){
+       res.status(505).json({error: err.message});
+    }
 });
 
 module.exports = router;
