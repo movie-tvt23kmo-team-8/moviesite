@@ -1,0 +1,80 @@
+.container-media {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 70%;
+    margin-bottom: 5%;
+    margin-left: 0;
+}
+
+.poster-gallery {
+    display: flex;
+}
+
+.media-container {
+    margin-right: 2%;
+    margin-bottom: 0;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+}
+
+.media-poster {
+    max-width: 200px; /* Kuva ei koskaan ole leveämpi kuin sen sisältävä elementti */
+    height: auto; /* Säilytetään kuvasuhteen oikea muoto */
+  }
+
+
+.media-name {
+    text-align: center;
+    font-size: 150%;
+}
+
+.media-poster-container {
+    position: relative; /* Ensure the container is positioned relative to its parent */
+}
+
+.media-poster-container:hover {
+    transform: scale(1.1);
+
+}
+
+.media-description {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(36, 34, 34, 0.747);
+    color: rgba(253, 253, 253, 1);
+    padding: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    text-align: center;
+}
+
+.media-poster-container:hover .media-description {
+    opacity: 1;
+    visibility: visible;
+}
+
+@media (max-width: 1200px){
+   
+}
+
+@media (max-width: 800px) {
+    
+    .media-poster {
+        max-width: 120px; 
+      }
+  
+}
+
+
+@media (max-width: 400px) {
+    
+    .media-poster {
+        max-width: 100px; 
+      }
+  
+}

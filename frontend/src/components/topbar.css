@@ -5,15 +5,27 @@
     top: 0;
     display: flex;
     align-items: center;
-    font-size: 200%;
+    font-size: 250%;
     padding: 0.5% 0;
-    background-color: rgba(6, 146, 25, 0.541);
+    background-color: rgba(37, 37, 37, 0.5);
     font-family: "Poiret One", sans-serif;
-    color: aliceblue;
+    color: white;
 }
 
 .topLeft, .topRight{
     flex: 20%;   
+}
+
+.topLeft{
+    display: flex;
+}
+
+.websitename{
+    text-align: center;
+    line-height: 0.5;
+    margin-top: 1%;
+    margin-left: 10%;
+    font-family: "Rubik Doodle Shadow", system-ui;
 }
 
 .topRight{
@@ -23,9 +35,9 @@
 }
 
 .topLeftImg{
-    width: 25%;
+    width: 30%;
     border-radius: 50%;
-    margin-left: 5%;
+    margin-left: 20%;
     cursor: pointer;
 }
 
@@ -91,4 +103,37 @@
 .topLogout{
     display: flex;
     list-style: none;
+}
+
+@media (max-width: 400px){
+
+    .top {
+        font-size: 50%;
+    }
+    
+    .topRightList{
+        list-style: none;
+    }
+        
+    .right{
+        font-size: 60%;
+    }
+
+    .topRightList{
+        margin-top: 20%;
+    }
+    
+    .logout {
+        font-size: 75%;
+        position: absolute ;
+        top: 30%;
+        right: 3%;
+    
+    }
+    
+    .topLogout{
+        display: flex;
+        list-style: none;
+    }
+
 }
