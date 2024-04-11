@@ -1,14 +1,22 @@
+<<<<<<< HEAD:routes/group.js
+const { addGroup } = require('../database/group_db');
+const { getUserID } = require('../database/users_db');
+const { auth } = require('../middleware/auth');
+=======
 
 const { addGroup, getGroups } = require('../database/group_db');
+>>>>>>> 9391f4c93dd2ffdfa7792eb59c6eb49d69d4c070:backend/routes/group.js
 
 const router = require('express').Router();
 
-router.post('/addGroup', async (req, res) => {
+// Auth middleware requires token to be able to use endpoint
+
+router.post('/addGroup', auth ,async (req, res) => {
     const groupname = req.body.groupname;
     const groupdetails = req.body.groupdetails;
-    const idaccount = req.body.idaccount;
-    const grouprole = req.body.grouprole;
-    
+    const grouprole = 'admin';
+    const idaccount = await getUserID(res.locals.username);
+
     try {
     await addGroup(idaccount, groupname, groupdetails, grouprole);
     

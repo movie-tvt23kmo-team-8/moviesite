@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './topbar.css'
 import { Link } from 'react-router-dom'
-import { useUser } from '../context/useUser'
+import { jwtToken } from '../components/Signals';
+import { useUser } from '../context/useUser';
 
 export default function TopBar() {
-  const { user } = useUser()
+  const user = jwtToken.value.length !== 0;
   return (
     <div className='top'>
       <div className='topLeft'>
@@ -33,9 +34,6 @@ export default function TopBar() {
           <li className='topListItem'>
             <Link to="/reviews" className='link'>ARVOSTELUT</Link>
           </li>
-          <li className='topListItem'>
-            <Link to="/register" className='link'>REKISTERÖIDY</Link>
-          </li>
         </ul>
       </div>
       <div className='topRight'>
@@ -45,18 +43,18 @@ export default function TopBar() {
               <>
                 <ul className='topLogout'><li className='topLogoutItem'>
                   <Link to="/profile"><img className='topRightImg' src={require('../img/logo.png')} alt="topimg" /></Link>
-                </li><li className='topLogoutItem'>
-                    <Link className='link logout' to="/logout">LOGOUT</Link>
-                  </li></ul>
+                    </li><li className='topLogoutItem'>
+                  <Link className='link logout' to="/logout">KIRJAUDU ULOS</Link>
+                </li></ul>
               </>
             ) : (
               <>
                 <ul className='topRightList'>
                   <li className='topListItem'>
-                    <Link className='link right' to="/login">LOGIN</Link>
+                    <Link className='link right' to="/login">KIRJAUDU</Link>
                   </li>
                   <li className='topListItem'>
-                    <Link className='link right' to="/register">REGISTER</Link>
+                    <Link className='link right' to="/register">REKISTERÖIDY</Link>
                   </li>
                 </ul>
               </>
