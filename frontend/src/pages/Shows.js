@@ -97,7 +97,7 @@ export default function Shows() {
     const teatteri = data.getElementsByTagName('TheatreAndAuditorium')[0].textContent;
 
     const formData = new FormData();
-    formData.append('idgroup', 'ryhmänID')//mistä ryhmän id? monta ryhmää samalla käyttäjällä?
+    formData.append('idgroup', 'ryhmänID')//tähän halutun ryhmän id, select omista ryhmistä?
     formData.append('data', JSON.stringify({ title, id, showtime, image, linkki, teatteri }));
 
     /*fetch('http://localhost:3001/group/addToWatchlist', {
