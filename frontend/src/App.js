@@ -33,7 +33,7 @@ function App() {
           <Route path='/reviews' element={<Reviews/>} />
           
           <Route element={<PrivateRoute />}>
-          <Route path='/group' element={<Group />}/>
+            <Route path='/group' element={<Group />}/>
             <Route path='/profile' element={<Profile />}/>
             <Route path='/favourite' element={<Favourite />} />
             <Route path='/logout' element={<Logout />} />

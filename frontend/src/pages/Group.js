@@ -19,6 +19,7 @@ export default function Group() {
   const [buttonPopup, setButtonPopup] = useState(false);
   const [groupName, setGroupName] = useState('');
   const [groupDetails, setGroupDetails] = useState('');
+  const [selectedGroup, setSelectedGroup] = useState(null);
 
   useEffect(() => {
     const fetchGroups = async () => {
@@ -41,7 +42,9 @@ export default function Group() {
     const groupData ={
       groupname: groupName,
 
-      groupdetails: groupDetails
+      groupdetails: groupDetails,
+
+      grouprole: 'admin'
     }
     const result = await fetch('http://localhost:3001/group/addGroup', {
       method: 'POST',
@@ -54,14 +57,27 @@ export default function Group() {
     console.log(resultInJson)
   }
   
+  const handleGroupClick = (group) => {
+    setSelectedGroup(group);
+  }
+
   return (
     <div>
       <section className='allGroups'>
         <p>Groups</p>
         {groups.map(group => (
-          <Link key={group.idgroup}>Name:{group.groupname} <br></br> Description:{group.groupdetails}</Link>
-          
+          <Link key={group.idgroup} onClick={() => handleGroupClick(group)}>Name:{group.groupname} <br></br> Description:{group.groupdetails}</Link>
         ))}
+         {selectedGroup && (
+          <Popup trigger={true} setTrigger=
+            {setSelectedGroup}>
+              <div>
+                <p>Name: {selectedGroup.groupname}</p>
+                <p>Description: {selectedGroup.groupdetails}</p>
+                <button>Liity</button>
+             </div>
+           </Popup>
+         )}
       </section>
       <section className='createGroup'>
         <button onClick={() => setButtonPopup(true)}>Create a group</button>
