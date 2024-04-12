@@ -1,0 +1,35 @@
+.profile-container{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 20%;
+}
+
+.profile-info{
+    background-color: aqua;
+    display: flex;
+    margin: 2%;
+    padding: 2%;
+}
+
+.profile-pic{
+    background-color: pink;
+    flex: 40%;
+}
+
+.profile-text{
+    background-color: lightcoral;
+    flex: 60%;
+}
+
+.profile-favorite{
+    background-color: green;
+    margin: 2%;
+    padding: 2%;
+}
+
+.profile-group{
+    background-color: aqua;
+    margin: 2%;
+    padding: 2%;
+}

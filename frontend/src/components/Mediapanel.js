@@ -60,8 +60,6 @@ const MediaPanel = ({ mediaType }) => { // Luodaan MediaPanel-komponentti ja ann
 
     const itemsPerPage = calculateItemsPerPage();
 
-
-
     const getMediaIndex = (index) => { // Funktio, joka varmistaa, että indeksi pysyy media-alojen määrän sisällä
         const length = mediaItems.length;
         if (length === 0) return null; // Palautetaan 'null' jos media-alkiolista on tyhjä

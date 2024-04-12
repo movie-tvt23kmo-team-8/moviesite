@@ -43,9 +43,10 @@ export default function TopBar() {
               <>
                 <ul className='topLogout'><li className='topLogoutItem'>
                   <Link to="/profile"><img className='topRightImg' src={require('../img/logo.png')} alt="topimg" /></Link>
-                    </li><li className='topLogoutItem'>
-                  <Link className='link logout' to="/logout">KIRJAUDU ULOS</Link>
-                </li></ul>
+
+                </li><li className='topLogoutItem'>
+                    <Link className='link logout' to="/logout">Kirjaudu ulos</Link>
+                  </li></ul>
               </>
             ) : (
               <>
@@ -55,6 +56,7 @@ export default function TopBar() {
                   </li>
                   <li className='topListItem'>
                     <Link className='link right' to="/register">REKISTERÖIDY</Link>
+
                   </li>
                 </ul>
               </>
