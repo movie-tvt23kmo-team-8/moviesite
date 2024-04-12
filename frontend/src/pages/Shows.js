@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import './shows.css'
+import { jwtToken } from '../components/Signals';
 
 export default function Shows() {
+
+  const isLoggedIn = jwtToken.value.length !== 0;//tarkistetaan onko käyttäjä kirjautunut sisään
+
 
   const setTodayDate = () => {
     let today = new Date();
@@ -59,7 +63,6 @@ export default function Shows() {
             </>
           );
           let linkkiElementti = <a href={linkki} target="_blank">Osta liput</a>
-          let jaaElementti = <button onClick={() => lisaaRyhmanSivulle(shows[i])}>Jaa näytös ryhmään</button>
 
           let elokuvaElementti = (
             <li key={id}>
@@ -68,8 +71,11 @@ export default function Shows() {
               {tekstiElementti}
               <br />
               {linkkiElementti}
-              <br />
-              {jaaElementti}
+              <br /> 
+              {/*Jos käyttäjä on kirjautuneen tulostellaan myös jakonappi*/}
+              {isLoggedIn && (
+                <button onClick={() => lisaaRyhmanSivulle(shows[i])}>Jaa näytös ryhmään</button>
+              )}
             </li>
           );
           
@@ -91,7 +97,7 @@ export default function Shows() {
     const teatteri = data.getElementsByTagName('TheatreAndAuditorium')[0].textContent;
 
     const formData = new FormData();
-    formData.append('idgroup', 'ryhmänID')
+    formData.append('idgroup', 'ryhmänID')//mistä ryhmän id? monta ryhmää samalla käyttäjällä?
     formData.append('data', JSON.stringify({ title, id, showtime, image, linkki, teatteri }));
 
     /*fetch('http://localhost:3001/group/addToWatchlist', {
