@@ -2,11 +2,16 @@ import React, { useEffect, useState } from 'react'
 import './shows.css'
 import { jwtToken } from '../components/Signals';
 
+
 export default function Shows() {
 
   const isLoggedIn = jwtToken.value.length !== 0;//tarkistetaan onko käyttäjä kirjautunut sisään
-
-
+  /*//jos on, niin haetaan käyttäjän ryhmät
+  let kayttajanRyhmat;
+  if (isLoggedIn) {
+    kayttajanRyhmat = haeKayttajanRyhmat();
+  }*/
+  
   const setTodayDate = () => {
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, '0');
@@ -72,9 +77,17 @@ export default function Shows() {
               <br />
               {linkkiElementti}
               <br /> 
-              {/*Jos käyttäjä on kirjautuneen tulostellaan myös jakonappi*/}
+              {/*Jos käyttäjä on kirjautuneen tulostellaan valikko mihin ryhmään jaetaan ja jakonappi*/}
               {isLoggedIn && (
-                <button onClick={() => lisaaRyhmanSivulle(shows[i])}>Jaa näytös ryhmään</button>
+                <>{/*
+                  <select name=ryhmat id=ryhmat>
+                    <option value="">Valitse ryhmä</option>
+                    {kayttajanRyhmat.map((group) => (
+                      <option key={group.id} value={group.id}>{group.name}</option>
+                    ))}
+                  </select>*/}
+                  <button onClick={() => lisaaRyhmanSivulle(shows[i])}>Jaa näytös ryhmään</button>
+                </>
               )}
             </li>
           );
@@ -88,6 +101,12 @@ export default function Shows() {
   }
 
   const lisaaRyhmanSivulle = (data) => {
+    /*const selectedGroup = document.getElementById('ryhmat').value;
+    if (!selectedGroup) {
+      console.error('Valitse ryhmä ennen lähettämistä');
+      return;
+    }*/
+
     console.log('Lisätään ryhmän sivulle:', data);
     const title = data.getElementsByTagName('Title')[0].textContent;
     const id = data.getElementsByTagName('ID')[0].textContent;
@@ -97,10 +116,11 @@ export default function Shows() {
     const teatteri = data.getElementsByTagName('TheatreAndAuditorium')[0].textContent;
 
     const formData = new FormData();
-    formData.append('idgroup', 'ryhmänID')//tähän halutun ryhmän id, select omista ryhmistä?
+    formData.append('idgroup', '30');
+    //formData.append('idgroup', selectedGroup);
     formData.append('data', JSON.stringify({ title, id, showtime, image, linkki, teatteri }));
 
-    /*fetch('http://localhost:3001/group/addToWatchlist', {
+    fetch('http://localhost:3001/group/addToWatchlist', {
       method: 'POST',
       body: formData
     })
@@ -115,7 +135,7 @@ export default function Shows() {
       })
       .catch(error => {
         console.error('Virhe: ', error);
-      })*/
+      })
 
 
   }
