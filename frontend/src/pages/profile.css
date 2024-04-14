@@ -1,34 +1,71 @@
-.profile-container{
+.profile-container {
     display: flex;
     flex-direction: column;
     position: absolute;
     top: 20%;
+    justify-content: center;
+    align-items: center;
 }
 
-.profile-info{
+.profile-info {
     background-color: aqua;
     display: flex;
     margin: 2%;
     padding: 2%;
+    width: 250%;
+    background-color: rgba(37, 37, 37, 0.5);
 }
 
-.profile-pic{
-    background-color: pink;
-    flex: 40%;
+.profile-pic {
+    flex: 30%;
+    border-right: solid 1px white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
 }
 
-.profile-text{
-    background-color: lightcoral;
+
+.photo-add {
+    font-family: "Poiret One", sans-serif;
+    color: turquoise;
+    font-size: 250%;
+    padding: 5%;
+    position: absolute;
+    bottom: 0;
+    right: 10%;
+}
+
+
+
+.profile-input:focus {
+    outline: none;
+}
+
+.profile-text {
     flex: 60%;
+    padding-left: 5%;
+    color: white;
+    position: relative;
 }
 
-.profile-favorite{
+.change-password {
+    margin-left: 55%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
+
+.profile-favorite {
     background-color: green;
     margin: 2%;
     padding: 2%;
 }
 
-.profile-group{
+.profile-group {
     background-color: aqua;
     margin: 2%;
     padding: 2%;

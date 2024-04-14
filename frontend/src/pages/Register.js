@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './register.css';
 import axios from "axios";
+import { Link } from 'react-router-dom'
+import Button from '@mui/material/Button';
 
 export default function Register() {
 
@@ -30,14 +32,20 @@ export default function Register() {
   }
 
   return (
-    <div id="register-form">
-      <form onSubmit={handleRegister}>
-        <h2>Rekisteröidy</h2>
+    <div className='register'>
+      <span className='register-title'>Rekisteröityminen</span>
+      <form className="register-form" onSubmit={handleRegister}>
+        <label>Käyttäjänimi</label>
         <input type="text" name="username" placeholder="Käyttäjänimi" value={username} onChange={e => setUsername(e.target.value)} required /> <br/>
+        <label>Salasana</label>
         <input type="password" name="password" placeholder="Salasana" value={password} onChange={e => setPassword(e.target.value)} required /> <br/>
-        <button type="submit">Rekisteröidy</button>
+        <Button className='registerButton' type="submit" variant="contained">Rekisteröidy</Button>
       </form>
       {error && <p>{error}</p>}
+      <Button className='registerLoginButton' type="submit" variant="contained"><Link className='link' to="/login">Kirjaudu</Link></Button>    
     </div>
+    
   );
 }
+
+
