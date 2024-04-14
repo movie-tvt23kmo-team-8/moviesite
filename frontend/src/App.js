@@ -31,6 +31,7 @@ function App() {
             <Route path='/search' element={<Search />} />
             <Route path='/shows' element={<Shows />} />
             <Route path='/reviews' element={<Reviews />} />
+            
             <Route element={<PrivateRoute />}>
               <Route path='/group' element={<Group />} />
               <Route path='/profile' element={<Profile />} />
