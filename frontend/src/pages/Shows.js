@@ -56,7 +56,7 @@ export default function Shows() {
           let id = shows[i].getElementsByTagName('ID')[0].textContent;
           let showtime = shows[i].getElementsByTagName('dttmShowStart')[0].textContent;
           let image = shows[i].getElementsByTagName('EventSmallImagePortrait')[0].textContent;//Small||Medium||Large
-          let linkki = shows[i].getElementsByTagName('ShowURL')[0].textContent;
+          let linkki = shows[i].getElementsByTagName('ShowURL')[0].textContent;//kyseisen esityksen linkki
           //console.log("Title: "+title+" ID:"+id+" imageAdress: "+image +" ja linkki: "+linkki);
 
           let kuvaElementti = <img src={image} alt={title} />
@@ -101,22 +101,26 @@ export default function Shows() {
   }
 
   const lisaaRyhmanSivulle = (data) => {
+    //tarkistetaan onhan ryhmä valittu
     /*const selectedGroup = document.getElementById('ryhmat').value;
     if (!selectedGroup) {
       console.error('Valitse ryhmä ennen lähettämistä');
+      alert('Valitse ryhmä ennen lähettämistä');
       return;
     }*/
 
     console.log('Lisätään ryhmän sivulle:', data);
+
     const title = data.getElementsByTagName('Title')[0].textContent;
     const id = data.getElementsByTagName('ID')[0].textContent;
     const showtime = parseroiShowtime(data.getElementsByTagName('dttmShowStart')[0].textContent);
     const image = data.getElementsByTagName('EventSmallImagePortrait')[0].textContent;
     const linkki = data.getElementsByTagName('ShowURL')[0].textContent;
     const teatteri = data.getElementsByTagName('TheatreAndAuditorium')[0].textContent;
+    alert(`Lisätään ryhmän sivulle: ${title}\n${teatteri}, ${showtime}\n${linkki}`);
 
     const formData = new FormData();
-    formData.append('idgroup', '30');
+    formData.append('idgroup', '30');//kovakoodattuna kunnes oma tietokanta toimii tämän suhteen
     //formData.append('idgroup', selectedGroup);
     formData.append('data', JSON.stringify({ title, id, showtime, image, linkki, teatteri }));
 
@@ -132,6 +136,7 @@ export default function Shows() {
       })
       .then(data => {
         console.log('Lisätty ryhmän sivulle:', data);
+        alert('lisätty ryhmän sivulle:', data)
       })
       .catch(error => {
         console.error('Virhe: ', error);
