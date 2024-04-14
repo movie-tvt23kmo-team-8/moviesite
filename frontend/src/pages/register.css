@@ -4,7 +4,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background:linear-gradient(rgba(255,255,255,1),rgba(255,255,255,0.5)), url('../img/header.jpeg');
+    background:linear-gradient(rgba(255,255,255,1),rgba(255,255,255,0.5)), url('../img/register.png');
     background-size: cover;
     background-position: center;
     margin-top: 50%;
@@ -24,66 +24,16 @@
 
 .register-form label{
     margin: 2% 0;
+    font-weight: bold;
 }
 
-.registerForm input{
+.register-form input{
     padding: 10px;
     background-color: white;
     border: none;
 }
 
-.registerButton{
+.register-button{
     cursor: pointer;
 }
 
-.registerLoginButton{
-    position: absolute;
-    top: 20%;
-    right: 20px;
-    background-color: lightcoral;
-    cursor: pointer;
-    border: none;
-    padding: 10px;
-    border-radius: 10px;
-    color: white;
-}
-
-@media (max-width: 400px){
-    .register{
-        height: calc(50vh - 50px);
-        background-position: center;
-    }
-    
-    .registerTitle{
-        font-size: 100%;
-    }
-    
-    .registerForm{
-        margin-top: 5%;
-    }
-    
-    .registerForm label{
-        margin: 5% 0;
-        font-size: 60%;
-    }
-    
-    .registerForm input{
-        padding: 2%;
-        font-size: 50%;
-        width: 130%;
-    }
-    
-    .registerButton{
-        margin-top: 10%;
-        padding: 4%;
-        font-size: 50%;
-    }
-    
-    .registerLoginButton{
-        position: absolute;
-        top: 3%;
-        right: 2%;
-        padding: 1%;
-        font-size: 50%;
-    }
-}

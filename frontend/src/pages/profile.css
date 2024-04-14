@@ -59,6 +59,21 @@
     margin-right: 20px;
 }
 
+.change-password-form{
+    display: flex;
+    flex-direction: column;
+}
+
+label{
+    margin-top: 2%;
+    padding: 1%;
+}
+
+input{
+    padding: 1%;
+    margin-bottom: 1%;
+}
+
 .profile-favorite {
     background-color: green;
     margin: 2%;

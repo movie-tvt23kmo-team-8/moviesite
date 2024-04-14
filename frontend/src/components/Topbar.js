@@ -13,7 +13,7 @@ export default function TopBar() {
           <p>Filmi</p>
           <p>verkko</p>
         </div>
-        <a href="/"><img className='topLeftImg' src={require('../img/logo.png')} alt="topimg" /></a>
+        <a href="/"><img className='topLeftImg' src={require('../img/logo5.png')} alt="topimg" /></a>
 
 
       </div>
