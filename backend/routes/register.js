@@ -1,3 +1,4 @@
+const { error } = require('console');
 const {register} = require('../database/auth_db');
 const isUsernameTaken = require('./isUsernameTaken'); 
 
@@ -10,6 +11,10 @@ router.post('/register', async (req, res) => {
     const password = req.body.password;
     
     try {
+      if (isUsernameLengthOver4(username) || isPasswordLengthOver4(password)) {
+        return res.status(400).json({ error: 'Käyttäjänimen ja salasanan on oltava 4 kirjainta tai enemmän!'})
+      }
+
       if (await isUsernameTaken(username)) {
         return res.status(400).json({ error: 'Käyttäjänimi on varattu!' });
     }
@@ -24,6 +29,14 @@ router.post('/register', async (req, res) => {
       console.error('Error registering user:', error);
       res.status(500).json({ error: 'Registration failed' });
     }
-  });
+});
+
+const isUsernameLengthOver4 = (username) => {
+  return username.length < 4;
+};
+
+const isPasswordLengthOver4 = (password) => {
+  return password.length < 4;
+};
 
 module.exports = router;

@@ -15,10 +15,10 @@ export default function Register() {
     event.preventDefault();
     
     if (!username || !password) {
-      setError('Please fill in all required fields.');
+      setError('Täytä kaikki pakolliset kentät.');
       return;
     }
-
+  
     axios.post('/register', {username, password})
       .then(resp => {
         navigate("/");
@@ -26,7 +26,11 @@ export default function Register() {
       })
       .catch(error => {
         console.error("Register failed:", error.message);
-        setError("Registration failed. Username already in use.");
+        if (error.response.status === 400) {
+          setError(error.response.data.error);
+        } else {
+          setError("Rekisteröityminen epäonnistui. Yritä uudelleen myöhemmin.");
+        }
       });
   }
 
@@ -42,7 +46,6 @@ export default function Register() {
       </form>
       {error && <p>{error}</p>}
     </div>
-    
   );
 }
 
