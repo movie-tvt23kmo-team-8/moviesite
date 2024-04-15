@@ -1,4 +1,4 @@
-const {sendRequest} = require('../database/groupmember_db');
+const {sendRequest, makeAdmin} = require('../database/groupmember_db');
 const { getUserID } = require('../database/users_db');
 const { auth } = require('../middleware/auth')
 
@@ -8,12 +8,13 @@ router.post('/sendRequest', auth, async (req, res) => {
     const idaccount = await getUserID(res.locals.username);
     const idgroup = req.body.idgroup;
     const now = new Date();
+    const grouprole = 'user'
     const options = {timeZone: 'Europe/Helsinki'};
     const finlandTime = now.toLocaleString('en-US', options)
     const joindate = finlandTime
 
     try {
-    await sendRequest(idaccount, idgroup, joindate);
+    await sendRequest(idaccount, idgroup, joindate, grouprole);
     
     res.status(200).json({ message: 'Request sent!' });
     
