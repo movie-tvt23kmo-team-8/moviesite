@@ -2,7 +2,7 @@
 
 .allGroups {
     margin-top: 30em;
-    display: inline-block;
+    display: flex;
     
 }
 
