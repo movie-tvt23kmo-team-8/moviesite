@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './search.css';
+import axios from 'axios';
 
-const API_KEY = '';
+const API_KEY = '8bd78d32c965d3e69a13bfe5cc093ae0';
 
 export default function Search() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -10,7 +11,7 @@ export default function Search() {
   const handleSearch = async () => {
     try {
       const response = await fetch(
-        `https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&query=${searchTerm}&include_adult=false`
+        `https://api.themoviedb.org/3/search/multi?&language=fi-FI&api_key=${API_KEY}&query=${searchTerm}&include_adult=false`
       );
       const data = await response.json();
       setResults(data.results);
@@ -36,19 +37,102 @@ export default function Search() {
     setSearchTerm(event.target.value);
   };
 
+  const selailuHaku = () => {
+    let year = document.getElementById('year').value;
+    let language = document.getElementById('input[name="kieli"]:checked').value;
+    let genre = document.getElementById('genre').value;
+    let points = document.querySelector('input[name="points"]:checked').value;
+    let movieOrTv = document.querySelector().value;
+    const haku = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/tmdb/');
+      } catch (error) {
+        console.error('Error fetching with selailuhaku:', error);
+      }
+    }
+  };
+
   return (
     <div>
       <div className="search-container">
-        <h1>Etsi elokuvia ja sarjoja</h1>
-        <form onSubmit={(e) => { e.preventDefault(); handleSearch(); }}>
-          <input
-            type="text"
-            placeholder="Etsi elokuvia ja sarjoja"
-            value={searchTerm}
-            onChange={handleChange}
-          />
-          <button type="submit">Etsi</button>
-        </form>
+        <div id="nimihaku">
+          <h3>Etsi elokuvia ja sarjoja hakusanalla</h3>
+          <form onSubmit={(e) => { e.preventDefault(); handleSearch(); }}>
+            <input
+              type="text"
+              placeholder="Etsi elokuvia ja sarjoja hakusanalla"
+              value={searchTerm}
+              onChange={handleChange}
+            />
+            <button type="submit">Etsi</button>
+          </form>
+        </div>
+      </div>
+      <div className="search-container">
+        <div id="selailu">
+          <form onSubmit={(e) => { e.preventDefault(); selailuHaku();}}>
+            <h3>Selaile elokuvia tai sarjoja kriteerien perusteella</h3>
+            <p>Selaillaanko sarjoja vaiko lehvoja?</p>
+            <label for="Elokuvat">Elokuvat</label>
+            <input type='radio' name="movieOrTv" value="movie" checked></input>
+            <label for="Sarjat">Sarjat</label>
+            <input type='radio' name="movieOrTv" value="tv"></input>
+
+            
+            <p>Miltä vuosikymmeneltä haetaan?</p>
+            <select name="year" id="year">
+              <option value="1">-1960</option>
+              <option value="2">1960</option>
+              <option value="3">1970</option>
+              <option value="4">1980</option>
+              <option value="5">1990</option>
+              <option value="6">2000</option>
+              <option value="7">2010</option>
+              <option value="8">2020</option>
+              <option value="9">Mikä tahansa</option>
+            </select>
+
+            <p>Kotimainen vai ulkomainen?</p>
+            <label for="Kotimainen">Kotimainen</label>
+            <input type='radio' name="kieli" value="kotimainen" checked></input>
+            <label for="Ulkomainen">Ulkomainen</label>
+            <input type='radio' name="kieli" value="ulkomainen"></input>
+
+            <p>Genre?</p>
+            <select name="genre" id="genre">
+              <option value="28">Action</option>
+              <option value="12">Adventure</option>
+              <option value="16">Animation</option>
+              <option value="35">Comedy</option>
+              <option value="80">Crime</option>
+              <option value="99">Documentary</option>
+              <option value="18">Drama</option>
+              <option value="10751">Family</option>
+              <option value="14">Fantasy</option>
+              <option value="36">History</option>
+              <option value="27">Horror</option>
+              <option value="10402">Music</option>
+              <option value="9648">Mystery</option>
+              <option value="10749">Romance</option>
+              <option value="878">Science Fiction</option>
+              <option value="10770">TV Movie</option>
+              <option value="53">Thriller</option>
+              <option value="10752">War</option>
+              <option value="37">Western</option>
+            </select>
+
+            <p>Arvosana</p>
+            <label for="poor">Huono (0-3)</label>
+            <input type="radio" name="points" value="Huono"></input>
+            <label for="OK">OK (4-7)</label>
+            <input type="radio" name="points" value="OK"></input>
+            <label for="Hyvä">Hyvä (8-10)</label>
+            <input type="radio" name="points" value="Hyvä"></input>
+            <label for="all">Mikä tahansa</label>
+            <input type="radio" name="points" value="all"></input>
+            <button type="submit">Haje</button>
+          </form>
+        </div>
       </div>
       <div className="results-container">
         {results.length > 0 &&
@@ -89,7 +173,7 @@ function Result({ data, getPosterUrl }) {
   const handleMouseEnter = async () => {
     try {
       const response = await fetch(
-        `https://api.themoviedb.org/3/${mediaType}/${data.id}?api_key=${API_KEY}`
+        `https://api.themoviedb.org/3/${mediaType}/${data.id}?api_key=${API_KEY}&language=fi-FI`
       );
       const result = await response.json();
       setDescription(result.overview);

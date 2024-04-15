@@ -1,5 +1,6 @@
 .search-container {
   padding: 20px;
+  margin: 10px;
   background-color: #f0f0f0; /* Light background color */
   border-radius: 8px; /* Rounded corners */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
