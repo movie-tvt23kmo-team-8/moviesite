@@ -1,5 +1,39 @@
-#register-form p {
-    color: red;
-    text-align: center;
-    margin-top: 10px;
+.register{
+    height: calc(50vh - 50px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background:linear-gradient(rgba(255,255,255,1),rgba(255,255,255,0.5)), url('../img/register.png');
+    background-size: cover;
+    background-position: center;
+    margin-top: 50%;
+    width: 50%;
+    border-radius: 50px;
 }
+
+.register-title{
+    font-size: 200%;
+}
+
+.register-form{
+    margin-top: 1%;
+    display: flex;
+    flex-direction: column;
+}
+
+.register-form label{
+    margin: 2% 0;
+    font-weight: bold;
+}
+
+.register-form input{
+    padding: 10px;
+    background-color: white;
+    border: none;
+}
+
+.register-button{
+    cursor: pointer;
+}
+

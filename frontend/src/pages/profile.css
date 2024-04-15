@@ -1,0 +1,87 @@
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 20%;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-info {
+    background-color: aqua;
+    display: flex;
+    margin: 2%;
+    padding: 2%;
+    width: 250%;
+    background-color: rgba(37, 37, 37, 0.5);
+}
+
+.profile-pic {
+    flex: 30%;
+    border-right: solid 1px white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+
+.photo-add {
+    font-family: "Poiret One", sans-serif;
+    color: turquoise;
+    font-size: 250%;
+    padding: 5%;
+    position: absolute;
+    bottom: 0;
+    right: 10%;
+}
+
+
+
+.profile-input:focus {
+    outline: none;
+}
+
+.profile-text {
+    flex: 60%;
+    padding-left: 5%;
+    color: white;
+    position: relative;
+}
+
+.change-password {
+    margin-left: 55%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
+
+.change-password-form{
+    display: flex;
+    flex-direction: column;
+}
+
+label{
+    margin-top: 2%;
+    padding: 1%;
+}
+
+input{
+    padding: 1%;
+    margin-bottom: 1%;
+}
+
+.profile-favorite {
+    background-color: green;
+    margin: 2%;
+    padding: 2%;
+}
+
+.profile-group {
+    background-color: aqua;
+    margin: 2%;
+    padding: 2%;
+}

@@ -3,7 +3,7 @@ import './home.css'
 import Header from '../components/Header'
 import PopularMoviesPanel from '../components/PopularMoviesPanel'
 import PopularSeriesPanel from '../components/PopularSeriesPanel'
-import CinemaTrailer from '../components/MovieTrailer'
+
 
 export default function Home() {
   return (
