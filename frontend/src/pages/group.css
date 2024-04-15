@@ -1,37 +1,72 @@
+.group-container {
+    position: absolute;
+    top: 20%;
+    margin: 2%;
 
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 2%;
+}
+
+.groups-container {
+    display: flex;
+}
 
 .allGroups {
-    margin-top: 30em;
-    display: inline-block;
-    
+    flex: 8;
+    margin-right: 10px;
+}
+
+.group-card {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.group-card > * {
+    flex: 0 0 calc(33.33% - 20px); 
+    margin: 2%; 
 }
 
 .allGroups a {
     text-decoration: none;
     color: white;
     margin: 5px;
-    background-color: #888888;
+    background-color: #333333;
     padding: 32px;
     display: block;
-    
 }
 
 .allGroups a:hover {
-    box-shadow: inset 30em 0 0 0 rgba(37,37,37,0.5);
+    box-shadow: inset 50em 0 0 0 rgba(37, 37, 37, 0.5);
 }
 
+
 .createGroup {
-    display: contents;
-    margin: 30em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2%;
+    flex: 4;
+}
+
+.create-group-button {
+    height: 50px;
+    width: 50%;
+    padding: 0 4%;
+    margin: 2%;
+    text-align: center;
 }
 
 .popup {
-    top: 0;
-    left: 0;
-    width: 100%;
+    margin-top: 5%;
+    width: 40%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: absolute;
 }
 
 .popup-inner {
@@ -47,3 +82,13 @@
     top: 16px;
     right: 16px;
 }
+
+.group-card .description {
+        max-height: 2.8em; /* Adjust as needed */
+        overflow: hidden;
+        text-overflow: ellipsis; /* Optionally add ellipsis for truncated text */
+        line-height: 1.4em; /* Adjust line height for readability */
+        width: 100%;
+}
+
+  
