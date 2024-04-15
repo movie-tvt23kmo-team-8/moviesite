@@ -22,11 +22,11 @@ function App() {
   return (
     <Router>
       <UserProvider>
-        <Topbar />
+        <Topbar/>
         <div className='container'>
           <Routes>
-            <Route path='/' exact element={<Home />} />
-            <Route path='/login' element={<Login />} />
+            <Route path='/' exact element={<Home/>} />
+            <Route path='/login' element={<Login/>} />
             <Route path='/register' element={<Register />} />
             <Route path='/search' element={<Search />} />
             <Route path='/shows' element={<Shows />} />
@@ -38,6 +38,7 @@ function App() {
               <Route path='/favourite' element={<Favourite />} />
               <Route path='/logout' element={<Logout />} />
             </Route>
+
 
             <Route path='*' element={<NotFound />} />
           </Routes>
