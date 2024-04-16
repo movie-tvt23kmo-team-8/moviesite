@@ -1,12 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import './search.css';
-import axios from 'axios';
 
 const API_KEY = '8bd78d32c965d3e69a13bfe5cc093ae0';
 
 export default function Search() {
   const [searchTerm, setSearchTerm] = useState('');
   const [results, setResults] = useState([]);
+  const [year, setYear] = useState('');
+  const [language, setLanguage] = useState('');
+  const [genre, setGenre] = useState('');
+  const [points, setPoints] = useState('');
+  const [movieOrTv, setMovieOrTv] = useState('');
+
+  const handleYearChange = (event) => {
+    setYear(event.target.value);
+  };
+  const handleLanguageChange = (event) => {
+    setLanguage(event.target.value);
+  };
+  const handleGenreChange = (event) => {
+    setGenre(event.target.value);
+  };
+  const handlePointsChange = (event) => {
+    setPoints(event.target.value);
+  };
+  const handleMovieOrTvChange = (event) => {
+    setMovieOrTv(event.target.value);
+  };
+
+  const selailuHaku = async () => {
+    console.log("selailuhaku alkaa  year, language, genre, points, movieOrTv", year, language, genre, points, movieOrTv )
+    try {
+      const response = await fetch(`http://localhost:3001/tmdb/movies?year=${year}&language=${language}&genre=${genre}&points=${points}&movieOrTv=${movieOrTv}`
+      );
+      const data = await response.json();
+      console.log(data.results);
+      setResults(data.results);
+    } catch (error) {
+      console.error('Error fetching results:', error);
+    }
+  };
 
   const handleSearch = async () => {
     try {
@@ -14,6 +47,7 @@ export default function Search() {
         `https://api.themoviedb.org/3/search/multi?&language=fi-FI&api_key=${API_KEY}&query=${searchTerm}&include_adult=false`
       );
       const data = await response.json();
+      console.log(data.results);
       setResults(data.results);
     } catch (error) {
       console.error('Error fetching results:', error);
@@ -37,21 +71,6 @@ export default function Search() {
     setSearchTerm(event.target.value);
   };
 
-  const selailuHaku = () => {
-    let year = document.getElementById('year').value;
-    let language = document.getElementById('input[name="kieli"]:checked').value;
-    let genre = document.getElementById('genre').value;
-    let points = document.querySelector('input[name="points"]:checked').value;
-    let movieOrTv = document.querySelector().value;
-    const haku = async () => {
-      try {
-        const response = await axios.get('http://localhost:3001/tmdb/');
-      } catch (error) {
-        console.error('Error fetching with selailuhaku:', error);
-      }
-    }
-  };
-
   return (
     <div>
       <div className="search-container">
@@ -70,36 +89,54 @@ export default function Search() {
       </div>
       <div className="search-container">
         <div id="selailu">
-          <form onSubmit={(e) => { e.preventDefault(); selailuHaku();}}>
+          <form onSubmit={(e) => { e.preventDefault(); selailuHaku(); }}>
             <h3>Selaile elokuvia tai sarjoja kriteerien perusteella</h3>
             <p>Selaillaanko sarjoja vaiko lehvoja?</p>
             <label for="Elokuvat">Elokuvat</label>
-            <input type='radio' name="movieOrTv" value="movie" checked></input>
+            <input type='radio' 
+            name="movieOrTv" 
+            value="movie" 
+            checked={movieOrTv === 'movie'}
+            onChange={handleMovieOrTvChange}
+            />
             <label for="Sarjat">Sarjat</label>
-            <input type='radio' name="movieOrTv" value="tv"></input>
+            <input type='radio' 
+            name="movieOrTv" 
+            value="tv"
+            checked={movieOrTv === 'tv'}
+            onChange={handleMovieOrTvChange}
+            />
 
-            
+
             <p>Miltä vuosikymmeneltä haetaan?</p>
-            <select name="year" id="year">
+            <select name="year" id="year" value={year} onChange={handleYearChange}>
+              <option value="">Valitse vuosikymmen</option>
               <option value="1">-1960</option>
-              <option value="2">1960</option>
-              <option value="3">1970</option>
-              <option value="4">1980</option>
-              <option value="5">1990</option>
-              <option value="6">2000</option>
-              <option value="7">2010</option>
-              <option value="8">2020</option>
+              <option value="1960">1960</option>
+              <option value="1970">1970</option>
+              <option value="1980">1980</option>
+              <option value="1990">1990</option>
+              <option value="2000">2000</option>
+              <option value="2010">2010</option>
+              <option value="2020">2020</option>
               <option value="9">Mikä tahansa</option>
             </select>
 
             <p>Kotimainen vai ulkomainen?</p>
             <label for="Kotimainen">Kotimainen</label>
-            <input type='radio' name="kieli" value="kotimainen" checked></input>
+            <input type='radio' name="kieli" value="fi" 
+            checked={language === 'fi'}
+            onChange={handleLanguageChange}
+            />
             <label for="Ulkomainen">Ulkomainen</label>
-            <input type='radio' name="kieli" value="ulkomainen"></input>
+            <input type='radio' name="kieli" value=""
+            checked={language === ''}
+            onChange={handleLanguageChange}
+            />
 
             <p>Genre?</p>
-            <select name="genre" id="genre">
+            <select name="genre" id="genre" onChange={handleGenreChange}>
+            <option value="">Valitse genre</option>
               <option value="28">Action</option>
               <option value="12">Adventure</option>
               <option value="16">Animation</option>
@@ -123,13 +160,25 @@ export default function Search() {
 
             <p>Arvosana</p>
             <label for="poor">Huono (0-3)</label>
-            <input type="radio" name="points" value="Huono"></input>
+            <input type="radio" name="points" value="0"
+            checked={points === '0'}
+            onChange={handlePointsChange}
+            />
             <label for="OK">OK (4-7)</label>
-            <input type="radio" name="points" value="OK"></input>
+            <input type="radio" name="points" value="1"
+            checked={points === '1'}
+            onChange={handlePointsChange}
+            />
             <label for="Hyvä">Hyvä (8-10)</label>
-            <input type="radio" name="points" value="Hyvä"></input>
+            <input type="radio" name="points" value="2"
+            checked={points === '2'}
+            onChange={handlePointsChange}
+            />
             <label for="all">Mikä tahansa</label>
-            <input type="radio" name="points" value="all"></input>
+            <input type="radio" name="points" value="3"
+            checked={points === '3'}
+            onChange={handlePointsChange}
+            />
             <button type="submit">Haje</button>
           </form>
         </div>
