@@ -1,120 +1,59 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import './search.css';
 
-const API_KEY = '';
-
-export default function Search() {
-  const [searchTerm, setSearchTerm] = useState('');
+const Search = () => {
+  const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
-
-  const handleSearch = async () => {
-    try {
-      const response = await fetch(
-        `https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&query=${searchTerm}&include_adult=false`
-      );
-      const data = await response.json();
-      setResults(data.results);
-    } catch (error) {
-      console.error('Error fetching results:', error);
-    }
-  };
-
-  const getPosterUrl = async (mediaId, mediaType) => {
-    try {
-      const response = await fetch(
-        `https://api.themoviedb.org/3/${mediaType}/${mediaId}/images?api_key=${API_KEY}`
-      );
-      const data = await response.json();
-      return `https://image.tmdb.org/t/p/w200${data.posters[0]?.file_path}`;
-    } catch (error) {
-      console.error('Error fetching poster:', error);
-      return null;
-    }
-  };
+  const [error, setError] = useState('');
 
   const handleChange = (event) => {
-    setSearchTerm(event.target.value);
+    setQuery(event.target.value);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.get(`search/?query=${query}`);
+      console.log('Response:', response.data);
+      setResults(response.data);
+      setError('');
+    } catch (error) {
+      console.error('Error:', error);
+      setError('Error fetching search results');
+      setResults([]);
+    }
   };
 
   return (
     <div>
-      <div className="search-container">
-        <h1>Etsi elokuvia ja sarjoja</h1>
-        <form onSubmit={(e) => { e.preventDefault(); handleSearch(); }}>
-          <input
-            type="text"
-            placeholder="Etsi elokuvia ja sarjoja"
-            value={searchTerm}
-            onChange={handleChange}
-          />
-          <button type="submit">Etsi</button>
-        </form>
-      </div>
-      <div className="results-container">
-        {results.length > 0 &&
-          results.slice(0, 5).map((result) => (
-            <Result key={result.id} data={result} getPosterUrl={getPosterUrl} />
-          ))}
-        {results.length > 5 && (
-          <div className="results-overflow">
-            {results.slice(5).map((result) => (
-              <Result key={result.id} data={result} getPosterUrl={getPosterUrl} />
-            ))}
+      <form onSubmit={handleSubmit}>
+        <input type="text" value={query} onChange={handleChange} />
+        <button type="submit">Etsi</button>
+      </form>
+      {error && <p>{error}</p>}
+      <div className="results">
+        {results.movies && results.movies.map((item) => (
+          <div key={item.id}>
+            <img
+              src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
+              alt={item.title}
+              title={item.overview}
+            />
           </div>
-        )}
+        ))}
+        {results.series && results.series.map((item) => (
+          <div key={item.id}>
+            <img
+              src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`}
+              alt={item.name}
+              title={item.overview}
+            />
+          </div>
+        ))}
       </div>
     </div>
   );
-}
+};
 
-function Result({ data, getPosterUrl }) {
-  const [posterUrl, setPosterUrl] = useState(null);
-  const [description, setDescription] = useState('');
-  const mediaType = data.media_type;
-  const title = data.title || data.name;
-
-  useEffect(() => {
-    const fetchPosterUrl = async () => {
-      try {
-        const url = await getPosterUrl(data.id, mediaType);
-        setPosterUrl(url);
-      } catch (error) {
-        console.error(`Error fetching poster for ${title}:`, error);
-      }
-    };
-
-    fetchPosterUrl();
-  }, [data, mediaType, getPosterUrl, title]);
-
-  const handleMouseEnter = async () => {
-    try {
-      const response = await fetch(
-        `https://api.themoviedb.org/3/${mediaType}/${data.id}?api_key=${API_KEY}`
-      );
-      const result = await response.json();
-      setDescription(result.overview);
-    } catch (error) {
-      console.error('Error fetching description:', error);
-    }
-  };
-
-  const handleMouseLeave = () => {
-    setDescription('');
-  };
-
-  return (
-    <div className="result" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <div className="result-content">
-        <img src={posterUrl} alt={title} />
-        {description && (
-          <div className="description-box">
-            <p>{description}</p>
-          </div>
-        )}
-      </div>
-      <div className="info">
-        <h3>{title}</h3>
-      </div>
-    </div>
-  );
-}
+export default Search;
