@@ -9,9 +9,13 @@ router.get('/all', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-    const username = req.body.username;
-    const userID = await getUserID(username);
-    res.json(userID);
+    try {
+        const username = req.body.username;
+        const idaccount = await getUserID(username);
+        res.status(200).json(idaccount);
+    } catch(err) {
+        res.status(505).json({error: err.message});
+    }
 });
 
 router.get('/personal', auth, async (req,res)=>{
@@ -19,7 +23,7 @@ router.get('/personal', auth, async (req,res)=>{
        const username = res.locals.username;
        res.status(200).json({username: username});
     }catch(err){
-       res.status(505).json({error: err.message});
+       res.status(500).json({error: err.message});
     }
 });
 

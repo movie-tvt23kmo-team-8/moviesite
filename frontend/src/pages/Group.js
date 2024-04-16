@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './group.css';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 
 function Popup(props) {
@@ -13,6 +14,7 @@ function Popup(props) {
     </div>
   ) : "";
 }
+
 
 export default function Group() {
   const [groups, setGroups] = useState([]);
@@ -37,6 +39,33 @@ export default function Group() {
 
     fetchGroups();
   }, []);
+
+  const sendRequest = async () => {
+    if (selectedGroup) {
+      try {
+        const jwtToken = sessionStorage.getItem('token'); 
+        if (!jwtToken) {
+          console.error('JWT token not found');
+          return;
+        }
+        const headers = {
+          headers: {'Content-Type': 'application/json','Authorization': `Bearer ${jwtToken}`}
+        };
+
+        const response = await axios.post('http://localhost:3001/invite/sendRequest',
+        { idgroup: selectedGroup.idgroup, idaccountReceiver: selectedGroup.idaccount}, headers);
+        
+        if (response.status === 200) {
+          console.log('Request sent successfully');
+        } else {
+          console.error('Failed to send request');
+        }
+      } catch (error) {
+        console.error('Error sending request:', error);
+      }
+    }
+  };
+  
 
   const submitGroup = async () => {
     const groupData ={
@@ -74,7 +103,7 @@ export default function Group() {
               <div>
                 <p>Name: {selectedGroup.groupname}</p>
                 <p>Description: {selectedGroup.groupdetails}</p>
-                <button>Liity</button>
+                <button onClick={sendRequest}>Liity</button>
              </div>
            </Popup>
          )}
