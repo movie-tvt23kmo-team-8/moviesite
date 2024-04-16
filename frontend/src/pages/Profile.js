@@ -6,11 +6,13 @@ import Avatar from '@mui/material/Avatar';
 import { Unstable_Popup as BasePopup } from '@mui/base/Unstable_Popup';
 import { styled } from '@mui/system';
 import Password from '../components/Password';
+import { seeInvites } from './SeeInvites';
 
 export default function Profile() {
   const [username, setUsername] = useState('');
   const [anchorEl, setAnchorEl] = useState(null);
   const [avatarSrc, setAvatarSrc] = useState(require('../img/logo.png'));
+  const [invites, setInvites] = useState([]);
 
   useEffect(() => {
     axios.get('http://localhost:3001/users/personal', {
@@ -29,7 +31,11 @@ export default function Profile() {
   const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
- 
+
+  const handleInviteClick = () => {
+    seeInvites(setInvites);
+  };
+
 
   const open = Boolean(anchorEl);
   const id = open ? 'password-popup' : undefined;
@@ -71,17 +77,14 @@ export default function Profile() {
               <form className='change-password-form' >
                 <label>Vanha salasana</label>
                 <Password
-
                   placeholder="Salasana"
                 />
                 <label>Uusi salasana</label>
                 <Password
-   
                   placeholder="Uusi salasana"
                 />
                 <label>Uusi salasana uudestaan</label>
                 <Password
-
                   placeholder="Uusi salasana"
                 />
               </form>
@@ -94,6 +97,9 @@ export default function Profile() {
       </div>
       <div className='profile-group'>
         group
+      </div>
+      <div className='profile-invites'>
+        <button onClick={handleInviteClick}>See Invites</button>
       </div>
     </div>
   );
