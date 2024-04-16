@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './search.css';
 
-const API_KEY = '8bd78d32c965d3e69a13bfe5cc093ae0';
+const API_KEY = '';
 
 export default function Search() {
   const [searchTerm, setSearchTerm] = useState('');
