@@ -6,11 +6,11 @@ const Search = () => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [error, setError] = useState('');
+  //kriteeriselailun kriteerit
   const [year, setYear] = useState('');
   const [language, setLanguage] = useState('');
   const [genre, setGenre] = useState('');
   const [points, setPoints] = useState('');
- 
   const handleYearChange = (event) => {
     setYear(event.target.value);
   };
@@ -24,9 +24,8 @@ const Search = () => {
     setPoints(event.target.value);
   };
  
-
   const selailuHaku = async () => {
-    console.log("selailuhaku alkaa  year, language, genre, points", year, language, genre, points )
+    //console.log("selailuhaku alkaa  year, language, genre, points", year, language, genre, points )
     try {
       const response = await axios.get(`http://localhost:3001/tmdb/movies?year=${year}&language=${language}&genre=${genre}&points=${points}`
       );
