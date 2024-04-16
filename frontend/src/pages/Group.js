@@ -9,7 +9,7 @@ function Popup(props) {
     <div className='popup'>
       <div className='popup-inner'>
         <button className='close-btn' onClick={() => props.setTrigger(false)}>close</button>
-          {props.children}
+        {props.children}
       </div>
     </div>
   ) : "";
@@ -68,7 +68,7 @@ export default function Group() {
   
 
   const submitGroup = async () => {
-    const groupData ={
+    const groupData = {
       groupname: groupName,
 
       groupdetails: groupDetails,
@@ -85,7 +85,7 @@ export default function Group() {
     const resultInJson = await result.json()
     console.log(resultInJson)
   }
-  
+
   const handleGroupClick = (group) => {
     setSelectedGroup(group);
   }
