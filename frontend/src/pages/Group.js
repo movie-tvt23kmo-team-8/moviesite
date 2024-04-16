@@ -8,7 +8,7 @@ function Popup(props) {
     <div className='popup'>
       <div className='popup-inner'>
         <button className='close-btn' onClick={() => props.setTrigger(false)}>close</button>
-          {props.children}
+        {props.children}
       </div>
     </div>
   ) : "";
@@ -39,7 +39,7 @@ export default function Group() {
   }, []);
 
   const submitGroup = async () => {
-    const groupData ={
+    const groupData = {
       groupname: groupName,
 
       groupdetails: groupDetails,
@@ -56,42 +56,48 @@ export default function Group() {
     const resultInJson = await result.json()
     console.log(resultInJson)
   }
-  
+
   const handleGroupClick = (group) => {
     setSelectedGroup(group);
   }
 
   return (
-    <div>
-      <section className='allGroups'>
-        <p>Groups</p>
-        {groups.map(group => (
-          <Link key={group.idgroup} onClick={() => handleGroupClick(group)}>Name:{group.groupname} <br></br> Description:{group.groupdetails}</Link>
-        ))}
-         {selectedGroup && (
-          <Popup trigger={true} setTrigger=
-            {setSelectedGroup}>
-              <div>
-                <p>Name: {selectedGroup.groupname}</p>
-                <p>Description: {selectedGroup.groupdetails}</p>
-                <button>Liity</button>
-             </div>
-           </Popup>
-         )}
-      </section>
-      <section className='createGroup'>
-        <button onClick={() => setButtonPopup(true)}>Create a group</button>
-        <Popup trigger={buttonPopup} setTrigger=
-        {setButtonPopup}>
-          <h3>Create a new group</h3>
-          <br></br>
-          <p>Name: <input value={groupName} onChange={e => setGroupName(e.target.value)}></input></p>
-          <br></br>
-          <p>Description: <input value={groupDetails} onChange={e => setGroupDetails(e.target.value)}></input></p>
-          <br></br>
-          <button onClick={submitGroup}>Submit</button>
-        </Popup>
-      </section>
+    <div className='group-container'>
+      <h1>Groups</h1>
+      <div className='groups-container'>
+        <section className='allGroups'>
+          <div className='group-card'>
+            {groups.map((group, index) => (
+              <Link key={group.idgroup} onClick={() => handleGroupClick(group)} className={`group-card-item group-${index}`}>
+                Name: {group.groupname} <br />
+                <div className='description'>{group.groupdetails}</div>
+              </Link>
+            ))}
+            {selectedGroup && (
+              <Popup trigger={true} setTrigger={setSelectedGroup}>
+                <div>
+                  <p>Name: {selectedGroup.groupname}</p>
+                  <p>Description: {selectedGroup.groupdetails}</p>
+                  <button>Liity</button>
+                </div>
+              </Popup>
+            )}
+          </div>
+        </section>
+        <section className='createGroup'>
+          <button className='create-group-button' onClick={() => setButtonPopup(true)}>Create a group</button>
+          <Popup trigger={buttonPopup} setTrigger=
+            {setButtonPopup}>
+            <h3>Create a new group</h3>
+            <br></br>
+            <p>Name: <input value={groupName} onChange={e => setGroupName(e.target.value)}></input></p>
+            <br></br>
+            <p>Description: <input value={groupDetails} onChange={e => setGroupDetails(e.target.value)}></input></p>
+            <br></br>
+            <button onClick={submitGroup}>Submit</button>
+          </Popup>
+        </section>
+      </div>
     </div>
   );
 }
