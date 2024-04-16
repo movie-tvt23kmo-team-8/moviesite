@@ -75,10 +75,15 @@ export default function Group() {
 
       grouprole: 'admin'
     }
+    const jwtToken = sessionStorage.getItem('token'); 
+    if (!jwtToken) {
+      console.error('JWT token not found');
+      return;
+    }
     const result = await fetch('http://localhost:3001/group/addGroup', {
       method: 'POST',
       headers: {
-        'Content-type': 'application/json'
+        'Content-type': 'application/json','Authorization': `Bearer ${jwtToken}`
       },
       body: JSON.stringify(groupData)
     })
@@ -91,36 +96,42 @@ export default function Group() {
   }
 
   return (
-    <div>
-      <section className='allGroups'>
-        <p>Groups</p>
-        {groups.map(group => (
-          <Link key={group.idgroup} onClick={() => handleGroupClick(group)}>Name:{group.groupname} <br></br> Description:{group.groupdetails}</Link>
-        ))}
-         {selectedGroup && (
-          <Popup trigger={true} setTrigger=
-            {setSelectedGroup}>
-              <div>
-                <p>Name: {selectedGroup.groupname}</p>
-                <p>Description: {selectedGroup.groupdetails}</p>
-                <button onClick={sendRequest}>Liity</button>
-             </div>
-           </Popup>
-         )}
-      </section>
-      <section className='createGroup'>
-        <button onClick={() => setButtonPopup(true)}>Create a group</button>
-        <Popup trigger={buttonPopup} setTrigger=
-        {setButtonPopup}>
-          <h3>Create a new group</h3>
-          <br></br>
-          <p>Name: <input value={groupName} onChange={e => setGroupName(e.target.value)}></input></p>
-          <br></br>
-          <p>Description: <input value={groupDetails} onChange={e => setGroupDetails(e.target.value)}></input></p>
-          <br></br>
-          <button onClick={submitGroup}>Submit</button>
-        </Popup>
-      </section>
+    <div className='group-container'>
+      <h1>Groups</h1>
+      <div className='groups-container'>
+        <section className='allGroups'>
+          <div className='group-card'>
+            {groups.map((group, index) => (
+              <Link key={group.idgroup} onClick={() => handleGroupClick(group)} className={`group-card-item group-${index}`}>
+                Name: {group.groupname} <br />
+                <div className='description'>{group.groupdetails}</div>
+              </Link>
+            ))}
+            {selectedGroup && (
+              <Popup trigger={true} setTrigger={setSelectedGroup}>
+                <div>
+                  <p>Name: {selectedGroup.groupname}</p>
+                  <p>Description: {selectedGroup.groupdetails}</p>
+                  <button onClick={sendRequest}>Liity</button>
+                </div>
+              </Popup>
+            )}
+          </div>
+        </section>
+        <section className='createGroup'>
+          <button className='create-group-button' onClick={() => setButtonPopup(true)}>Create a group</button>
+          <Popup trigger={buttonPopup} setTrigger=
+            {setButtonPopup}>
+            <h3>Create a new group</h3>
+            <br></br>
+            <p>Name: <input value={groupName} onChange={e => setGroupName(e.target.value)}></input></p>
+            <br></br>
+            <p>Description: <input value={groupDetails} onChange={e => setGroupDetails(e.target.value)}></input></p>
+            <br></br>
+            <button onClick={submitGroup}>Submit</button>
+          </Popup>
+        </section>
+      </div>
     </div>
   );
 }
