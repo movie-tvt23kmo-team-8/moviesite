@@ -59,21 +59,21 @@
   align-items: center; /* Center items horizontally */
   justify-content: center;
   text-align: center;
-  margin: 30% 2% 10% 4%;
+  margin: 27% 0 10% 0;
 }
 
 .results {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
+}
+
+.search-poster{
+  width: 90%;
+  height: auto;
 }
 
 .results > div {
-  width: calc(16% - 20px); /* Adjust the width as needed */
-  margin: 10px;
-}
-
-.results img {
-  width: 100%;
-  height: auto;
+  margin: 10px 0px;
 }
 

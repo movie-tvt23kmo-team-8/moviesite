@@ -22,7 +22,7 @@ const Popupwindow = ({ mediaItem, onClose, finnkinoData }) => {
                         <img src={finnkinoData.getElementsByTagName('EventMediumImagePortrait')[0].textContent} alt={mediaItem.title} />
                     )}
                 </div>
-                <button onClick={onClose}>Close</button>
+                <button className='popupbutton' onClick={onClose}>Close</button>
                 <i className="popupIcon-heart fa-solid fa-heart-circle-plus"></i>
                 <i className="popupIcon-group fa-solid fa-users-rectangle"></i>
             </div>

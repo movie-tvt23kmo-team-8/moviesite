@@ -156,7 +156,7 @@ export default function Shows() {
 
   return (
     <>
-      <div id="container">
+      <div id="show-container">
         <div id="otsikko"><h1>Finnkinon esitysajat</h1></div>
         <div className='hakualue'>
           <div id="alue">
