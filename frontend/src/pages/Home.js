@@ -15,9 +15,9 @@ export default function Home() {
       </div>
     
       <div className='home'>
-        <h3>Movies</h3>
+        <h3 className='home-header'>Popular movies</h3>
        <PopularMoviesPanel /> 
-       <h3>Series</h3> 
+       <h3 className='home-header'>Popular series</h3> 
        <PopularSeriesPanel />
       </div>    
 

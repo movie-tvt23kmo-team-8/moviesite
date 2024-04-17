@@ -5,21 +5,18 @@
   align-items: center;
   background-color: black;
   height: 80vh;
+  margin-top: 10%;
 }
 
 .center-video h2 {
   text-align: center;
-  /* Center the heading */
 }
 
-h2 {
+.movie-trailer{
   position: absolute;
-  right: 1%;
-  bottom: 20%;
+  right: 2%;
+  bottom: 30%;
   color: aliceblue;
-  background-color: rgba(37, 37, 37, 0.5);
-  padding: 2%;
-  border-radius: 50px;
 }
 
 @media (max-width: 1200px){

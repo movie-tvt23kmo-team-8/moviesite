@@ -10,8 +10,8 @@ export default function TopBar() {
     <div className='top'>
       <div className='topLeft'>
         <div className='websitename'>
-          <p>Filmi</p>
-          <p>verkko</p>
+          <p>Filmi <br/>
+          verkko</p>
         </div>
         <a href="/"><img className='topLeftImg' src={require('../img/logo5.png')} alt="topimg" /></a>
 
