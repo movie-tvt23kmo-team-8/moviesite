@@ -9,7 +9,11 @@ const bcrypt = require('bcrypt');
 router.post('/register', async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-    
+    const now = new Date();
+    const options = {timeZone: 'Europe/Helsinki'};
+    const finlandTime = now.toLocaleString('en-US', options)
+    const joindate = finlandTime
+
     try {
       if (isUsernameLengthOver4(username) || isPasswordLengthOver4(password)) {
         return res.status(400).json({ error: 'Käyttäjänimen ja salasanan on oltava 4 kirjainta tai enemmän!'})
@@ -21,7 +25,7 @@ router.post('/register', async (req, res) => {
     
     const hashedPassword = await bcrypt.hash(password, 10);
   
-    await register(username,hashedPassword);
+    await register(username,hashedPassword,joindate);
   
     res.status(200).json({ message: 'Käyttäjä luotu!' });
     

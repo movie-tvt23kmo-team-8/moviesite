@@ -12,8 +12,7 @@ async function getUsers(){
 
 async function getUserID(username) {
     let result = await pgPool.query(sql.GET_USER, [username]);
-    const userId = result.rows[0].idaccount;
-    return parseInt(userId);
+    return result.rows[0].idaccount;
 }
 
 module.exports = {getUsers, getUserID};

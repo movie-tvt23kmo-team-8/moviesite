@@ -90,4 +90,5 @@ router.get('/movies', async (req, res) => {
     res.status(500).json({ error: 'Error fetching from TMDB2' });
   }
 });
+
 module.exports = router;

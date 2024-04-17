@@ -1,10 +1,11 @@
-const {sendRequest, makeAdmin} = require('../database/groupmember_db');
+const {makeUser} = require('../database/groupmember_db');
+const { checkIfAccepted, getIdinvitesForUser } = require('../database/invite_db');
 const { getUserID } = require('../database/users_db');
 const { auth } = require('../middleware/auth')
 
 const router = require('express').Router();
 
-router.post('/sendRequest', auth, async (req, res) => {
+router.post('/makeUser', auth, async (req, res) => {
     const idaccount = await getUserID(res.locals.username);
     const idgroup = req.body.idgroup;
     const now = new Date();
@@ -14,12 +15,18 @@ router.post('/sendRequest', auth, async (req, res) => {
     const joindate = finlandTime
 
     try {
-    await sendRequest(idaccount, idgroup, joindate, grouprole);
+        const idinvites = await getIdinvitesForUser(idaccount, idgroup);
+        const isAccepted = await checkIfAccepted(idinvites)
+    if(isAccepted === true){
+        await makeUser(idaccount, idgroup, joindate, grouprole);
     
-    res.status(200).json({ message: 'Request sent!' });
-    
-    }catch(error) {
-        console.error('Error sending request:', error);
+        res.status(200).json({ message: 'Tervetuloa ryhmään!' });
+    } else {
+        res.status(500).json({error: 'You are not accepted'});
+    }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error: 'User not authorized'});
     }
 });
 

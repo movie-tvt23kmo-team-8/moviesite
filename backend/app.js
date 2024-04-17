@@ -5,7 +5,9 @@ const group = require('./routes/group');
 const tmdb = require('./routes/tmdb');
 const login = require('./routes/login');
 const groupmember = require('./routes/groupmember');
+const invite = require('./routes/invite');
 const search = require('./routes/search');
+
 
 const cors = require('cors');
 const express = require('express');
@@ -27,7 +29,8 @@ app.use('/group', group);
 app.use('/tmdb', tmdb);
 app.use('/', login);
 app.use('/', register);
-app.use('/groupmember', groupmember)
+app.use('/groupmember', groupmember);
+app.use('/invite', invite);
 app.use('/search', search);
 
 app.get('/', (req, res) => {
