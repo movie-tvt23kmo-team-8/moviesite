@@ -4,6 +4,7 @@ const register = require('./routes/register');
 const group = require('./routes/group');
 const tmdb = require('./routes/tmdb');
 const login = require('./routes/login');
+const favourite = require('./routes/favourite')
 const groupmember = require('./routes/groupmember');
 const invite = require('./routes/invite');
 const search = require('./routes/search');
@@ -33,6 +34,7 @@ app.use('/groupmember', groupmember);
 app.use('/invite', invite);
 app.use('/search', search);
 app.use('/review', review);
+app.use('/favourite', favourite)
 
 app.get('/', (req, res) => {
     res.send('Welcome to moviesite website')
