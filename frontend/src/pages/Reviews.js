@@ -24,11 +24,15 @@ export default function Reviews() {
               return {
                 ...review,
                 posterUrl: tmdbResponse.data.poster_path,
-                title: tmdbResponse.data.title || review.title // Käytä oletusotsikkoa, jos vastauksessa ei ole otsikkoa
+                title: tmdbResponse.data.title,
+                details: tmdbResponse.data.overview,
+                link: 'https://www.themoviedb.org/movie/'+tmdbResponse.data.id
               };
             } else {
               // Palautetaan alkuperäinen arvostelu ilman posterin osoitetta, jos haku epäonnistui
-              return { ...review, title: review.title }; // Käytä alkuperäistä otsikkoa
+              return { ...review, 
+                title: tmdbResponse.data.title,
+                details: tmdbResponse.data.overview }; 
             }
           } catch (error) {
             console.error('Failed to fetch poster from TMDB', error);
@@ -53,8 +57,7 @@ export default function Reviews() {
             <p>Arvostelija: {review.username}</p>
             <p>Elokuvan nimi: {review.title}</p>
             <p>Review: {review.review}</p>
-            {review.posterUrl && <img src={`https://image.tmdb.org/t/p/original${review.posterUrl}`} alt="Movie Poster" />}
-            <p>Tässä on linkki elokuvan posterinsivuille: https://image.tmdb.org/t/p/original${review.posterUrl}</p>
+            <a href={review.link}target="_blank">{review.posterUrl && <img className="review-picture" src={`https://image.tmdb.org/t/p/original${review.posterUrl}`} alt="Movie Poster" />}</a>
           </div>
         ))}
       </div>
