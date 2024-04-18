@@ -1,0 +1,6 @@
+.review-picture {
+    width: 200px; /* Määritä kuvan leveys */
+    height: auto; /* Määritä kuvan korkeus automaattisesti säilyttäen kuvasuhde */
+    border: 1px solid #ccc; /* Lisää reuna kuvan ympärille */
+  }
+  
