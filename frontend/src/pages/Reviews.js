@@ -20,13 +20,14 @@ export default function Reviews() {
     fetchReviews();
   }, []);
 
+
   return (
     <div className='review-container'>
       <h1>Reviews</h1>
       <div className='review-card'>
         {reviews.map((review, index) => (
           <div key={index}>
-            <p>Arvostelija: {review.idaccount}</p>
+            <p>Arvostelija: {review.username}</p>
             <p>MdbData: {review.mdbdata}</p>
             <p>Review: {review.review}</p>
           </div>

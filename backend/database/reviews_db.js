@@ -1,7 +1,7 @@
 const pgPool = require('./pg_connection');
 
 const sql = {
-    GET_ALL_REVIEWS: 'SELECT * FROM "review"',
+    GET_ALL_REVIEWS: 'SELECT review.idreview, review.idaccount, review.star, review.review, review.mdbdata, account.username FROM review LEFT JOIN account ON review.idaccount = account.idaccount ORDER BY review.idreview DESC;',
     GET_USER_REVIEWS: 'SELECT * FROM "review" WHERE "idaccount" = $1',
     ADD_REVIEW: 'INSERT INTO "review" (idaccount, star, review, mdbdata) VALUES ($1, $2, $3, $4)',
 }
