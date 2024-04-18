@@ -8,11 +8,14 @@ import { styled } from '@mui/system';
 import Password from '../components/Password';
 import { seeInvites } from './SeeInvites';
 
+
 export default function Profile() {
   const [username, setUsername] = useState('');
   const [anchorEl, setAnchorEl] = useState(null);
   const [avatarSrc, setAvatarSrc] = useState(require('../img/logo.png'));
   const [invites, setInvites] = useState([]);
+  const [deleteConfirmed, setDeleteConfirmed] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     axios.get('http://localhost:3001/users/personal', {
@@ -36,10 +39,6 @@ export default function Profile() {
     seeInvites(setInvites);
   };
 
-
-  const open = Boolean(anchorEl);
-  const id = open ? 'password-popup' : undefined;
-
   const handleFileInputChange = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
@@ -52,6 +51,41 @@ export default function Profile() {
       reader.readAsDataURL(file);
     }
   };
+
+
+  const handleDeleteUser = async () => {
+    if (deleteConfirmed) {
+      try {
+        const jwtToken = sessionStorage.getItem('token');
+        if (!jwtToken) {
+          console.error('JWT token not found');
+          return;
+        }
+        const headers = {headers: {'Content-Type': 'application/json','Authorization': `Bearer ${jwtToken}`}
+        };
+        const idaccountResponse = await axios.get(`/users/getUserID?username=${username}`, headers);
+        if (idaccountResponse.status === 200) {
+          const idaccount = idaccountResponse.data.idaccount;
+          const deleteResponse = await axios.delete(`/users/delete?idaccount=${idaccount}`, headers);
+          if (deleteResponse.status === 200) {
+            console.log('User deleted successfully');
+            sessionStorage.removeItem('token');
+            window.location.reload();
+          } else {
+            console.error('Failed to send delete request');
+          }
+        } else {
+          console.error('Failed to get idaccount');
+        }
+      } catch (error) {
+        console.error('Error sending delete request:', error);
+      }
+    } else {
+      setDeleteConfirmed(true);
+    }
+  };
+
+  const id = open ? 'password-popup' : undefined;
 
   return (
     <div className='profile-container'>
@@ -100,6 +134,11 @@ export default function Profile() {
       </div>
       <div className='profile-invites'>
         <button onClick={handleInviteClick}>See Invites</button>
+      </div>
+      <div className='delete-user'>
+        <button onClick={handleDeleteUser}>
+          {deleteConfirmed ? "Confirm Delete" : "Delete User"}
+        </button>
       </div>
     </div>
   );
