@@ -85,7 +85,7 @@ function MovieTrailer() {
   // Renderöi trailerivideo ja otsikko
   return (
     <div className="center-video"> {/* Käytä CSS-luokkaa keskittämiseen */}
-      <h2>{trailerInfo.title}</h2> {/* Näytä elokuvan otsikko */}
+      <h2 className='movie-trailer'>{trailerInfo.title}</h2> {/* Näytä elokuvan otsikko */}
       <ReactPlayer
         url={`https://www.youtube.com/watch?v=${trailerInfo.url}`}
         playing={autoplay} // Aseta autoplay skrollaustilan perusteella

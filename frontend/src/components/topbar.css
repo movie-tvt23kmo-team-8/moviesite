@@ -1,8 +1,9 @@
 
 .top {
     width: 100%;
-    position: sticky;
+    position: fixed;
     top: 0;
+    z-index: 1000;
     display: flex;
     align-items: center;
     font-size: 250%;
@@ -10,12 +11,10 @@
     background-color: rgba(37, 37, 37, 0.5);
     font-family: "Poiret One", sans-serif;
     color: white;
-
 }
 
 .topLeft, .topRight{
     flex: 20%;   
-
 }
 
 .topLeft{
@@ -26,9 +25,9 @@
 
 .websitename{
     text-align: center;
-    line-height: 0.5;
     margin-left: 10%;
     font-family: "Rubik Doodle Shadow", system-ui;
+    line-height: 1;
 }
 
 .topRight{
@@ -47,21 +46,13 @@
 .topRightImg{
     width: 25%;
     border-radius: 50%;
-    margin-left: 15%;
+    margin-left: 10%;
     cursor: pointer;
 }
 
 .topCenter{
     flex: 60%;
 }
-
-.topIcon{
-    font-size: 50%;
-    margin-right: 5%;
-    color: #444;
-    cursor: pointer;
-}
-
 
 .topList{
     display: flex;
@@ -82,17 +73,13 @@
     cursor: pointer;
 }
 
-.topSearchIcon{
-    font-size: 50%;
-    color: #666;
-    cursor: pointer;
-    margin-left: 5%;
-}
-
 .right{
     font-size: 75%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
 }
 
 .logout {
@@ -108,35 +95,96 @@
     list-style: none;
 }
 
+@media (max-width: 1200px){
+
+    .top {
+        font-size: 200%;
+    }
+  
+    .websitename{
+        font-size: 90%;
+        margin-top: 2%;
+        line-height: 1;
+    }
+    
+    .topLeftImg{
+        width: 60%;
+    }
+    
+    .topRightImg{
+        width: 20%;
+        margin-left: 20%;
+    }
+    
+    .right{
+        font-size: 60%;
+    }
+    
+    .logout {
+        font-size: 50%;
+    }
+
+}
+
+@media (max-width: 800px){
+
+    .top {
+        font-size: 120%;
+    }
+  
+    .websitename{
+        margin-top: 5%;
+        line-height: 1.5;
+    }
+     
+    .topRightImg{
+        margin-top: 5%;
+    }
+    
+}
+
+@media (max-width: 600px){
+
+    .top {
+        font-size: 100%;
+    }
+  
+    .websitename{
+        font-size: 80%;
+    }
+
+    .topRightImg{
+        margin-top: 10%;
+    }
+    
+    .topRightList{
+        margin-top: 10%;
+    }
+    
+}
+
 @media (max-width: 400px){
 
     .top {
         font-size: 50%;
     }
-    
-    .topRightList{
-        list-style: none;
-    }
-        
-    .right{
-        font-size: 60%;
+  
+    .websitename{
+        font-size: 70%;
+        line-height: 2;
+        margin-top: 10%;
     }
 
+    .topLeftImg{
+        width: 40%;
+    }
+       
+    .topRightImg{
+        margin-top: 10%;
+    }
+    
     .topRightList{
-        margin-top: 20%;
+        margin-top: 10%;
     }
     
-    .logout {
-        font-size: 75%;
-        position: absolute ;
-        top: 30%;
-        right: 3%;
-    
-    }
-    
-    .topLogout{
-        display: flex;
-        list-style: none;
-    }
-
 }

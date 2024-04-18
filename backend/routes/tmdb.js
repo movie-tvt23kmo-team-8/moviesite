@@ -47,18 +47,18 @@ router.get('/movies', async (req, res) => {
     switch (points) {
       case "0":
         pointsStart = 0;
-        pointEnd = 10;
-        break;
-      case "1":
-        pointsStart = 0;
         pointEnd = 3;
         break;
-      case "2":
+      case "1":
         pointsStart = 4;
         pointEnd = 7;
         break;
-      case "3":
+      case "2":
         pointsStart = 8;
+        pointEnd = 10;
+        break;
+      case "3":
+        pointsStart = 0;
         pointEnd = 10;
         break;
       default:
