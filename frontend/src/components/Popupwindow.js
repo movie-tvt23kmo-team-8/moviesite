@@ -3,7 +3,7 @@ import './popupwindow.css'; // Import the CSS file for styling
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 
-const Popupwindow = ({ mediaItem, onClose }) => {
+const Popupwindow = ({ mediaItem, onClose, finnkinoData }) => {
     return (
         <div className="popup-overlay"> {/* Container to cover the entire page */}
             <div className="popup-window">
@@ -18,8 +18,11 @@ const Popupwindow = ({ mediaItem, onClose }) => {
                     <Box>
                         <BasicRating value={mediaItem.vote_average / 2} />
                     </Box>
+                    {finnkinoData && finnkinoData.getElementsByTagName('EventMediumImagePortrait')[0]?.textContent && (
+                        <img src={finnkinoData.getElementsByTagName('EventMediumImagePortrait')[0].textContent} alt={mediaItem.title} />
+                    )}
                 </div>
-                <button onClick={onClose}>Close</button>
+                <button className='popupbutton' onClick={onClose}>Close</button>
                 <i className="popupIcon-heart fa-solid fa-heart-circle-plus"></i>
                 <i className="popupIcon-group fa-solid fa-users-rectangle"></i>
             </div>

@@ -2,7 +2,7 @@
     position: absolute;
     top: 20%;
     margin: 2%;
-
+    
 }
 
 h1 {
@@ -12,6 +12,7 @@ h1 {
 
 .groups-container {
     display: flex;
+    margin-bottom: 5%;
 }
 
 .allGroups {

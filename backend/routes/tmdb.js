@@ -47,18 +47,18 @@ router.get('/movies', async (req, res) => {
     switch (points) {
       case "0":
         pointsStart = 0;
-        pointEnd = 10;
-        break;
-      case "1":
-        pointsStart = 0;
         pointEnd = 3;
         break;
-      case "2":
+      case "1":
         pointsStart = 4;
         pointEnd = 7;
         break;
-      case "3":
+      case "2":
         pointsStart = 8;
+        pointEnd = 10;
+        break;
+      case "3":
+        pointsStart = 0;
         pointEnd = 10;
         break;
       default:
@@ -88,6 +88,22 @@ router.get('/movies', async (req, res) => {
   } catch (error) {
     console.error('Error fetching from TMDB:', error);
     res.status(500).json({ error: 'Error fetching from TMDB2' });
+  }
+});
+
+router.get('/poster', async (req, res) => {
+  console.log("posterin fetchin sisällä backarissa");
+  try {
+    const apiKey = process.env.TMDB_API_KEY;
+    const movieID = parseInt(req.query.id);
+    console.log(movieID);
+    const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${apiKey}&language=fi-FI`);
+    const movie = response.data;
+    console.log(movie)
+    res.json(movie);
+  } catch (error) {
+    console.error('Error fetching with id from TMDB:', error);
+    res.status(500).json({ error: 'Error fetching with id from TMDB' });
   }
 });
 

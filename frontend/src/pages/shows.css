@@ -1,28 +1,103 @@
+#show-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items horizontally */
+  position: absolute;
+  top: 0;
+  color: white;
+}
+
 #otsikko {
-  background-color: bisque;
-  margin-top: 260px;
   margin-bottom: 10px;
+  margin-top: 10%;
+}
+
+.hakualue{
+  display: flex;
+  padding: 2%;
+  width: 100%;
+  justify-content: center;
+  align-items: center; 
+  color: #444;
+}
+
+h3{
+  font-size: 110%;
+  text-align: center;
 }
 
 #alue {
-  background-color: blueviolet;
-  width: 100%;
+  width: 30%;
+  text-align: center;
+  background-color: #f0f0f0; /* Light background color */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  margin: 0 5%;
+  padding: 2%;
 }
 
 #pvm {
-  width: 100%;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  background-color: brown;
+  width: 30%;
+  text-align: center;
+  background-color: #f0f0f0; /* Light background color */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  margin: 0 5%;
+  padding: 2%;
+}
+.elokuvat-container{
+  margin: 1%;
+}
+.elokuvat-area{
+  display: flex;
+  justify-content: center; /* Center contents horizontally */
+  align-items: center; /* Center contents vertically */
+  width: 100%; /* Ensure it takes up the full width of the container */
+  margin-top: 50px; /* Adjust as needed to leave space for the top bar */
+  text-align: center;
+  background-color: rgba(37, 37, 37, 0.5);
+  border-radius: 50px;
+}
+
+#elokuvat{
+
 }
 
 #elokuvatLista {
-  background-color: aqua;
-    list-style: none;
-    padding: 10px;
-    position: absolute;
-    margin-bottom: 280px;
-    padding-bottom: 60px;
+  list-style: none;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center contents horizontally */
+  width: 100%; /* Ensure it takes up the full width of the elokuvat-container */
+  margin-top: 20px; /* Add some margin to the top to prevent overlap with top bar */
+}
+
+.show-img {
+  position: relative;
+}
+
+.showsicon-heart, .showsicon-group {
+  font-size: 1.5rem; /* Voit muuttaa tämän arvon tarpeidesi mukaan */
+  position: absolute;
+  bottom: 0px; /* Voit muuttaa tämän arvon tarpeidesi mukaan */
+  z-index: 999;
+}
+
+.showsicon-heart{
+  left: 15%; /* Voit muuttaa tämän arvon tarpeidesi mukaan */
+  background-color: white;
+  border-radius: 50%;
+  padding: 2%;
+  margin-right: 4%;
+}
+
+.showsicon-group {
+  right: 15%; /* Voit muuttaa tämän arvon tarpeidesi mukaan */
+  background-color: white;
+  border-radius: 50%;
+  padding: 2%;
+  color: #444;
 }
 
 /* Näytetään enintään neljä elokuvaa rinnakkain */
@@ -45,12 +120,10 @@
 }
 
 .title {
-  background-color: blueviolet;
   margin-bottom: 5px; /* Lisää tilaa otsikon alapuolelle */
 }
 
 .showtime {
-  background-color: antiquewhite;
   margin-bottom: 5px; /* Lisää tilaa näytösaika-tekstin alapuolelle */
 }
 

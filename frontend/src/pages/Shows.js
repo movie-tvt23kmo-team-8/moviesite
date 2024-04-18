@@ -11,7 +11,7 @@ export default function Shows() {
   if (isLoggedIn) {
     kayttajanRyhmat = haeKayttajanRyhmat();
   }*/
-  
+
   const setTodayDate = () => {
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, '0');
@@ -55,11 +55,13 @@ export default function Shows() {
           let title = shows[i].getElementsByTagName('Title')[0].textContent;
           let id = shows[i].getElementsByTagName('ID')[0].textContent;
           let showtime = shows[i].getElementsByTagName('dttmShowStart')[0].textContent;
-          let image = shows[i].getElementsByTagName('EventSmallImagePortrait')[0].textContent;//Small||Medium||Large
+          let image = shows[i].getElementsByTagName('EventMediumImagePortrait')[0].textContent;//Small||Medium||Large
           let linkki = shows[i].getElementsByTagName('ShowURL')[0].textContent;//kyseisen esityksen linkki
           //console.log("Title: "+title+" ID:"+id+" imageAdress: "+image +" ja linkki: "+linkki);
 
-          let kuvaElementti = <img src={image} alt={title} />
+          let kuvaElementti = <div className='show-img'><img src={image} alt={title} />
+          <i className="popupIcon-heart showsicon-heart fa-solid fa-heart-circle-plus"></i>
+              <i className="popupIcon-group showsicon-group fa-solid fa-users-rectangle"></i></div>
           let tekstiElementti = (
             <>
               <span className="title">{title}</span>
@@ -76,7 +78,7 @@ export default function Shows() {
               {tekstiElementti}
               <br />
               {linkkiElementti}
-              <br /> 
+              <br />
               {/*Jos käyttäjä on kirjautuneen tulostellaan valikko mihin ryhmään jaetaan ja jakonappi*/}
               {isLoggedIn && (
                 <>{/*
@@ -91,7 +93,7 @@ export default function Shows() {
               )}
             </li>
           );
-          
+
           elokuvat.push(elokuvaElementti);
         }
         setElokuvatLista(elokuvat);
@@ -154,46 +156,49 @@ export default function Shows() {
 
   return (
     <>
-    <div id="container">
-      <div id="otsikko"><h1>Finnkinon esitysajat</h1></div>
-      <div id="alue">
-        <h3>Mistä teatterista haetaan näytöstä?</h3>
-        <select name="area" id="area" onChange={e => setArea(e.target.value)}>
-          <option value="1029">Kaikki</option>
-          <option value="1014">Pääkaupunkiseutu</option>
-          <option value="1012">Espoo</option>
-          <option value="1039">Espoo: OMENA</option>
-          <option value="1038">Espoo: SELLO</option>
-          <option value="1002">Helsinki</option>
-          <option value="1045">Helsinki: ITIS</option>
-          <option value="1031">Helsinki: KINOPALATSI</option>
-          <option value="1032">Helsinki: MAXIM</option>
-          <option value="1033">Helsinki: TENNISPALATSI</option>
-          <option value="1013">Vantaa: FLAMINGO</option>
-          <option value="1015">Jyväskylä: FANTASIA</option>
-          <option value="1016">Kuopio: SCALA</option>
-          <option value="1017">Lahti: KUVAPALATSI</option>
-          <option value="1041">Lappeenranta: STRAND</option>
-          <option value="1018">Oulu: PLAZA</option>
-          <option value="1019">Pori: PROMENADI</option>
-          <option value="1021">Tampere</option>
-          <option value="1034">Tampere: CINE ATLAS</option>
-          <option value="1035">Tampere: PLEVNA</option>
-          <option value="1047">Turku ja Raisio</option>
-          <option value="1022">Turku: KINOPALATSI</option>
-          <option value="1046">Raisio: LUXE MYLLY</option>
-        </select>
-      </div>
-      <div id="pvm">
-        <h3>Minkä päivän esityksiä haetaan?</h3>
-        <input type="date" id="dateInput" onChange={e => setDate(e.target.value)}></input>
-      </div>
-
-      <div className="container">
-        <div id="elokuvat">
-          <ul id="elokuvatLista">{elokuvatLista}</ul>
+      <div id="show-container">
+        <div id="otsikko"><h1>Finnkinon esitysajat</h1></div>
+        <div className='hakualue'>
+          <div id="alue">
+            <h3>Mistä teatterista haetaan näytöstä?</h3>
+            <select name="area" id="area" onChange={e => setArea(e.target.value)}>
+              <option value="1029">Kaikki</option>
+              <option value="1014">Pääkaupunkiseutu</option>
+              <option value="1012">Espoo</option>
+              <option value="1039">Espoo: OMENA</option>
+              <option value="1038">Espoo: SELLO</option>
+              <option value="1002">Helsinki</option>
+              <option value="1045">Helsinki: ITIS</option>
+              <option value="1031">Helsinki: KINOPALATSI</option>
+              <option value="1032">Helsinki: MAXIM</option>
+              <option value="1033">Helsinki: TENNISPALATSI</option>
+              <option value="1013">Vantaa: FLAMINGO</option>
+              <option value="1015">Jyväskylä: FANTASIA</option>
+              <option value="1016">Kuopio: SCALA</option>
+              <option value="1017">Lahti: KUVAPALATSI</option>
+              <option value="1041">Lappeenranta: STRAND</option>
+              <option value="1018">Oulu: PLAZA</option>
+              <option value="1019">Pori: PROMENADI</option>
+              <option value="1021">Tampere</option>
+              <option value="1034">Tampere: CINE ATLAS</option>
+              <option value="1035">Tampere: PLEVNA</option>
+              <option value="1047">Turku ja Raisio</option>
+              <option value="1022">Turku: KINOPALATSI</option>
+              <option value="1046">Raisio: LUXE MYLLY</option>
+            </select>
+          </div>
+          <div id="pvm">
+            <h3>Minkä päivän esityksiä haetaan?</h3>
+            <input type="date" id="dateInput" onChange={e => setDate(e.target.value)}></input>
+          </div>
         </div>
-      </div>
+        <div className="elokuvat-container">
+          <div className='elokuvat-area'>
+            <div id="elokuvat">
+              <ul id="elokuvatLista">{elokuvatLista}</ul>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   )

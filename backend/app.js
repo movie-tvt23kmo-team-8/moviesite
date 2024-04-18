@@ -7,7 +7,7 @@ const login = require('./routes/login');
 const groupmember = require('./routes/groupmember');
 const invite = require('./routes/invite');
 const search = require('./routes/search');
-
+const review = require('./routes/reviews');
 
 const cors = require('cors');
 const express = require('express');
@@ -32,6 +32,7 @@ app.use('/', register);
 app.use('/groupmember', groupmember);
 app.use('/invite', invite);
 app.use('/search', search);
+app.use('/review', review);
 
 app.get('/', (req, res) => {
     res.send('Welcome to moviesite website')
