@@ -95,6 +95,12 @@ export default function Group() {
     setSelectedGroup(group);
   }
 
+  const addToGroup = async () => {
+    const groupUser = {
+      
+    }
+  }
+
   return (
     <div className='group-container'>
       <h1>Groups</h1>
