@@ -6,14 +6,12 @@ import Avatar from '@mui/material/Avatar';
 import { Unstable_Popup as BasePopup } from '@mui/base/Unstable_Popup';
 import { styled } from '@mui/system';
 import Password from '../components/Password';
-import { seeInvites } from './SeeInvites';
-
+import SeeInvites from './SeeInvites'; // Import the SeeInvites component
 
 export default function Profile() {
   const [username, setUsername] = useState('');
   const [anchorEl, setAnchorEl] = useState(null);
   const [avatarSrc, setAvatarSrc] = useState(require('../img/logo.png'));
-  const [invites, setInvites] = useState([]);
   const [deleteConfirmed, setDeleteConfirmed] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -33,10 +31,6 @@ export default function Profile() {
 
   const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
-  };
-
-  const handleInviteClick = () => {
-    seeInvites(setInvites);
   };
 
   const handleFileInputChange = (event) => {
@@ -61,8 +55,7 @@ export default function Profile() {
           console.error('JWT token not found');
           return;
         }
-        const headers = {headers: {'Content-Type': 'application/json','Authorization': `Bearer ${jwtToken}`}
-        };
+        const headers = {headers: {'Content-Type': 'application/json','Authorization': `Bearer ${jwtToken}`}};
         const idaccountResponse = await axios.get(`/users/getUserID?username=${username}`, headers);
         if (idaccountResponse.status === 200) {
           const idaccount = idaccountResponse.data.idaccount;
@@ -133,7 +126,7 @@ export default function Profile() {
         group
       </div>
       <div className='profile-invites'>
-        <button onClick={handleInviteClick}>See Invites</button>
+        <SeeInvites /> {}
       </div>
       <div className='delete-user'>
         <button onClick={handleDeleteUser}>

@@ -57,6 +57,7 @@ export default function Group() {
         
         if (response.status === 200) {
           console.log('Request sent successfully');
+          window.location.reload();
         } else {
           console.error('Failed to send request');
         }
@@ -89,6 +90,7 @@ export default function Group() {
     })
     const resultInJson = await result.json()
     console.log(resultInJson)
+    window.location.reload();
   }
 
   const handleGroupClick = (group) => {
@@ -118,7 +120,7 @@ export default function Group() {
                 <div>
                   <p>Name: {selectedGroup.groupname}</p>
                   <p>Description: {selectedGroup.groupdetails}</p>
-                  <button onClick={sendRequest}>Liity</button>
+                  <button onClick={sendRequest}>Lähetä liittymispyyntö</button>
                 </div>
               </Popup>
             )}
