@@ -1,4 +1,4 @@
-const { addReview, getReviews } = require("../database/reviews_db");
+const { addReview, getReviews, getReview } = require("../database/reviews_db");
 const { getUserID } = require("../database/users_db");
 const { auth } = require( "../middleware/auth");
 const router = require("express").Router();
@@ -31,6 +31,11 @@ router.get('/allReviews', async (req, res) => {
         console.error('Error fetching reviews:', error);
         res.status(500).json({ error: 'Error fetching reviews' });
     }
+});
+
+router.get('/getReview', async (req, res) => {
+    const reviews = await getReview(mdbdata);
+    res.json(reviews);
 });
 
 router.get('/getReviewByUserID', async (req, res) => {

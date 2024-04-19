@@ -35,8 +35,10 @@
 }
 
 .mediadetail{
+    display: flex;
     font-size: 150%;
     padding: 5%;
+    margin-right: 2%;
 }
 
 .popupIcon-heart, .popupIcon-group{
