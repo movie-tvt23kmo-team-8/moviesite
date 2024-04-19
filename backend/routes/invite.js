@@ -1,6 +1,6 @@
 const { auth } = require('../middleware/auth')
 const { getUserID } = require('../database/users_db');
-const { sendRequest, acceptRequest, getIdinvites, getAllInvites, getIdinvitesForUser } = require('../database/invite_db');
+const { sendRequest, acceptRequest, getIdinvites, getAllInvites, getIdinvitesForUser, denyRequest } = require('../database/invite_db');
 const { response } = require('express');
 
 const router = require('express').Router();
@@ -33,13 +33,27 @@ router.post('/acceptRequest', auth, async (req, res) => {
     }
 });
 
-router.get('/getAllInvites', auth, async (req, res) => {
-    const idaccountreceiver = req.body.idaccountreceiver
+router.post('/denyRequest', auth, async (req, res) => {
+    const idaccountReceiver = await getUserID(res.locals.username)
+    const idaccountSender = req.body.idaccountSender
+    const idgroup = req.body.idgroup
+    
+    try {
+        await denyRequest(idaccountReceiver, idaccountSender, idgroup)
+        res.status(200).json({ message: 'Pyyntö hylätty' });
+    } catch(error) {
+        console.error('Error denying request:', error);
+    }
+});
+
+router.get('/getAllInvites', async (req, res) => {
+    const idaccountreceiver = req.query.idaccountreceiver
     try {
         const invites = await getAllInvites(idaccountreceiver)
         res.status(200).json({ message: 'All the invites: ', invites });
     } catch(error) {
-    console.error('Error sending request:', error);
+        console.error('Error sending request:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 

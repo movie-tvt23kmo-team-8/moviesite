@@ -6,7 +6,8 @@ const sql = {
    CHECK_IF_ACCEPTED: 'SELECT "hasaccepted" FROM "invites" WHERE idinvites = $1',
    GET_IDINVITES: 'SELECT "idinvites" FROM "invites" WHERE idaccountReceiver = $1 AND idaccountSender = $2 AND idgroup = $3',
    GET_IDINVITES_FORUSER: 'SELECT "idinvites" FROM "invites" WHERE idaccountsender = $1 AND idgroup = $2',
-   GET_ALL_INVITES: 'SELECT * FROM "invites" WHERE idaccountreceiver = $1'
+   GET_ALL_INVITES: 'SELECT * FROM "invites" WHERE idaccountreceiver = $1',
+   DENY_REQUEST: 'DELETE FROM "invites" WHERE "idaccountreceiver" = $1 AND "idaccountsender" = $2 AND "idgroup" = $3'
 }
 
 async function sendRequest(idaccountReceiver, idaccountSender, idgroup, hasAccpeted) {
@@ -16,6 +17,11 @@ async function sendRequest(idaccountReceiver, idaccountSender, idgroup, hasAccpe
 
 async function acceptRequest(idinvites) {
     let result = await pgPool.query(sql.ACCEPT_REQUEST, [idinvites])
+    return result.rows;
+}
+
+async function denyRequest(idaccountreceiver, idaccountsender, idgroup) {
+    let result = await pgPool.query(sql.DENY_REQUEST, [idaccountreceiver, idaccountsender, idgroup])
     return result.rows;
 }
 
@@ -47,4 +53,4 @@ async function getAllInvites(idaccountReceiver) {
 }
 
 
-module.exports = {sendRequest, acceptRequest, checkIfAccepted, getIdinvites, getAllInvites, getIdinvitesForUser}
+module.exports = {sendRequest, acceptRequest, checkIfAccepted, getIdinvites, getAllInvites, getIdinvitesForUser, denyRequest}
