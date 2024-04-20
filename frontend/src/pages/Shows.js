@@ -111,20 +111,21 @@ export default function Shows() {
       return;
     }*/
 
-    console.log('Lisätään ryhmän sivulle:', data);
-
-    const title = data.getElementsByTagName('Title')[0].textContent;
+    //const title = data.getElementsByTagName('Title')[0].textContent;
     const id = data.getElementsByTagName('ID')[0].textContent;
-    const showtime = parseroiShowtime(data.getElementsByTagName('dttmShowStart')[0].textContent);
-    const image = data.getElementsByTagName('EventSmallImagePortrait')[0].textContent;
-    const linkki = data.getElementsByTagName('ShowURL')[0].textContent;
-    const teatteri = data.getElementsByTagName('TheatreAndAuditorium')[0].textContent;
-    alert(`Lisätään ryhmän sivulle: ${title}\n${teatteri}, ${showtime}\n${linkki}`);
-
+    //const showtime = parseroiShowtime(data.getElementsByTagName('dttmShowStart')[0].textContent);
+    //const image = data.getElementsByTagName('EventSmallImagePortrait')[0].textContent;
+    //const linkki = data.getElementsByTagName('ShowURL')[0].textContent;
+    //const teatteri = data.getElementsByTagName('TheatreAndAuditorium')[0].textContent;
+    //alert(`Lisätään ryhmän sivulle: ${title}\n${teatteri}, ${showtime}\n${linkki}`);
+    alert(`Lisätään ryhmän sivulle: ${id}`);
     const formData = new FormData();
+
     formData.append('idgroup', '30');//kovakoodattuna kunnes oma tietokanta toimii tämän suhteen
     //formData.append('idgroup', selectedGroup);
-    formData.append('data', JSON.stringify({ title, id, showtime, image, linkki, teatteri }));
+
+    formData.append('data', JSON.stringify({ id }));
+    //formData.append('data', JSON.stringify({ title, id, showtime, image, linkki, teatteri }));
 
     fetch('http://localhost:3001/group/addToWatchlist', {
       method: 'POST',
