@@ -34,6 +34,7 @@ router.get('/allReviews', async (req, res) => {
 });
 
 router.get('/getReview', async (req, res) => {
+    const mdbdata = req.query.mdbdata;
     const reviews = await getReview(mdbdata);
     res.json(reviews);
 });

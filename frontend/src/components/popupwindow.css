@@ -5,20 +5,21 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding-top: 50px;
-    z-index: 9999; /* Ensure the popup window appears over everything */
+    padding-top: 10px;
+    z-index: 9999;
+    overflow-y: auto; 
+    height: 100%;
 }
 
 .popup-window {
     background-color: white;
     width: 100%;
     max-width: 1000px;
-    padding: 20px;
+    padding: 1%;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     position: relative; /* Set position to relative or absolute */
@@ -29,6 +30,15 @@
     display: flex;
 }
 
+.popup-img-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.popup-img{
+    height: 50%;
+}
+
 .popupbutton{
     margin: 2%;
     font-size: 150%;
@@ -36,8 +46,8 @@
 
 .mediadetail{
     display: flex;
-    font-size: 150%;
-    padding: 5%;
+    font-size: 120%;
+    padding: 2%;
     margin-right: 2%;
 }
 
@@ -48,6 +58,31 @@
 
 .popupIcon-heart{
     color: rgb(214, 82, 104);
+}
+
+.popup-reviews-section{
+    margin-left: 3%;
+}
+
+.popup-review{
+    list-style: none;
+    font-size: 120%;
+    padding: 2%;
+    margin-left: 3%;
+}
+
+.popup-reviewinfo{
+    margin-bottom: 1%;
+}
+
+.popup-reviewstar{
+    display: flex;
+}
+
+.popup-reviewer{
+    font-size: 80%;
+    font-style: italic;
+    margin-left: 2%;
 }
 
 /* Add more CSS rules as needed */
