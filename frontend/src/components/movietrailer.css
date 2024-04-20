@@ -6,6 +6,7 @@
   background-color: black;
   height: 80vh;
   margin-top: 10%;
+  width: 100%;
 }
 
 .center-video h2 {
@@ -24,27 +25,38 @@
 }
 
 @media (max-width: 800px){
+
   .center-video {
-    height: 55vh;
+    margin-top: 20%;
+    height: 50vh;
+    width: 800px;
+  }
+  
+  .center-video h2 {
+    font-size: 120%;
+  }
+  
+  .movie-trailer{
+    right: 3%;
+    bottom: 60%;
   }
 
 }
 
 @media (max-width: 400px){
   .center-video {
+    margin-top: 10%;
+    width: 500px;
     height: 30vh;
-    width: 120%;
+    margin-left: 10%;
   }
   
-  h2 {
-    font-size: 50%;
-    position: absolute;
-    right: 1%;
-    bottom: 78%;
-    color: aliceblue;
-    background-color: rgba(37, 37, 37, 0.5);
-    padding: 2%;
-    border-radius: 50px;
+  .center-video h2 {
+    font-size: 100%;
+  }
+  
+  .movie-trailer{
+    bottom: 75%;
   }
 
 }

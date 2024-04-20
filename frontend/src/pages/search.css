@@ -66,6 +66,8 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  align-items: center; /* Center items horizontally */
+  justify-content: center;
 }
 
 .search-poster{
@@ -78,3 +80,30 @@
   margin: 10px 0px;
 }
 
+@media (max-width: 800px){
+  
+  .search-page{
+    font-size: 50%;
+    margin-top: 10%;
+  }
+  
+  .search-name{
+    width: 100%;
+    padding: 2%;
+  }
+
+  .results-container {
+    margin-top: 20%;
+  }
+}
+
+@media (max-width: 400px){
+  .results-container {
+    margin-top: 40%;
+  }
+  
+  .search-poster{
+    width: 70%;
+    height: auto;
+  }
+}

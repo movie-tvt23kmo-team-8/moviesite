@@ -63,6 +63,10 @@
 }
 
 @media (max-width: 800px) {
+
+    .container-media {
+        font-size: 50%;
+    }
     
     .media-poster {
         max-width: 120px; 

@@ -142,8 +142,8 @@ export default function Favourite() {
                 key={mediaItem.id}
                 className={`favourite-card-item favourite-${index}`}
                 to={`/details/${favourite.id}`}>
-                <a href={favourite.link}target="_blank">{favourite.posterUrl && <img className="review-picture" src={`https://image.tmdb.org/t/p/original${favourite.posterUrl}`} alt="Movie Poster" />}</a>
-                <h3>{favourite.title}</h3>
+                <a href={favourite.link}target="_blank">{favourite.posterUrl && <img className="favourite-picture" src={`https://image.tmdb.org/t/p/original${favourite.posterUrl}`} alt="Movie Poster" />}</a>
+                <h3 className='favourite-title'>{favourite.title}</h3>
               </Link>
             ))}
           </div>
@@ -170,7 +170,7 @@ export default function Favourite() {
                         <p>No poster available</p>
                       )}
                       <p>{result.title || result.name}</p>
-                      <button onClick={() => handleAddFavourite(result.id, result.media_type)}>Add to favorites</button>
+                      <button className='addfavourite-button' onClick={() => handleAddFavourite(result.id, result.media_type)}>Add to favorites</button>
                     </div>
                   ))
                 )}

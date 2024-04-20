@@ -4,7 +4,7 @@ import './popupwindow.css'; // Import the CSS file for styling
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 
-const Popupwindow = ({ mediaItem, onClose, onAddToFavourites }) => {
+const Popupwindow = ({ mediaItem, onClose }) => {
     const [reviews, setReviews] = useState([]);
 
     useEffect(() => {
@@ -24,6 +24,7 @@ const Popupwindow = ({ mediaItem, onClose, onAddToFavourites }) => {
 
         fetchReviews();
     }, [mediaItem.id]);
+
     // Function to format the date
     const formatDate = (dateString) => {
         if (dateString) {
@@ -31,6 +32,33 @@ const Popupwindow = ({ mediaItem, onClose, onAddToFavourites }) => {
             return `${day}.${month}.${year}`;
         }
         return ''; // Return empty string if dateString is undefined
+    };
+
+    // Function to handle adding to favorites
+    const addToFavorites = async () => {
+        try {
+            const jwtToken = sessionStorage.getItem('token');
+            if (!jwtToken) {
+                console.error('JWT token not found');
+                return;
+            }
+            const headers = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${jwtToken}`
+                }
+            };
+            const response = await axios.post('http://localhost:3001/favourite/addFavourite', {
+                mdbdata: mediaItem.id // Send the movie or series ID
+            }, headers);
+            if (response.status === 200) {
+                console.log('Added to favorites');
+            } else {
+                console.error('Failed to add to favorites');
+            }
+        } catch (error) {
+            console.error('Error adding to favorites:', error);
+        }
     };
 
     return (
@@ -41,7 +69,7 @@ const Popupwindow = ({ mediaItem, onClose, onAddToFavourites }) => {
                         <img className='popup-img' src={`https://image.tmdb.org/t/p/w400/${mediaItem.poster_path}`} alt={mediaItem.title} />
                         <div>
                             <button className='popupbutton' onClick={onClose}>Close</button>
-                            <i className="popupIcon-heart fa-solid fa-heart-circle-plus"></i>
+                            <i className="popupIcon-heart fa-solid fa-heart-circle-plus" onClick={addToFavorites}></i> 
                             <i className="popupIcon-group fa-solid fa-users-rectangle"></i>
                         </div>
                     </div>
@@ -55,7 +83,7 @@ const Popupwindow = ({ mediaItem, onClose, onAddToFavourites }) => {
                             {mediaItem.first_air_date && <label>  {formatDate(mediaItem.first_air_date)}</label>} {/* Format first air date if it exists */}
                         </div>
                         <div className="popup-reviews-section">
-                            <h2>Arvostelut</h2>
+                            <h2 className='popup-reviewtitle'>Arvostelut</h2>
                             <ul className='popup-review'>
                                 {reviews.map((review, index) => (
                                     <li className='popup-reviewinfo' key={index}>
@@ -64,8 +92,6 @@ const Popupwindow = ({ mediaItem, onClose, onAddToFavourites }) => {
                                             <BasicRating value={review.star}></BasicRating>
                                             <strong className='popup-reviewer'>{review.username} </strong>
                                         </Box>
-
-
                                     </li>
                                 ))}
                             </ul>
