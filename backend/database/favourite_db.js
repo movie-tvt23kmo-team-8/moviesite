@@ -7,8 +7,7 @@ const sql = {
 
 async function addFavourite(idaccount, mdbdata) {
     // Convert mdbdata to a string representation
-    const truncatedMdbdata = JSON.stringify(mdbdata).substring(0, 255);
-    
+    const truncatedMdbdata = JSON.stringify(mdbdata).substring(0, 255);  
     let result = await pgPool.query(sql.ADD_FAVOURITE, [idaccount, truncatedMdbdata]);
     return result.rows;
 }
