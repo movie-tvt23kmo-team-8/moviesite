@@ -79,8 +79,12 @@ h3{
   margin: 1%;
 }
 
-.show-img img {
+.show-img{
   position: relative;
+}
+
+
+.show-img img {
   max-width: 100%; /* Set the maximum width of the image to 100% of its container */
   height: auto;
 }
@@ -88,7 +92,7 @@ h3{
 .showsicon-heart, .showsicon-group {
   font-size: 1.5rem; /* Voit muuttaa tämän arvon tarpeidesi mukaan */
   position: absolute;
-  bottom: 0px; /* Voit muuttaa tämän arvon tarpeidesi mukaan */
+  bottom: 0; /* Voit muuttaa tämän arvon tarpeidesi mukaan */
   z-index: 999;
 }
 
