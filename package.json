@@ -1,0 +1,10 @@
+{
+  "name": "moviesite",
+  "lockfileVersion": 3,
+  "requires": true,
+  "packages": {},
+  "scripts": {
+    "install": "cd frontend && npm install && cd ../backend && npm install",
+    "start": "cd frontend && npm start & cd ../backend && npm start"
+  }
+}
