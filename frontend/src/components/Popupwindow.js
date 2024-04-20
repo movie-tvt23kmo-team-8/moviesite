@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './popupwindow.css'; // Import the CSS file for styling
+import './popupwindow.css'; 
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
+import AddToFavoritesIcon from './AddFavouriteIcon';
 
 const Popupwindow = ({ mediaItem, onClose }) => {
     const [reviews, setReviews] = useState([]);
@@ -34,31 +35,8 @@ const Popupwindow = ({ mediaItem, onClose }) => {
         return ''; // Return empty string if dateString is undefined
     };
 
-    // Function to handle adding to favorites
-    const addToFavorites = async () => {
-        try {
-            const jwtToken = sessionStorage.getItem('token');
-            if (!jwtToken) {
-                console.error('JWT token not found');
-                return;
-            }
-            const headers = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${jwtToken}`
-                }
-            };
-            const response = await axios.post('http://localhost:3001/favourite/addFavourite', {
-                mdbdata: mediaItem.id // Send the movie or series ID
-            }, headers);
-            if (response.status === 200) {
-                console.log('Added to favorites');
-            } else {
-                console.error('Failed to add to favorites');
-            }
-        } catch (error) {
-            console.error('Error adding to favorites:', error);
-        }
+    const handleAddToFavorites = () => {
+        console.log('Added to favorites');
     };
 
     return (
@@ -69,7 +47,7 @@ const Popupwindow = ({ mediaItem, onClose }) => {
                         <img className='popup-img' src={`https://image.tmdb.org/t/p/w400/${mediaItem.poster_path}`} alt={mediaItem.title} />
                         <div>
                             <button className='popupbutton' onClick={onClose}>Close</button>
-                            <i className="popupIcon-heart fa-solid fa-heart-circle-plus" onClick={addToFavorites}></i> 
+                            <AddToFavoritesIcon mdbdata={mediaItem} onAddToFavorites={handleAddToFavorites} />
                             <i className="popupIcon-group fa-solid fa-users-rectangle"></i>
                         </div>
                     </div>
