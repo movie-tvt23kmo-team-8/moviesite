@@ -1,5 +1,5 @@
 const { error } = require('console');
-const { getUsers, getUserID, deleteUser } = require('../database/users_db');
+const { getUsers, getUserID, deleteUser, getImageIdByUsername } = require('../database/users_db');
 const { auth } = require('../middleware/auth')
 
 const router = require('express').Router();
@@ -19,12 +19,16 @@ router.get('/getUserID', async (req, res) => {
     }
 });
 
-router.get('/personal', auth, async (req,res)=>{
-    try{
-       const username = res.locals.username;
-       res.status(200).json({username: username});
-    }catch(err){
-       res.status(500).json({error: err.message});
+router.get('/personal', auth, async (req, res) => {
+    try {
+        const username = res.locals.username;
+        const imageid = await getImageIdByUsername(username); // Assuming you have a function to fetch imageid
+        console.log('Username:', username); // Log username
+        console.log('Image ID:', imageid); // Log imageid
+        res.status(200).json({ username: username, imageid: imageid });
+    } catch (err) {
+        console.error('Error:', err.message); // Log error
+        res.status(500).json({ error: err.message });
     }
 });
 
