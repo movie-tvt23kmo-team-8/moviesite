@@ -9,6 +9,13 @@ const Popupwindow = ({ mediaItem, onClose }) => {
     const [reviews, setReviews] = useState([]);
     const [reviewText, setReviewText] = useState('');
     const [ratingValue, setRatingValue] = useState(0);
+    const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track user's login status
+
+    useEffect(() => {
+        // Check if JWT token exists in sessionStorage
+        const jwtToken = sessionStorage.getItem('token');
+        setIsLoggedIn(!!jwtToken); // Update isLoggedIn state based on token existence
+    }, []);
 
     // Function to fetch reviews
     const fetchReviews = async () => {
@@ -107,6 +114,7 @@ const submitReview = async () => {
                                 ))}
                             </ul>
                         </div>
+                        {isLoggedIn && (
                         <div className='write-Review'>
                             <h3>Anna arvostelu</h3>
                             <textarea
@@ -120,6 +128,7 @@ const submitReview = async () => {
                             </Box>
                             <button onClick={submitReview}>Submit Review</button>
                         </div>
+                    )}
                     </div>
                     <Box>
                         <BasicRating value={mediaItem.vote_average / 2} />
