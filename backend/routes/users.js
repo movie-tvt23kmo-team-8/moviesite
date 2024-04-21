@@ -1,5 +1,5 @@
 const { error } = require('console');
-const { getUsers, getUserID, deleteUser, getImageIdByUsername } = require('../database/users_db');
+const { getUsers, getUserID, deleteUser, getImageIdByUsername, updateImageIdByUsername } = require('../database/users_db');
 const { auth } = require('../middleware/auth')
 
 const router = require('express').Router();
@@ -31,6 +31,30 @@ router.get('/personal', auth, async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
+// users.js (backend route)
+
+router.put('/updatePic', auth, async (req, res) => { // Ensure authentication
+    try {
+        const { idaccount } = req.body; // Get idaccount from request body
+        const { imageId } = req.body; // Get imageId from request body
+        console.log('Updating profile picture for:', idaccount); // Log idaccount
+        console.log('Request Body:', req.body); // Log request body
+        const rowsAffected = await updateImageIdByUsername(idaccount, imageId);
+        console.log('Rows affected:', rowsAffected); // Log rowsAffected
+        if (rowsAffected === 1) {
+            res.status(200).json({ message: 'Profile picture updated successfully' });
+        } else {
+            throw new Error('Failed to update profile picture');
+        }
+    } catch (err) {
+        console.error('Error updating profile picture:', err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+
+
 
 router.delete('/delete', auth, async (req, res) =>{
     try {

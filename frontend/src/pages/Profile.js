@@ -159,7 +159,8 @@ export default function Profile() {
           {deleteConfirmed ? "Confirm Delete" : "Delete User"}
         </button>
       </div>
-      {openPhotoPopup && <ProfilePicUpdate closePhotoPopup={handleClosePopup} />} {/* Render ProfilePicUpdate if openPhotoPopup state is true */}
+      {openPhotoPopup && <ProfilePicUpdate closePhotoPopup={handleClosePopup} setImageId={setImageId} username={username} />}
+
     </div>
   );
 }
