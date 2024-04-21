@@ -1,5 +1,6 @@
-const { group } = require('console');
+const { group, error } = require('console');
 const { addGroup, getGroups, getGroupID } = require('../database/group_db');
+const { add2GroupChoices, getGroupChoices, deleteGroupChoice} = require('../database/groupchoices_db')
 const { makeAdmin } = require('../database/groupmember_db');
 const { getUserID } = require('../database/users_db');
 const { auth } = require('../middleware/auth')
@@ -33,6 +34,40 @@ router.post('/addGroup', auth, async (req, res) => {
 router.get('/allGroups', async (req, res) => {
     const groups = await getGroups();
     res.json(groups);
+});
+
+router.post('/addToWatchlist', async (req, res) => {
+    const idgroup = req.body.idgroup;
+    const data = req.body.data;
+    const mediatype = req.body.mediaType;
+    console.log(idgroup, data, mediatype);
+    try {
+        await add2GroupChoices(idgroup, data, mediatype)
+        res.status(200).json({ message: 'Lisätty ryhmään!' });
+    } catch (error) {
+        console.error('Error adding to watchlist:', error);
+        res.status(500).json({ error: 'Error adding to watchlist' });
+    }
+
+});
+
+router.get('/getFromWatchlist', async (req, res) => {
+    const idgroup = req.body.idgroup;
+    console.log(idgroup);
+    const choices = await getGroupChoices(idgroup);
+    res.json(choices); 
+
+});
+
+router.delete('/deleteFromWatchlist', async (req, res) => {
+    try{
+        const idgroupchoice = req.query.idgroupchoice;
+        console.log("backend poistetaan ryhmän sisältöä", idgroupchoice);
+        await deleteGroupChoice(idgroupchoice);
+        res.status(200).json({message: 'You have delete from watchlist'})
+    } catch(err){
+        res.status(500).json({error: err.message})
+    }
 });
 
 module.exports = router;
