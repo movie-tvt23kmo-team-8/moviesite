@@ -72,7 +72,7 @@ export default function Shows() {
           let linkkiElementti = <a href={linkki} target="_blank">Osta liput</a>
 
           let elokuvaElementti = (
-            <li key={id}>
+            <li className='show-list' key={id}>
               {kuvaElementti}
               <br />
               {tekstiElementti}

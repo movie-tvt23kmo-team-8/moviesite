@@ -5,6 +5,8 @@
   position: absolute;
   top: 0;
   color: white;
+  width: 100%;
+  
 }
 
 #otsikko {
@@ -45,22 +47,22 @@ h3{
   margin: 0 5%;
   padding: 2%;
 }
+
 .elokuvat-container{
   margin: 1%;
-}
-.elokuvat-area{
-  display: flex;
-  justify-content: center; /* Center contents horizontally */
-  align-items: center; /* Center contents vertically */
   width: 100%; /* Ensure it takes up the full width of the container */
   margin-top: 50px; /* Adjust as needed to leave space for the top bar */
   text-align: center;
-  background-color: rgba(37, 37, 37, 0.5);
-  border-radius: 50px;
 }
 
-#elokuvat{
-
+.elokuvat-area{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center contents horizontally */
+  align-items: center; /* Center contents vertically */
+  background-color: rgba(37, 37, 37, 0.5);
+  border-radius: 50px;
+  margin: 0 5%;
 }
 
 #elokuvatLista {
@@ -70,17 +72,27 @@ h3{
   flex-wrap: wrap;
   justify-content: center; /* Center contents horizontally */
   width: 100%; /* Ensure it takes up the full width of the elokuvat-container */
-  margin-top: 20px; /* Add some margin to the top to prevent overlap with top bar */
+  margin: 0;
 }
 
-.show-img {
+.show-list{
+  margin: 1%;
+}
+
+.show-img{
   position: relative;
+}
+
+
+.show-img img {
+  max-width: 100%; /* Set the maximum width of the image to 100% of its container */
+  height: auto;
 }
 
 .showsicon-heart, .showsicon-group {
   font-size: 1.5rem; /* Voit muuttaa tämän arvon tarpeidesi mukaan */
   position: absolute;
-  bottom: 0px; /* Voit muuttaa tämän arvon tarpeidesi mukaan */
+  bottom: 0; /* Voit muuttaa tämän arvon tarpeidesi mukaan */
   z-index: 999;
 }
 
@@ -100,30 +112,64 @@ h3{
   color: #444;
 }
 
-/* Näytetään enintään neljä elokuvaa rinnakkain */
-@media (min-width: 768px) {
-  #elokuvatLista li {
-    width: 25%;
-    float: right;
-    box-sizing: border-box;
-    padding: 10px;
+
+@media (max-width: 700px){
+  #otsikko {
+    margin-top: 15%;
   }
-}
-
-/* Jos näyttö on kapeampi, näytetään elokuvat kokonaisina */
-@media (max-width: 767px) {
-  #elokuvatLista li {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 10px;
+  
+  h3{
+    font-size: 80%;
   }
+
+  
+  #alue {
+    width: 40%;
+    height: 80px;
+  }
+  
+  #pvm {
+    width: 40%;
+    height: 80px;
+  }
+  
 }
 
-.title {
-  margin-bottom: 5px; /* Lisää tilaa otsikon alapuolelle */
-}
+@media (max-width: 400px){
+  h1{
+    font-size: 100%;
+  }
+  
+  #alue {
+    width: 40%;
+    height: 55px;
+    font-size: 60%;
+  }
+  
+  #pvm {
+    width: 40%;
+    height: 55px;
+    font-size: 60%;
+  }
+  
+  #elokuvatLista {
+    list-style: none;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center contents horizontally */
+    width: 100%; /* Ensure it takes up the full width of the elokuvat-container */
+    margin: 0;
+  }
+  
+  .show-list{
+    margin: 5%;
+  }
 
-.showtime {
-  margin-bottom: 5px; /* Lisää tilaa näytösaika-tekstin alapuolelle */
+  .show-img img {
+    position: relative;
+    max-width: 80%; /* Set the maximum width of the image to 100% of its container */
+    height: auto;
+  }
 }
 

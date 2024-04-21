@@ -50,15 +50,22 @@ export default function Reviews() {
 
   return (
     <div className='review-container'>
-      <h1>Reviews</h1>
-      <div className='review-card'>
+      <div className='review-header'>
+        <h1>Annetut arvostelut</h1>
+      </div>
+      
+      <div className='review-area'>
         {reviews.map((review, index) => (
-          <div key={index}>
+          <div className='review-card' key={index}>
+            <div className='review-text'>
             <p>Arvostelija: {review.username}</p>
             <p>Elokuvan nimi: {review.title}</p>
             <p>Review: {review.review}</p>
+            </div>
+            <div>
             <a href={review.link}target="_blank">{review.posterUrl && <img className="review-picture" src={`https://image.tmdb.org/t/p/original${review.posterUrl}`} alt="Movie Poster" />}</a>
-          </div>
+            </div>
+           </div>
         ))}
       </div>
     </div>

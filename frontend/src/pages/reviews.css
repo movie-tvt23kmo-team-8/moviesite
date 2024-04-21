@@ -1,6 +1,45 @@
+.review-container{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  align-items: center;
+}
+
+.review-header{
+  margin-top: 10%;
+}
+
+.review-area{
+  display: flex;
+  flex-wrap: wrap; /* Allow results to wrap to the next line if needed */
+  align-items: center; /* Center items horizontally */
+  justify-content: center;
+  text-align: center;
+  background-color: rgba(37, 37, 37, 0.5);
+  margin: 2%;
+  border-radius: 50px;
+}
+
+.review-card {
+  display: flex;
+  margin: 1%;
+  width: 30%; /* Adjust width to accommodate both text and picture */
+  height: 250px;
+  background-color: #ccc;
+  border-radius: 50px;
+  padding: 2%;
+  align-items: center;
+}
+
+.review-text {
+  flex: 1; /* Allow text to take up remaining space */
+  text-align: left;
+  padding: 1%;
+}
+
 .review-picture {
-    width: 200px; /* Määritä kuvan leveys */
-    height: auto; /* Määritä kuvan korkeus automaattisesti säilyttäen kuvasuhde */
-    border: 1px solid #ccc; /* Lisää reuna kuvan ympärille */
-  }
-  
+  height: 200px;
+  border: 1px solid #ccc;
+  margin-left: auto; /* Push picture to the right */
+}

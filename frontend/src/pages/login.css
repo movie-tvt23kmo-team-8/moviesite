@@ -1,14 +1,16 @@
 .login{
-    height: calc(50vh - 50px);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: absolute;
+    top: 0;
     background:linear-gradient(rgba(255,255,255,1),rgba(255,255,255,0.5)), url('../img/login.png');
     background-size: cover;
     background-position: center;
-    margin-top: 50%;
+    margin-top: 10%;
     width: 50%;
+    height: 50%;
     border-radius: 50px;
 }
 
@@ -25,6 +27,8 @@
 .login-form label{
     margin: 2% 0;
     font-weight: bold;
+    padding: 5%;
+
 }
 
 .login-form input{
@@ -35,7 +39,32 @@
 
 .login-button{
     cursor: pointer;
+    font-size: 50%;
 }
 
+@media (max-width: 800px){
 
+
+    .login{
+        margin-top: 15%;
+    }
+
+    .login-title{
+        font-size: 100%;
+    }
+
+    .login-form{
+        font-size: 50%;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .login-form input{
+        margin-bottom: 5%
+    }
+
+    .login-button{
+        width: 80%;
+    }
+  }
 
