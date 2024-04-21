@@ -84,7 +84,8 @@ export default function Profile() {
 
   const id = openPasswordPopup ? 'password-popup' : undefined;
 
-  const togglePasswordPopup = () => {
+  const togglePasswordPopup = (event) => {
+    setAnchorEl(event.currentTarget); // Set anchorEl to the clicked button
     setOpenPasswordPopup(!openPasswordPopup); // Toggle the password popup
   };
 
@@ -125,8 +126,11 @@ export default function Profile() {
           <Button aria-describedby={id} type="button" onClick={togglePasswordPopup} className='change-password'>
             Vaihda salasana
           </Button>
-          <BasePopup id={id} open={openPasswordPopup} anchor={anchorEl}>
+
+          <BasePopup id={id} open={openPasswordPopup} anchor={anchorEl} onClose={() => setAnchorEl(null)}>
+          <div className='vaihdasalasana'>
             <PopupBody>
+            
               <form className='change-password-form' >
                 <label>Vanha salasana</label>
                 <Password
@@ -141,8 +145,11 @@ export default function Profile() {
                   placeholder="Uusi salasana"
                 />
               </form>
+              
             </PopupBody>
+           </div>
           </BasePopup>
+          
         </div>
       </div>
       <div className='profile-favorite'>
@@ -201,6 +208,10 @@ const PopupBody = styled('div')(
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.875rem;
   z-index: 1;
+  position: absolute;
+  bottom: calc(0); // Position the popup below the button
+  left: 50%;
+  transform: translateX(-50%);
 `,
 );
 
