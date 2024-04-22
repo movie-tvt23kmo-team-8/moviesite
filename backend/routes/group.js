@@ -40,7 +40,7 @@ router.post('/addToWatchlist', async (req, res) => {
     const idgroup = req.body.idgroup;
     const data = req.body.data;
     const mediatype = req.body.mediaType;
-    console.log(idgroup, data, mediatype);
+    //console.log(idgroup, data, mediatype);
     try {
         await add2GroupChoices(idgroup, data, mediatype)
         res.status(200).json({ message: 'Lisätty ryhmään!' });
@@ -53,7 +53,7 @@ router.post('/addToWatchlist', async (req, res) => {
 
 router.get('/getFromWatchlist', async (req, res) => {
     const idgroup = req.body.idgroup;
-    console.log(idgroup);
+    //console.log(idgroup);
     const choices = await getGroupChoices(idgroup);
     res.json(choices); 
 
@@ -62,7 +62,7 @@ router.get('/getFromWatchlist', async (req, res) => {
 router.delete('/deleteFromWatchlist', async (req, res) => {
     try{
         const idgroupchoice = req.query.idgroupchoice;
-        console.log("backend poistetaan ryhmän sisältöä", idgroupchoice);
+        //console.log("backend poistetaan ryhmän sisältöä", idgroupchoice);
         await deleteGroupChoice(idgroupchoice);
         res.status(200).json({message: 'You have delete from watchlist'})
     } catch(err){
