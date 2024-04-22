@@ -8,13 +8,20 @@ const AddToFavoritesIcon = ({ mdbdata, onAddToFavorites }) => {
         if (addedToFavorites) {
             return; // Exit early if already added to favorites
         }
-
+        let type = null
+        if(!mdbdata.first_air_date){
+            type = "movie";
+        }else {
+            type= "series";
+        }
+        console.log( mdbdata.id, type);
         try {
             const jwtToken = sessionStorage.getItem('token');
             if (!jwtToken) {
                 console.error('JWT token not found');
                 return;
             }
+
             const headers = {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${jwtToken}`
@@ -22,7 +29,7 @@ const AddToFavoritesIcon = ({ mdbdata, onAddToFavorites }) => {
             const response = await fetch('http://localhost:3001/favourite/addFavourite', {
                 method: 'POST',
                 headers,
-                body: JSON.stringify({ mdbdata: mdbdata.id })
+                body: JSON.stringify({ mdbdata: mdbdata.id, type: type})
             });
             if (response.ok) {
                 console.log('Added to favorites');

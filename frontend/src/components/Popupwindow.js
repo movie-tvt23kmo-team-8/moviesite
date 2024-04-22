@@ -4,17 +4,34 @@ import './popupwindow.css';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import AddToFavoritesIcon from './AddFavouriteIcon';
+import { Select, MenuItem } from '@mui/material';
 
 const Popupwindow = ({ mediaItem, onClose }) => {
     const [reviews, setReviews] = useState([]);
     const [reviewText, setReviewText] = useState('');
     const [ratingValue, setRatingValue] = useState(0);
     const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track user's login status
+    const [userGroups, setUserGroups] = useState([]);
+    const [selectedGroup, setSelectedGroup] = useState('');
+
+    const handleGroupChange = (event) => {
+        setSelectedGroup(event.target.value);
+    };
 
     useEffect(() => {
         // Check if JWT token exists in sessionStorage
         const jwtToken = sessionStorage.getItem('token');
         setIsLoggedIn(!!jwtToken); // Update isLoggedIn state based on token existence
+
+        const getUserGroups = async () => {
+            const data = await fetchUserGroups();
+            if (data) {
+                setUserGroups(data.groups);
+                console.log("haettiin ryhmät");
+                console.log(data.groups);
+            }
+        };
+        getUserGroups();
     }, []);
 
     // Function to fetch reviews
@@ -32,39 +49,93 @@ const Popupwindow = ({ mediaItem, onClose }) => {
         }
     };
 
+    const fetchUserGroups = async () => {
+        try {
+            const jwtToken = sessionStorage.getItem('token');
+            if (!jwtToken) {
+                console.error('JWT token not found');
+                return;
+            }
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwtToken}`
+            };
+            const response = await fetch(`http://localhost:3001/users/userGroups`, {
+                method: 'GET',
+                headers: headers
+            });
+            if (!response.ok) {
+                console.error('Failed to fetch user groups');
+                return null;
+            }
+            const data = await response.json();
+            console.log(data)
+            return data;
+
+        } catch (err) {
+            console.error('Error:', err.message); // Log error
+        }
+    }
+
     useEffect(() => {
         fetchReviews();
     }, [mediaItem.id]);
 
-    // Function to handle review submission
-const submitReview = async () => {
-    try {
-        const jwtToken = sessionStorage.getItem('token');
-        if (!jwtToken) {
-            console.error('JWT token not found');
-            return;
-        }
-        const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${jwtToken}`
-        };
-        await axios.post('http://localhost:3001/review/addReview', {
-            star: ratingValue,
-            review: reviewText,
-            mdbdata: mediaItem.id
-        }, {
-            headers: headers // Pass JWT token in headers
-        });
-        // Refresh reviews after submission
-        fetchReviews();
-        // Clear review text and rating value after submission
-        setReviewText('');
-        setRatingValue(0);
-    } catch (error) {
-        console.error('Error submitting review:', error);
-    }
-};
 
+    // Function to handle review submission
+    const submitReview = async () => {
+        let type = null
+        if(!mediaItem.first_air_date){
+            type = "movie";
+        }else {
+            type= "series";
+        }
+        console.log( selectedGroup, mediaItem.id, type);
+        try {
+            const jwtToken = sessionStorage.getItem('token');
+            if (!jwtToken) {
+                console.error('JWT token not found');
+                return;
+            }
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwtToken}`
+            };
+            await axios.post('http://localhost:3001/review/addReview', {
+                star: ratingValue,
+                review: reviewText,
+                mdbdata: mediaItem.id
+            }, {
+                headers: headers // Pass JWT token in headers
+            });
+            // Refresh reviews after submission
+            fetchReviews();
+            // Clear review text and rating value after submission
+            setReviewText('');
+            setRatingValue(0);
+        } catch (error) {
+            console.error('Error submitting review:', error);
+        }
+    };
+
+    const add2GroupChoices = async () => {
+        let type = null
+        if(!mediaItem.first_air_date){
+            type = "movie";
+        }else {
+            type= "series";
+        }
+        console.log( selectedGroup, mediaItem.id, type);
+        try {
+            await axios.post('group/addToWatchlist', {
+                idgroup: selectedGroup,
+                data: mediaItem.id,
+                mediaType: type
+            });
+        } catch (error) {
+            console.error('Error when trying to add2group:', error);
+        }
+    };
 
     // Function to format the date
     const formatDate = (dateString) => {
@@ -89,6 +160,12 @@ const submitReview = async () => {
                             <button className='popupbutton' onClick={onClose}>Close</button>
                             <AddToFavoritesIcon mdbdata={mediaItem} onAddToFavorites={handleAddToFavorites} />
                             <i className="popupIcon-group fa-solid fa-users-rectangle"></i>
+                            <Select value={selectedGroup} onChange={handleGroupChange}>
+                                <option value="">Valitse ryhmä</option>
+                                {userGroups.map((group, index) => (
+                                    <MenuItem key={index} value={group.groupname}></MenuItem>
+                                ))}
+                            </Select>
                         </div>
                     </div>
                     <div className='popup-detail'>
@@ -115,20 +192,20 @@ const submitReview = async () => {
                             </ul>
                         </div>
                         {isLoggedIn && (
-                        <div className='write-Review'>
-                            <h3>Anna arvostelu</h3>
-                            <textarea
-                                placeholder='Kirjoita arvostelu'
-                                value={reviewText}
-                                onChange={(e) => setReviewText(e.target.value)}
-                                className='writeInput writeText'
-                            />
-                            <Box>
-                                <ControlledRating value={ratingValue} onChange={setRatingValue} />
-                            </Box>
-                            <button onClick={submitReview}>Submit Review</button>
-                        </div>
-                    )}
+                            <div className='write-Review'>
+                                <h3>Anna arvostelu</h3>
+                                <textarea
+                                    placeholder='Kirjoita arvostelu'
+                                    value={reviewText}
+                                    onChange={(e) => setReviewText(e.target.value)}
+                                    className='writeInput writeText'
+                                />
+                                <Box>
+                                    <ControlledRating value={ratingValue} onChange={setRatingValue} />
+                                </Box>
+                                <button onClick={submitReview}>Submit Review</button>
+                            </div>
+                        )}
                     </div>
                     <Box>
                         <BasicRating value={mediaItem.vote_average / 2} />
