@@ -6,46 +6,50 @@ import Avatar from '@mui/material/Avatar';
 import { Unstable_Popup as BasePopup } from '@mui/base/Unstable_Popup';
 import { styled } from '@mui/system';
 import Password from '../components/Password';
-import SeeInvites from './SeeInvites'; // Import the SeeInvites component
+import SeeInvites from './SeeInvites';
+import ProfilePicUpdate from '../components/ProfilePicUpdate';
 
 export default function Profile() {
   const [username, setUsername] = useState('');
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [avatarSrc, setAvatarSrc] = useState(require('../img/logo.png'));
+  const [imageid, setImageId] = useState('');
   const [deleteConfirmed, setDeleteConfirmed] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [openPasswordPopup, setOpenPasswordPopup] = useState(false);
+  const [openPhotoPopup, setOpenPhotoPopup] = useState(false);
+  const [loading, setLoading] = useState(true); // State to track loading status
+  const [anchorEl, setAnchorEl] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:3001/users/personal', {
-      headers: {
-        Authorization: `Bearer ${jwtToken.value}`
-      }
-    })
-      .then(response => {
-        setUsername(response.data.username);
+    // Fetch user data after 5 seconds
+    const fetchData = setTimeout(() => {
+      axios.get('http://localhost:3001/users/personal', {
+        headers: {
+          Authorization: `Bearer ${jwtToken.value}`
+        }
       })
-      .catch(error => {
-        console.error('Error fetching username:', error);
-      });
+        .then(response => {
+          setUsername(response.data.username);
+          setImageId(response.data.imageid);
+          setLoading(false); // Set loading to false after data is fetched
+        })
+        .catch(error => {
+          console.error('Error fetching username and imageid:', error);
+          setLoading(false); // Set loading to false even if there's an error
+        });
+    }, 10);
+
+    // Clear the timer when component unmounts
+    return () => clearTimeout(fetchData);
   }, []);
 
-  const handleClick = (event) => {
-    setAnchorEl(anchorEl ? null : event.currentTarget);
-  };
+  useEffect(() => {
+    console.log('Image ID:', imageid);
+    console.log('Image Source:', `../img/avatar/${imageid}.png`);
+  }, [imageid]);
 
-  const handleFileInputChange = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      setAvatarSrc(reader.result);
-    };
-
-    if (file) {
-      reader.readAsDataURL(file);
-    }
-  };
-
+  // Render loading message while data is being fetched
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   const handleDeleteUser = async () => {
     if (deleteConfirmed) {
@@ -55,7 +59,7 @@ export default function Profile() {
           console.error('JWT token not found');
           return;
         }
-        const headers = {headers: {'Content-Type': 'application/json','Authorization': `Bearer ${jwtToken}`}};
+        const headers = { headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${jwtToken}` } };
         const idaccountResponse = await axios.get(`/users/getUserID?username=${username}`, headers);
         if (idaccountResponse.status === 200) {
           const idaccount = idaccountResponse.data.idaccount;
@@ -78,29 +82,55 @@ export default function Profile() {
     }
   };
 
-  const id = open ? 'password-popup' : undefined;
+  const id = openPasswordPopup ? 'password-popup' : undefined;
+
+  const togglePasswordPopup = (event) => {
+    setAnchorEl(event.currentTarget); // Set anchorEl to the clicked button
+    setOpenPasswordPopup(!openPasswordPopup); // Toggle the password popup
+  };
+
+  const togglePhotoPopup = () => {
+    setOpenPhotoPopup(!openPhotoPopup); // Toggle the photo popup
+  };
+
+  const handleClosePopup = () => {
+    setOpenPhotoPopup(false); // Close the photo popup
+  };
+
+  const imageSrc = `../img/avatar/${imageid}.png`;
+  console.log('Image Source:', imageSrc);
+
 
   return (
     <div className='profile-container'>
       <div className='profile-info'>
         <div className='profile-pic'>
-          <Avatar className='profile-photo' alt="profilephoto" src={avatarSrc} sx={{ width: 200, height: 200 }} />
-          <div className='profile-add'>
+        {imageid && (
+          <img
+            className='profile-photo'
+            src={require(`../img/avatar/${imageid}.png`)}
+            alt="topimg"
+          />
+        )}
+
+          <div className='profile-add' onClick={togglePhotoPopup}> {/* Move the onClick handler here */}
             <label htmlFor='profile-input'>
               <i className="photo-add fa-solid fa-plus"></i>
             </label>
-            <input type='file' id='profile-input' style={{ display: "none" }} onChange={handleFileInputChange}/>
           </div>
         </div>
 
         <div className='profile-text'>
           <p>Käyttäjätunnus: {username}</p>
           <p>Kuvaus?</p>
-          <Button aria-describedby={id} type="button" onClick={handleClick} className='change-password'>
+          <Button aria-describedby={id} type="button" onClick={togglePasswordPopup} className='change-password'>
             Vaihda salasana
           </Button>
-          <BasePopup id={id} open={open} anchor={anchorEl}>
+
+          <BasePopup id={id} open={openPasswordPopup} anchor={anchorEl} onClose={() => setAnchorEl(null)}>
+          <div className='vaihdasalasana'>
             <PopupBody>
+            
               <form className='change-password-form' >
                 <label>Vanha salasana</label>
                 <Password
@@ -115,8 +145,11 @@ export default function Profile() {
                   placeholder="Uusi salasana"
                 />
               </form>
+              
             </PopupBody>
+           </div>
           </BasePopup>
+          
         </div>
       </div>
       <div className='profile-favorite'>
@@ -126,13 +159,15 @@ export default function Profile() {
         group
       </div>
       <div className='profile-invites'>
-        <SeeInvites /> {}
+        <SeeInvites /> { }
       </div>
       <div className='delete-user'>
         <button onClick={handleDeleteUser}>
           {deleteConfirmed ? "Confirm Delete" : "Delete User"}
         </button>
       </div>
+      {openPhotoPopup && <ProfilePicUpdate closePhotoPopup={handleClosePopup} setImageId={setImageId} username={username} />}
+
     </div>
   );
 }
@@ -173,6 +208,10 @@ const PopupBody = styled('div')(
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.875rem;
   z-index: 1;
+  position: absolute;
+  bottom: calc(0); // Position the popup below the button
+  left: 50%;
+  transform: translateX(-50%);
 `,
 );
 
