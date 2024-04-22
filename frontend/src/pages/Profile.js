@@ -56,10 +56,7 @@ export default function Profile() {
           return;
         }
         const headers = {headers: {'Content-Type': 'application/json','Authorization': `Bearer ${jwtToken}`}};
-        const idaccountResponse = await axios.get(`/users/getUserID?username=${username}`, headers);
-        if (idaccountResponse.status === 200) {
-          const idaccount = idaccountResponse.data.idaccount;
-          const deleteResponse = await axios.delete(`/users/delete?idaccount=${idaccount}`, headers);
+        const deleteResponse = await axios.delete(`/users/delete`, headers);
           if (deleteResponse.status === 200) {
             console.log('User deleted successfully');
             sessionStorage.removeItem('token');
@@ -67,9 +64,6 @@ export default function Profile() {
           } else {
             console.error('Failed to send delete request');
           }
-        } else {
-          console.error('Failed to get idaccount');
-        }
       } catch (error) {
         console.error('Error sending delete request:', error);
       }
