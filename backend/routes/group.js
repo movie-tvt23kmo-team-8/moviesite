@@ -38,12 +38,15 @@ router.get('/allGroups', async (req, res) => {
 
 router.post('/addToWatchlist', async (req, res) => {
     let idgroup = req.body.idgroup;
+    console.log("backendissä idgroup heti alkuun:", idgroup);
     let isNumeric = !isNaN(Number(idgroup)); // true, jos numero
     if (!isNumeric) {
         try {
             let groupname2fetch = idgroup;
+            console.log("backend add2watchlist, haetaan idgroup groupnamella", groupname2fetch);
             let result = await getGroupIDbyGroupname(groupname2fetch)
             idgroup = result.idgroup;
+            console.log("ja se idgroup", idgroup)
         } catch (error) {
             console.error('Error fetching groupidbygroupname:', error);
             res.status(500).json({ error: 'Error fetching groupidbygroupname' });
@@ -51,15 +54,16 @@ router.post('/addToWatchlist', async (req, res) => {
     }
     const data = req.body.data;
     const mediatype = req.body.mediaType;
-    //console.log(idgroup, data, mediatype);
+    console.log("backend ennen tietokantapyyntöä: ", idgroup, data, mediatype);
     try {
         await add2GroupChoices(idgroup, data, mediatype)
         res.status(200).json({ message: 'Lisätty ryhmään!' });
         console.log("lisätty ryhmän tietoihin")
     } catch (error) {
+        console.log("virhe ilmoitus backendistä:");
         console.error('Error adding to watchlist:', error);
         res.status(500).json({ error: 'Error adding to watchlist' });
-    }
+    } 
 
 });
 
@@ -81,5 +85,5 @@ router.delete('/deleteFromWatchlist', async (req, res) => {
         res.status(500).json({ error: err.message })
     }
 });
-
+ 
 module.exports = router;

@@ -1,16 +1,87 @@
 import React, { useEffect, useState } from 'react'
 import './shows.css'
 import { jwtToken } from '../components/Signals';
+import axios from 'axios';
 
 
 export default function Shows() {
 
   const isLoggedIn = jwtToken.value.length !== 0;//tarkistetaan onko käyttäjä kirjautunut sisään
-  /*//jos on, niin haetaan käyttäjän ryhmät
-  let kayttajanRyhmat;
-  if (isLoggedIn) {
-    kayttajanRyhmat = haeKayttajanRyhmat();
-  }*/
+  const [userGroups, setUserGroups] = useState([]);
+  const [selectedGroup, setSelectedGroup] = useState('');
+  const handleGroupChange = (event) => {
+    setSelectedGroup(event.target.value);
+  };
+
+  const fetchUserGroups = async () => {
+    try {
+      const jwtToken = sessionStorage.getItem('token');
+      if (!jwtToken) {
+        console.error('JWT token not found');
+        return;
+      }
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwtToken}`
+      };
+      const response = await fetch(`http://localhost:3001/users/userGroups`, {
+        method: 'GET',
+        headers: headers
+      });
+      if (!response.ok) {
+        console.error('Failed to fetch user groups');
+        return null;
+      }
+      const data = await response.json();
+      console.log(data)
+      return data;
+    } catch (err) {
+      console.error('Error:', err.message); // Log error
+    }
+  }
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      const getUserGroups = async () => {
+        const data = await fetchUserGroups();
+        if (data && data.groups) {
+          setUserGroups(data.groups);
+        }
+      };
+      getUserGroups();
+    }
+  }, [isLoggedIn]);
+
+  const add2GroupChoices = async (show) => {
+    setSelectedGroup("Sk8OrDie");//kovakoodattuna, kunnes oikea set toimii
+    const type = "show"
+    const title = show.getElementsByTagName('Title')[0].textContent;
+    const theatre = show.getElementsByTagName('TheatreAndAuditorium')[0].textContent;
+    const showtime = parseroiShowtime(show.getElementsByTagName('dttmShowStart')[0].textContent);
+    const image = show.getElementsByTagName('EventMediumImagePortrait')[0].textContent;//Small||Medium||Large
+    const linkki = show.getElementsByTagName('ShowURL')[0].textContent;//kyseisen esityksen linkki
+
+    //console.log("lisätään ryhmään: ", selectedGroup, title, theatre, showtime, image, linkki)
+    console.log("lisätään ryhmään: Sk8OrDie", title, theatre, showtime, image, linkki)
+    //console.log(selectedGroup, type);
+    const postData = {
+      idgroup: "Sk8OrDie",
+      mediaType: type,
+      data: {
+        title, 
+        theatre, 
+        showtime, 
+        image, 
+        linkki
+      },
+    };
+    try {
+      await axios.post('group/addToWatchlist', postData);
+      console.log("lisätty ryhmään:", postData);
+    } catch (error) {
+      console.error('Error when trying to add2group:', error);
+    }
+  };
 
   const setTodayDate = () => {
     let today = new Date();
@@ -60,8 +131,7 @@ export default function Shows() {
           //console.log("Title: "+title+" ID:"+id+" imageAdress: "+image +" ja linkki: "+linkki);
 
           let kuvaElementti = <div className='show-img'><img src={image} alt={title} />
-          <i className="popupIcon-heart showsicon-heart fa-solid fa-heart-circle-plus"></i>
-              <i className="popupIcon-group showsicon-group fa-solid fa-users-rectangle"></i></div>
+            {isLoggedIn && (<i className="popupIcon-group showsicon-group fa-solid fa-users-rectangle" onClick={() => add2GroupChoices(shows[i])}></i>)}</div>
           let tekstiElementti = (
             <>
               <span className="title">{title}</span>
@@ -78,19 +148,6 @@ export default function Shows() {
               {tekstiElementti}
               <br />
               {linkkiElementti}
-              <br />
-              {/*Jos käyttäjä on kirjautuneen tulostellaan valikko mihin ryhmään jaetaan ja jakonappi*/}
-              {isLoggedIn && (
-                <>{/*
-                  <select name=ryhmat id=ryhmat>
-                    <option value="">Valitse ryhmä</option>
-                    {kayttajanRyhmat.map((group) => (
-                      <option key={group.id} value={group.id}>{group.name}</option>
-                    ))}
-                  </select>*/}
-                  <button onClick={() => lisaaRyhmanSivulle(shows[i])}>Jaa näytös ryhmään</button>
-                </>
-              )}
             </li>
           );
 
@@ -102,50 +159,6 @@ export default function Shows() {
 
   }
 
-  const lisaaRyhmanSivulle = (data) => {
-    //tarkistetaan onhan ryhmä valittu
-    /*const selectedGroup = document.getElementById('ryhmat').value;
-    if (!selectedGroup) {
-      console.error('Valitse ryhmä ennen lähettämistä');
-      alert('Valitse ryhmä ennen lähettämistä');
-      return;
-    }*/
-
-    console.log('Lisätään ryhmän sivulle:', data);
-
-    const title = data.getElementsByTagName('Title')[0].textContent;
-    const id = data.getElementsByTagName('ID')[0].textContent;
-    const showtime = parseroiShowtime(data.getElementsByTagName('dttmShowStart')[0].textContent);
-    const image = data.getElementsByTagName('EventSmallImagePortrait')[0].textContent;
-    const linkki = data.getElementsByTagName('ShowURL')[0].textContent;
-    const teatteri = data.getElementsByTagName('TheatreAndAuditorium')[0].textContent;
-    alert(`Lisätään ryhmän sivulle: ${title}\n${teatteri}, ${showtime}\n${linkki}`);
-
-    const formData = new FormData();
-    formData.append('idgroup', '30');//kovakoodattuna kunnes oma tietokanta toimii tämän suhteen
-    //formData.append('idgroup', selectedGroup);
-    formData.append('data', JSON.stringify({ title, id, showtime, image, linkki, teatteri }));
-
-    fetch('http://localhost:3001/group/addToWatchlist', {
-      method: 'POST',
-      body: formData
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log('Lisätty ryhmän sivulle:', data);
-        alert('lisätty ryhmän sivulle:', data)
-      })
-      .catch(error => {
-        console.error('Virhe: ', error);
-      })
-
-
-  }
 
   const [area, setArea] = useState(1029);
   const [date, setDate] = useState(setTodayDate());
