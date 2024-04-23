@@ -5,7 +5,8 @@ const sql = {
     GET_USER: 'SELECT "idaccount" FROM "account" WHERE "username" = $1',
     DELETE_USER: 'DELETE FROM "account" WHERE "idaccount" = $1',
     GET_PIC: 'SELECT imageid FROM "account" WHERE "username" = $1',
-    UPDATE_PIC: 'UPDATE "account" SET imageid = $1 WHERE "idaccount" = $2'
+    UPDATE_PIC: 'UPDATE "account" SET imageid = $1 WHERE "idaccount" = $2',
+    UPDATE_PASSWORD: 'UPDATE "account" SET "password" = $1 WHERE "idaccount" = $2'
 }
 
 async function getUsers(){
@@ -55,10 +56,25 @@ async function updateImageIdByUsername(idaccount, newImageId) {
     }
 }
 
+async function updatePasswordById(idaccount, newPasswordHash) {
+    try {
+        const result = await pgPool.query(sql.UPDATE_PASSWORD, [newPasswordHash, idaccount]);
+        if (result.rowCount === 1) {
+            return result.rowCount;
+        } else {
+            throw new Error('Failed to update password. No rows affected.');
+        }
+    } catch (error) {
+        console.error('Error in updatePasswordById:', error);
+        throw error;
+    }
+}
+
+
 
 async function deleteUser(idaccount) {
     let result = await pgPool.query(sql.DELETE_USER, [idaccount]);
     return result.rows;
 }
 
-module.exports = { getUsers, getUserID, deleteUser, getImageIdByUsername, updateImageIdByUsername };
+module.exports = { getUsers, getUserID, deleteUser, getImageIdByUsername, updateImageIdByUsername, updatePasswordById };
