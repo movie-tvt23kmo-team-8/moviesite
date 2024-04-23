@@ -80,13 +80,6 @@ const Popupwindow = ({ mediaItem, onClose }) => {
 
     // Function to handle review submission
     const submitReview = async () => {
-        let type = null
-        if (!mediaItem.first_air_date) {
-            type = "movie";
-        } else {
-            type = "series";
-        }
-        console.log(selectedGroup, mediaItem.id, type);
         try {
             const jwtToken = sessionStorage.getItem('token');
             if (!jwtToken) {
@@ -121,6 +114,7 @@ const Popupwindow = ({ mediaItem, onClose }) => {
         } else {
             type = "series";
         }
+        setSelectedGroup("Sk8OrDie");//kovakoodattuna, kunnes oikea set toimii
         console.log(selectedGroup, mediaItem.id, type);
         try {
             await axios.post('group/addToWatchlist', {
@@ -128,6 +122,7 @@ const Popupwindow = ({ mediaItem, onClose }) => {
                 data: mediaItem.id,
                 mediaType: type
             });
+            console.log("lisätty type: ", type, " ryhmään: ", selectedGroup, " id: ", mediaItem.id)
         } catch (error) {
             console.error('Error when trying to add2group:', error);
         }
@@ -156,9 +151,9 @@ const Popupwindow = ({ mediaItem, onClose }) => {
                         <div>
                             <button className='popupbutton' onClick={onClose}>Close</button>
                             <AddToFavoritesIcon mdbdata={mediaItem} onAddToFavorites={handleAddToFavorites} />
-                            <i className="popupIcon-group fa-solid fa-users-rectangle"></i>
+                            <i className="popupIcon-group fa-solid fa-users-rectangle" onClick={add2GroupChoices}></i>
                             <Select value={selectedGroup} onChange={handleGroupChange}>
-                                <MenuItem value="">Valitse ryhmä</MenuItem>
+                                <MenuItem value="Valitse ryhmä">Valitse ryhmä</MenuItem>
                                 {userGroups.map((group, index) => (
                                     <MenuItem key={index} value={group.groupname}>{group.groupname}</MenuItem>
                                 ))}
