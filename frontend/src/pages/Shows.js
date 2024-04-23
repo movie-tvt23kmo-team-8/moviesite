@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './shows.css'
 import { jwtToken } from '../components/Signals';
 import axios from 'axios';
+import { MenuItem, Select } from '@mui/material';
 
 
 export default function Shows() {
@@ -11,7 +12,12 @@ export default function Shows() {
   const [selectedGroup, setSelectedGroup] = useState('');
   const handleGroupChange = (event) => {
     setSelectedGroup(event.target.value);
+    console.log("Group selected:", event.target.value);
   };
+
+  useEffect(() => {
+    console.log("Selected group:", selectedGroup);
+  }, [selectedGroup]);
 
   const fetchUserGroups = async () => {
     try {
@@ -53,19 +59,19 @@ export default function Shows() {
   }, [isLoggedIn]);
 
   const add2GroupChoices = async (show) => {
-    setSelectedGroup("Sk8OrDie");//kovakoodattuna, kunnes oikea set toimii
-    const type = "show"
+    //setSelectedGroup("Sk8OrDie");//kovakoodattuna, kunnes oikea set toimii
+    const type = "show";
     const title = show.getElementsByTagName('Title')[0].textContent;
     const theatre = show.getElementsByTagName('TheatreAndAuditorium')[0].textContent;
     const showtime = parseroiShowtime(show.getElementsByTagName('dttmShowStart')[0].textContent);
     const image = show.getElementsByTagName('EventMediumImagePortrait')[0].textContent;//Small||Medium||Large
     const linkki = show.getElementsByTagName('ShowURL')[0].textContent;//kyseisen esityksen linkki
 
-    //console.log("lisätään ryhmään: ", selectedGroup, title, theatre, showtime, image, linkki)
-    console.log("lisätään ryhmään: Sk8OrDie", title, theatre, showtime, image, linkki)
+    console.log("lisätään ryhmään: ", selectedGroup, title, theatre, showtime, image, linkki)
+    //console.log("lisätään ryhmään: Sk8OrDie", title, theatre, showtime, image, linkki)
     //console.log(selectedGroup, type);
     const postData = {
-      idgroup: "Sk8OrDie",
+      idgroup: selectedGroup,
       mediaType: type,
       data: {
         title, 
@@ -131,7 +137,14 @@ export default function Shows() {
           //console.log("Title: "+title+" ID:"+id+" imageAdress: "+image +" ja linkki: "+linkki);
 
           let kuvaElementti = <div className='show-img'><img src={image} alt={title} />
-            {isLoggedIn && (<i className="popupIcon-group showsicon-group fa-solid fa-users-rectangle" onClick={() => add2GroupChoices(shows[i])}></i>)}</div>
+            {isLoggedIn && (<>
+            <Select value={selectedGroup} onChange={handleGroupChange}>
+              <MenuItem value="">Valitse Ryhmä</MenuItem>
+              {userGroups.map((group, index) => (
+                <MenuItem key={index} value={group.groupname}>{group.groupname}</MenuItem>
+              ))}
+            </Select>
+            <i className="popupIcon-group showsicon-group fa-solid fa-users-rectangle" onClick={() => add2GroupChoices(shows[i])}></i></>)}</div>
           let tekstiElementti = (
             <>
               <span className="title">{title}</span>
