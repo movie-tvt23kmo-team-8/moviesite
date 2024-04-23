@@ -27,8 +27,6 @@ const Popupwindow = ({ mediaItem, onClose }) => {
             const data = await fetchUserGroups();
             if (data) {
                 setUserGroups(data.groups);
-                console.log("haettiin ryhmät");
-                console.log(data.groups);
             }
         };
         getUserGroups();
@@ -69,9 +67,7 @@ const Popupwindow = ({ mediaItem, onClose }) => {
                 return null;
             }
             const data = await response.json();
-            console.log(data)
             return data;
-
         } catch (err) {
             console.error('Error:', err.message); // Log error
         }
@@ -85,12 +81,12 @@ const Popupwindow = ({ mediaItem, onClose }) => {
     // Function to handle review submission
     const submitReview = async () => {
         let type = null
-        if(!mediaItem.first_air_date){
+        if (!mediaItem.first_air_date) {
             type = "movie";
-        }else {
-            type= "series";
+        } else {
+            type = "series";
         }
-        console.log( selectedGroup, mediaItem.id, type);
+        console.log(selectedGroup, mediaItem.id, type);
         try {
             const jwtToken = sessionStorage.getItem('token');
             if (!jwtToken) {
@@ -120,12 +116,12 @@ const Popupwindow = ({ mediaItem, onClose }) => {
 
     const add2GroupChoices = async () => {
         let type = null
-        if(!mediaItem.first_air_date){
+        if (!mediaItem.first_air_date) {
             type = "movie";
-        }else {
-            type= "series";
+        } else {
+            type = "series";
         }
-        console.log( selectedGroup, mediaItem.id, type);
+        console.log(selectedGroup, mediaItem.id, type);
         try {
             await axios.post('group/addToWatchlist', {
                 idgroup: selectedGroup,
@@ -135,6 +131,7 @@ const Popupwindow = ({ mediaItem, onClose }) => {
         } catch (error) {
             console.error('Error when trying to add2group:', error);
         }
+
     };
 
     // Function to format the date
@@ -161,9 +158,9 @@ const Popupwindow = ({ mediaItem, onClose }) => {
                             <AddToFavoritesIcon mdbdata={mediaItem} onAddToFavorites={handleAddToFavorites} />
                             <i className="popupIcon-group fa-solid fa-users-rectangle"></i>
                             <Select value={selectedGroup} onChange={handleGroupChange}>
-                                <option value="">Valitse ryhmä</option>
+                                <MenuItem value="">Valitse ryhmä</MenuItem>
                                 {userGroups.map((group, index) => (
-                                    <MenuItem key={index} value={group.groupname}></MenuItem>
+                                    <MenuItem key={index} value={group.groupname}>{group.groupname}</MenuItem>
                                 ))}
                             </Select>
                         </div>

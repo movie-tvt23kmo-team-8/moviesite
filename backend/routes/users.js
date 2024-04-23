@@ -56,7 +56,6 @@ router.put('/updatePic', auth, async (req, res) => { // Ensure authentication
 router.get('/userGroups', auth, async (req, res) => {
     try {
         const idaccount = await getUserID(res.locals.username);
-        console.log(idaccount);
         const groups = await getUserGroups(idaccount); 
         res.status(200).json({ groups });
     } catch (err) {
