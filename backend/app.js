@@ -41,3 +41,5 @@ app.use('/password', passwordRouter);
 app.get('/', (req, res) => {
     res.send('Welcome to moviesite website')
 });
+
+module.exports = app;
