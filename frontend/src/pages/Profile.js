@@ -17,6 +17,10 @@ export default function Profile() {
   const [openPhotoPopup, setOpenPhotoPopup] = useState(false);
   const [loading, setLoading] = useState(true); // State to track loading status
   const [anchorEl, setAnchorEl] = useState(null);
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [passwordChangeError, setPasswordChangeError] = useState('');
 
   useEffect(() => {
     // Fetch user data after 5 seconds
@@ -100,6 +104,32 @@ export default function Profile() {
   const imageSrc = `../img/avatar/${imageid}.png`;
   console.log('Image Source:', imageSrc);
 
+  const handleChangePassword = () => {
+    if (!oldPassword || !newPassword || !confirmNewPassword) {
+        setPasswordChangeError('Please fill in all fields');
+        return;
+    }
+
+    if (newPassword !== confirmNewPassword) {
+        setPasswordChangeError("New passwords don't match");
+        return;
+    }
+
+    axios.post('/password/change-password', {
+        username: username,
+        oldPassword: oldPassword,
+        newPassword: newPassword,
+    })
+    .then(response => {
+        alert('Password changed successfully');
+        // Optionally, you can reset the form fields here
+    })
+    .catch(error => {
+        console.error('Error changing password:', error);
+        setPasswordChangeError('Password change failed');
+    });
+};
+
 
   return (
     <div className='profile-container'>
@@ -127,28 +157,22 @@ export default function Profile() {
             Vaihda salasana
           </Button>
 
-          <BasePopup id={id} open={openPasswordPopup} anchor={anchorEl} onClose={() => setAnchorEl(null)}>
-          <div className='vaihdasalasana'>
-            <PopupBody>
-            
-              <form className='change-password-form' >
-                <label>Vanha salasana</label>
-                <Password
-                  placeholder="Salasana"
-                />
-                <label>Uusi salasana</label>
-                <Password
-                  placeholder="Uusi salasana"
-                />
-                <label>Uusi salasana uudestaan</label>
-                <Password
-                  placeholder="Uusi salasana"
-                />
-              </form>
-              
-            </PopupBody>
-           </div>
-          </BasePopup>
+          <BasePopup id={id} open={openPasswordPopup} anchor={anchorEl} onClose={handleClosePopup}>
+                    <div className='vaihdasalasana'>
+                        <PopupBody>
+                            <form className='change-password-form'>
+                                <label>Vanha salasana</label>
+                                <input type='password' value={oldPassword} onChange={e => setOldPassword(e.target.value)} />
+                                <label>Uusi salasana</label>
+                                <input type='password' value={newPassword} onChange={e => setNewPassword(e.target.value)} />
+                                <label>Uusi salasana uudestaan</label>
+                                <input type='password' value={confirmNewPassword} onChange={e => setConfirmNewPassword(e.target.value)} />
+                                <button onClick={handleChangePassword}>Vaihda salasana</button>
+                                {passwordChangeError && <p>{passwordChangeError}</p>}
+                            </form>
+                        </PopupBody>
+                    </div>
+                </BasePopup>
           
         </div>
       </div>
