@@ -15,6 +15,7 @@ import Favourite from './pages/Favourite';
 import Register from './pages/Register';
 import Reviews from './pages/Reviews';
 import Logout from './pages/Logout';
+import GroupInfo from './pages/GroupInfo';
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
             
             <Route element={<PrivateRoute />}>
               <Route path='/group' element={<Group />} />
+              <Route path="/group/:groupId" component={GroupInfo} />
               <Route path='/profile' element={<Profile />} />
               <Route path='/favourite' element={<Favourite />} />
               <Route path='/logout' element={<Logout />} />

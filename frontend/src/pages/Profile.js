@@ -20,26 +20,31 @@ export default function Profile() {
 
   useEffect(() => {
     // Fetch user data after 5 seconds
-    const fetchData = setTimeout(() => {
-      axios.get('http://localhost:3001/users/personal', {
-        headers: {
-          Authorization: `Bearer ${jwtToken.value}`
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('http://localhost:3001/users/personal', {
+                headers: {
+                    Authorization: `Bearer ${jwtToken.value}`
+                }
+            });
+            setUsername(response.data.username);
+            setImageId(response.data.imageid);
+            setLoading(false); // Set loading to false after data is fetched
+        } catch (error) {
+            console.error('Error fetching username and imageid:', error);
+            setLoading(false); // Set loading to false even if there's an error
         }
-      })
-        .then(response => {
-          setUsername(response.data.username);
-          setImageId(response.data.imageid);
-          setLoading(false); // Set loading to false after data is fetched
-        })
-        .catch(error => {
-          console.error('Error fetching username and imageid:', error);
-          setLoading(false); // Set loading to false even if there's an error
-        });
-    }, 10);
+    };
 
-    // Clear the timer when component unmounts
-    return () => clearTimeout(fetchData);
-  }, []);
+    fetchData(); // Call the fetchData function
+
+    // Clean-up function
+    return () => {
+        // You can add clean-up code here if needed
+    };
+}, []); // Empty dependency array to run only once on component mount
+
+  
 
   useEffect(() => {
     console.log('Image ID:', imageid);
