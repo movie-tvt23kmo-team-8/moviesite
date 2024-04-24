@@ -20,44 +20,39 @@ export default function Shows() {
   }, [selectedGroup]);
 
   const fetchUserGroups = async () => {
-    try {
-      const jwtToken = sessionStorage.getItem('token');
-      if (!jwtToken) {
-        console.error('JWT token not found');
-        return;
-      }
+    const jwtToken = sessionStorage.getItem('token');
+    if (jwtToken) {
       const headers = {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${jwtToken}`
       };
-      const response = await fetch(`http://localhost:3001/users/userGroups`, {
-        method: 'GET',
-        headers: headers
-      });
-      if (!response.ok) {
-        console.error('Failed to fetch user groups');
-        return null;
+      try {
+        const response = await axios.get('http://localhost:3001/users/userGroups', { headers });
+        const data = response.data;
+        setUserGroups(data.groups || []); // Jos ryhmiä ei ole, asetatetaan tyhjä lista
+      } catch (error) {
+        console.error('Error fetching user groups:', error);
       }
-      const data = await response.json();
-      console.log(data)
-      return data;
-    } catch (err) {
-      console.error('Error:', err.message); // Log error
     }
-  }
+  };
 
+  // Kun sivu ladataan, tarkistetaan onko käyttäjä kirjautunut
   useEffect(() => {
     if (isLoggedIn) {
-      const getUserGroups = async () => {
-        const data = await fetchUserGroups();
-        if (data && data.groups) {
-          setUserGroups(data.groups);
-        }
-      };
-      getUserGroups();
+      fetchUserGroups(); // Jos käyttäjä on kirjautunut, haetaan ryhmät
+    } else {
+      haeNaytokset(); // Jos ei ole kirjautunut, haetaan näytökset heti
     }
   }, [isLoggedIn]);
 
+  // Kun käyttäjän ryhmät on asetettu, haetaan näytökset
+  useEffect(() => {
+    if (isLoggedIn && userGroups.length > 0) {
+      haeNaytokset();
+    }
+  }, [userGroups]);
+  
+  
   const add2GroupChoices = async (show) => {
     //setSelectedGroup("Sk8OrDie");//kovakoodattuna, kunnes oikea set toimii
     const type = "show";
