@@ -10,7 +10,7 @@ export default function Shows() {
   const isLoggedIn = jwtToken.value.length !== 0;//tarkistetaan onko käyttäjä kirjautunut sisään
   const [userGroups, setUserGroups] = useState([]);
   const [selectedGroup, setSelectedGroup] = useState('');
-  let ryhma = ""
+  let ryhma = "";
   const handleGroupChange = (event) => {
     setSelectedGroup(event.target.value);
     ryhma=event.target.value;

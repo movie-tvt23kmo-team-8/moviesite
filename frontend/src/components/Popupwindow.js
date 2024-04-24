@@ -12,10 +12,29 @@ const Popupwindow = ({ mediaItem, onClose }) => {
     const [ratingValue, setRatingValue] = useState(0);
     const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track user's login status
     const [userGroups, setUserGroups] = useState([]);
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [selectedGroup, setSelectedGroup] = useState('');
+    let ryhma = "";
 
-    const handleGroupChange = (event) => {
-        setSelectedGroup(event.target.value);
+    const GroupPopup = ({ userGroups, onSelectGroup }) => (
+        <div className="group-popup">
+            {userGroups.map((group, index) => (
+                <div key={index} className="group-option" onClick={() => onSelectGroup(group.groupname)}>
+                    {group.groupname}
+                </div>
+            ))}
+        </div>
+    );
+
+    const handleTogglePopup = () => {
+        setIsPopupOpen(!isPopupOpen);
+    };
+
+    const handleSelectGroup = async (groupName) => {
+        setSelectedGroup(groupName);
+        ryhma = groupName;
+        setIsPopupOpen(false);
+        await add2GroupChoices(); // Call add2GroupChoices with the selected group name
     };
 
     useEffect(() => {
@@ -114,15 +133,14 @@ const Popupwindow = ({ mediaItem, onClose }) => {
         } else {
             type = "series";
         }
-        setSelectedGroup("Sk8OrDie");//kovakoodattuna, kunnes oikea set toimii
         console.log(selectedGroup, mediaItem.id, type);
         try {
             await axios.post('group/addToWatchlist', {
-                idgroup: selectedGroup,
+                idgroup: ryhma,
                 data: mediaItem.id,
                 mediaType: type
             });
-            console.log("lisätty type: ", type, " ryhmään: ", selectedGroup, " id: ", mediaItem.id)
+            console.log("lisätty type: ", type, " ryhmään: ", ryhma, " id: ", mediaItem.id)
         } catch (error) {
             console.error('Error when trying to add2group:', error);
         }
@@ -146,18 +164,16 @@ const Popupwindow = ({ mediaItem, onClose }) => {
         <div className="popup-overlay">
             <div className="popup-window">
                 <div className="popup-content">
-                    <div className='popup-img-container'>
+                <div className='popup-img-container'>
                         <img className='popup-img' src={`https://image.tmdb.org/t/p/w400/${mediaItem.poster_path}`} alt={mediaItem.title} />
-                        <div>
+                        <div className="group-icon-container">
                             <button className='popupbutton' onClick={onClose}>Close</button>
                             <AddToFavoritesIcon mdbdata={mediaItem} onAddToFavorites={handleAddToFavorites} />
-                            <i className="popupIcon-group fa-solid fa-users-rectangle" onClick={add2GroupChoices}></i>
-                            <Select value={selectedGroup} onChange={handleGroupChange}>
-                                <MenuItem value="Valitse ryhmä">Valitse ryhmä</MenuItem>
-                                {userGroups.map((group, index) => (
-                                    <MenuItem key={index} value={group.groupname}>{group.groupname}</MenuItem>
-                                ))}
-                            </Select>
+                                <i className="popupIcon-group fa-solid fa-users-rectangle" onClick={handleTogglePopup}></i>
+                                {isPopupOpen && (
+                                    <GroupPopup userGroups={userGroups} onSelectGroup={handleSelectGroup} />
+                                )}
+
                         </div>
                     </div>
                     <div className='popup-detail'>

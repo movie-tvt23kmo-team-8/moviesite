@@ -8,7 +8,7 @@
     justify-content: center;
     align-items: flex-start;
     padding-top: 10px;
-    z-index: 9999;
+    z-index: 9000;
     overflow-y: auto; 
     height: 100%;
 }
@@ -20,7 +20,7 @@
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     position: relative; /* Set position to relative or absolute */
-    z-index: 10000; /* Ensure the popup window appears over everything */
+    z-index: 9500; /* Ensure the popup window appears over everything */
 }
 
 .popup-content {
@@ -41,7 +41,6 @@
     margin: 2%;
     font-size: 150%;
 }
-
 .mediadetail{
     display: flex;
     font-size: 120%;
@@ -84,90 +83,45 @@
     margin-left: 2%;
 }
 
-.popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+.write-Review{
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 10px;
-    z-index: 9999;
-    overflow-y: auto; 
-    height: 100%;
+    flex-direction: column; 
+    margin: 2%;  
 }
 
-.popup-window {
-    background-color: white;
-    width: 70%;
+.writeInput{
+    font-size: 100%;
+    text-align: left;
+    border: none;
     padding: 1%;
+    border: 3px double black;
+}
+
+.group-icon-container {
+    position: relative;
+}
+
+.group-popup {
+    position: absolute;
+    top: calc(100%); /* Adjust the distance from the icon */
+    left: 25%;
+    background-color: white;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    position: relative; /* Set position to relative or absolute */
-    z-index: 10000; /* Ensure the popup window appears over everything */
+    padding: 5px;
+    z-index: 20000; /* Ensure it's above other elements */
 }
 
-.popup-content {
-    display: flex;
+.group-option {
+    cursor: pointer;
+    padding: 5px;
 }
 
-.popup-img-container{
-    display: flex;
-    flex-direction: column;
-    height: 50%;
+.group-option:hover {
+    background-color: #f0f0f0;
 }
 
-.popup-img{
-    height: 100%;
-}
 
-.popupbutton{
-    margin: 2%;
-    font-size: 150%;
-}
-
-.mediadetail{
-    display: flex;
-    font-size: 120%;
-    padding: 2%;
-    margin-right: 2%;
-}
-
-.popupIcon-heart, .popupIcon-group{
-    font-size: 300%;
-    margin: 2%;
-}
-
-.popupIcon-heart{
-    color: rgb(214, 82, 104);
-}
-
-.popup-reviews-section{
-    margin-left: 3%;
-}
-
-.popup-review{
-    list-style: none;
-    font-size: 120%;
-    padding: 2%;
-    margin-left: 3%;
-}
-
-.popup-reviewinfo{
-    margin-bottom: 1%;
-}
-
-.popup-reviewstar{
-    display: flex;
-}
-
-.popup-reviewer{
-    font-size: 80%;
-    font-style: italic;
-    margin-left: 2%;
-}
 
 @media (max-width: 800px){    
    
@@ -251,54 +205,3 @@
         font-size: 50%;
     }
 }
-
-/* popupwindow.css */
-
-.group-details-popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1000; /* Ensure the popup appears on top of other content */
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-}
-
-.group-details-popup-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    position: relative;
-}
-
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    color: #333;
-}
-
-.write-Review{
-    display: flex;
-    flex-direction: column; 
-    margin: 2%;  
-}
-
-.writeInput{
-    font-size: 100%;
-    text-align: left;
-    border: none;
-    padding: 1%;
-    border: 3px double black;
-}
-
-
