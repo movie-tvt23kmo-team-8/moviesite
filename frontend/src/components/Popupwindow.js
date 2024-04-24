@@ -4,7 +4,6 @@ import './popupwindow.css';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import AddToFavoritesIcon from './AddFavouriteIcon';
-import { Select, MenuItem } from '@mui/material';
 
 const Popupwindow = ({ mediaItem, onClose }) => {
     const [reviews, setReviews] = useState([]);
