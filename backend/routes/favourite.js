@@ -18,10 +18,12 @@ router.post('/addFavourite', auth, async (req, res) => {
     
 });
 
-router.get('/getFavourites', async (req,res) => {
-    const favourites = await getFavourites();
-    console.log(favourites)
-    res.json(favourites)
+router.get('/getFavourites', auth, async (req,res) => {
+    const idAccount = req.body.idaccount;
+    const mdbData = await getFavourites(idAccount)
+    console.log(idAccount)
+    console.log('favourites: ', mdbData)
+    res.status(200).json({ idaccount: idAccount, mdbdata: mdbData });
 });
 
 module.exports = router;

@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState, useEffect }from 'react'
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { jwtToken } from '../components/Signals'
 import './favourite.css'
 
 const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
@@ -21,12 +21,8 @@ export default function Favourite() {
   const [favourites, setFavourites] = useState([]);
   const [buttonPopup, setButtonPopup] = useState(false);
   const [idAccount, setIdAccount] = useState('')
-  const [mdbData, setMdbData] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [results, setResults] = useState([]);
-  const [mediaItems, setMediaItems] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
   
   const handleSearch = async () => {
     try {
@@ -44,55 +40,50 @@ export default function Favourite() {
   useEffect(() => {
     const fetchFavourites = async () => {
       try {
-        const jwtToken = sessionStorage.getItem('token'); 
+        const jwtToken = sessionStorage.getItem('token');
         if (!jwtToken) {
-          console.error('JWT token or account ID not found');
+          console.error('JWT token not found');
           return;
         }
 
-        const response = await fetch(`http://localhost:3001/favourite/getFavourites?accountId=${idAccount}`, {
-        headers: {
-          'Authorization': `Bearer ${jwtToken}`
-        }
-      })
-        if (!response.ok) {
-          throw new Error('Failed to fetch favourites from the database');
-        }
-        const data = await response.json();
-        setFavourites(data);
-        
-        const favouritesWithPosters = await Promise.all(data.map(async (favourite) => {
-          try {
-            const tmdbResponse = await axios.get(`http://localhost:3001/tmdb/poster?id=${favourite.mdbdata}`);
+        // Fetch favorites data from the backend
+        const response = await axios.get(`http://localhost:3001/favourite/getFavourites`, {
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        });
 
-            if (tmdbResponse.data && tmdbResponse.data.poster_path) {
-              return {
-                ...favourite,
-                posterUrl: tmdbResponse.data.poster_path,
-                title: tmdbResponse.data.title,
-                details: tmdbResponse.data.overview,
-                link: 'https://www.themoviedb.org/movie/' + tmdbResponse.data.id
-              };
-            } else {
-              return {
-                ...favourite,
-                title: tmdbResponse.data.title,
-                details: tmdbResponse.data.overview
-              };
+        const favoritesData = response.data;
+
+        if (favoritesData && favoritesData.length > 0) {
+          const favouritesWithPosters = await Promise.all(favoritesData.map(async (favourite) => {
+            try {
+              const tmdbResponse = await axios.get(`http://localhost:3001/tmdb/poster?id=${favourite.mdbdata}`);
+              const tmdbData = tmdbResponse.data;
+              if (tmdbData && tmdbData.poster_path) {
+                return {
+                  ...favourite,
+                  posterUrl: tmdbData.poster_path,
+                  title: tmdbData.title,
+                  details: tmdbData.overview,
+                  link: `https://www.themoviedb.org/movie/${tmdbData.id}`,
+                };
+              } else {
+                return favourite;
+              }
+            } catch (error) {
+              console.error('Failed to fetch poster from TMDB', error);
+              return favourite;
             }
-          } catch (error) {
-            console.error('Failed to fetch poster from TMDB', error);
-            return { ...favourite };
-          }
-        }));
-
-        setFavourites(favouritesWithPosters);
+          }));
+          setFavourites(favouritesWithPosters);
+        } else {
+          console.log('No favorites data found');
+        }
       } catch (error) {
-        console.error('Failed to fetch reviews from database', error);
+        console.error('Failed to fetch favorites data from the backend', error);
       }
-
     };
-    
     fetchFavourites();
   }, [idAccount]);
 
@@ -104,19 +95,14 @@ export default function Favourite() {
         return;
       }
   
-      const responseAdd = await fetch('http://localhost:3001/favourite/addFavourite', {
-        method: 'POST',
+      const response = await axios.post('/favourite/addFavourite', {
+          idaccount: idAccount, 
+          mdbdata: mdbData,
+      }, {
         headers: {
-          'Content-type': 'application/json',
-          'Authorization': `Bearer ${jwtToken}`
-        },
-        body: JSON.stringify({ idaccount: idAccount, mdbdata: mdbData })
+          Authorization: `Bearer ${jwtToken}`,
+        }
       });
-  
-      if (!responseAdd.ok) {
-        throw new Error('Failed to add favourite');
-      }
-  
       setButtonPopup(false);
     } catch (error) {
       console.error('Error adding favourite:', error);
@@ -127,17 +113,13 @@ export default function Favourite() {
     setSearchTerm(event.target.value);
   };
 
-  
-
-  
-  
   return (
     <div className='favourite-container'>
       <h1>Favourites</h1>
       <div className='favourites-container'>
         <section className='allFavourites'>
           <div className='favourite-card'>
-            {favourites.map((favourite, mediaItem, index) => (
+            {Array.isArray(favourites) && favourites.map((favourite, mediaItem, index) => (
               <Link
                 key={mediaItem.id}
                 className={`favourite-card-item favourite-${index}`}
