@@ -6,8 +6,9 @@ const sql = {
     DELETE_USER: 'DELETE FROM "account" WHERE "idaccount" = $1',
     GET_PIC: 'SELECT imageid FROM "account" WHERE "username" = $1',
     UPDATE_PIC: 'UPDATE "account" SET imageid = $1 WHERE "idaccount" = $2',
+    GET_USER_GROUPS: 'SELECT "group"."groupname" FROM "group" JOIN "groupmember" ON "group"."idgroup"="groupmember"."idgroup" WHERE "group"."idaccount" = $1 ',
     UPDATE_PASSWORD: 'UPDATE "account" SET "password" = $1 WHERE "idaccount" = $2'
-}
+
 
 async function getUsers(){
     let result = await pgPool.query(sql.GET_ALL_USERS);
@@ -77,4 +78,10 @@ async function deleteUser(idaccount) {
     return result.rows;
 }
 
-module.exports = { getUsers, getUserID, deleteUser, getImageIdByUsername, updateImageIdByUsername, updatePasswordById };
+async function getUserGroups(idaccount) {
+    let result = await pgPool.query(sql.GET_USER_GROUPS, [idaccount]);
+    return result.rows
+}
+
+module.exports = { getUsers, getUserID, deleteUser, getImageIdByUsername, updateImageIdByUsername, getUserGroups, updatePasswordById };
+

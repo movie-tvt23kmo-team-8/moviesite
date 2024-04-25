@@ -1,5 +1,5 @@
 const { error } = require('console');
-const { getUsers, getUserID, deleteUser, getImageIdByUsername, updateImageIdByUsername } = require('../database/users_db');
+const { getUsers, getUserID, deleteUser, getImageIdByUsername, updateImageIdByUsername, getUserGroups } = require('../database/users_db');
 const { auth } = require('../middleware/auth')
 const jwt = require('jsonwebtoken')
 
@@ -54,6 +54,18 @@ router.put('/updatePic', auth, async (req, res) => { // Ensure authentication
         res.status(500).json({ error: err.message });
     }
 });
+
+
+router.get('/userGroups', auth, async (req, res) => {
+    try {
+        const idaccount = await getUserID(res.locals.username);
+        const groups = await getUserGroups(idaccount); 
+        res.status(200).json({ groups });
+    } catch (err) {
+        console.error('Error:', err.message); // Log error
+        res.status(500).json({ error: err.message });
+    }
+})
 
 
 router.delete('/delete', auth, async (req, res) =>{
