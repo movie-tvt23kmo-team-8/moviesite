@@ -1,5 +1,5 @@
 const { error } = require('console');
-const { getUsers, getUserID, deleteUser, getImageIdByUsername, updateImageIdByUsername } = require('../database/users_db');
+const { getUsers, getUserID, deleteUser, getImageIdByUsername, updateImageIdByUsername, getUserGroups } = require('../database/users_db');
 const { auth } = require('../middleware/auth')
 const jwt = require('jsonwebtoken')
 
@@ -25,8 +25,8 @@ router.get('/personal', auth, async (req, res) => {
         const username = res.locals.username;
         const imageid = await getImageIdByUsername(username); // Assuming you have a function to fetch imageid
         const idaccount = await getUserID(username);
-        console.log('Username:', username); // Log username
-        console.log('Image ID:', imageid); // Log imageid
+        //console.log('Username:', username); // Log username
+        //console.log('Image ID:', imageid); // Log imageid
         res.status(200).json({ username: username, imageid: imageid, idaccount: idaccount });
     } catch (err) {
         console.error('Error:', err.message); // Log error
@@ -54,6 +54,18 @@ router.put('/updatePic', auth, async (req, res) => { // Ensure authentication
         res.status(500).json({ error: err.message });
     }
 });
+
+
+router.get('/userGroups', auth, async (req, res) => {
+    try {
+        const idaccount = await getUserID(res.locals.username);
+        const groups = await getUserGroups(idaccount); 
+        res.status(200).json({ groups });
+    } catch (err) {
+        console.error('Error:', err.message); // Log error
+        res.status(500).json({ error: err.message });
+    }
+})
 
 
 router.delete('/delete', auth, async (req, res) =>{

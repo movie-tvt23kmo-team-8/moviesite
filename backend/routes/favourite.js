@@ -6,10 +6,10 @@ const router = require('express').Router();
 
 router.post('/addFavourite', auth, async (req, res) => {
     const idaccount = await getUserID(res.locals.username);
-    const mdbdata = req.body.mdbdata
-
+    const mdbdata = req.body.mdbdata;
+    const type = req.body.type;
     try {
-        await addFavourite(idaccount, mdbdata)
+        await addFavourite(idaccount, mdbdata, type)
         res.status(200).json({ message: 'Suosikki lisätty!' });
     } catch (error) {
         console.error('Error adding favourite:', error);
@@ -18,10 +18,11 @@ router.post('/addFavourite', auth, async (req, res) => {
     
 });
 
-router.get('/getFavourites', async (req,res) => {
-    const favourites = await getFavourites();
-    console.log(favourites)
-    res.json(favourites)
+router.get('/getFavourites', auth, async (req,res) => {
+    const idAccount = await getUserID(res.locals.username);
+    const favourites = await getFavourites(idAccount)
+    console.log('favourites: ', favourites)
+    res.status(200).json({ idaccount: idAccount, favourites: favourites });
 });
 
 module.exports = router;
