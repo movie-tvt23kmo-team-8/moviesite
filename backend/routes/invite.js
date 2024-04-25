@@ -11,6 +11,10 @@ router.post('/sendRequest', auth, async (req, res) => {
     const idgroup = req.body.idgroup;
     const hasAccpeted = false;
 
+    if (idaccountSender === idaccountReceiver) {
+        return res.status(400).json({ error: 'Et voi lähettää pyyntöä itsellesi' });
+    }
+
     try {
         await sendRequest(idaccountReceiver, idaccountSender, idgroup, hasAccpeted)
         res.status(200).json({ message: 'Pyyntö lähetetty, odota ryhmän johtajan hyväksyntää!' });

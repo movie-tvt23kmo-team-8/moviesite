@@ -64,11 +64,13 @@ export default function Group() {
         if (response.status === 200) {
           console.log('Request sent successfully');
           window.location.reload();
+          window.alert('Liittymispyyntö lähetetty!');
         } else {
           console.error('Failed to send request');
         }
       } catch (error) {
         console.error('Error sending request:', error);
+        window.alert('Et voi lähettää pyyntöä itsellesi');
       }
     }
   };
