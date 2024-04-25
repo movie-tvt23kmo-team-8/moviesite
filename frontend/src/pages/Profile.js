@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './profile.css';
 import { jwtToken } from '../components/Signals';
-import Avatar from '@mui/material/Avatar';
 import { Unstable_Popup as BasePopup } from '@mui/base/Unstable_Popup';
 import { styled } from '@mui/system';
-import Password from '../components/Password';
 import SeeInvites from './SeeInvites';
 import ProfilePicUpdate from '../components/ProfilePicUpdate';
+
 
 export default function Profile() {
   const [username, setUsername] = useState('');
@@ -21,29 +20,68 @@ export default function Profile() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const [passwordChangeError, setPasswordChangeError] = useState('');
+  const [userGroups, setUserGroups] = useState([]);
 
+ 
   useEffect(() => {
     // Fetch user data after 5 seconds
-    const fetchData = setTimeout(() => {
-      axios.get('http://localhost:3001/users/personal', {
-        headers: {
-          Authorization: `Bearer ${jwtToken.value}`
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('http://localhost:3001/users/personal', {
+                headers: {
+                    Authorization: `Bearer ${jwtToken.value}`
+                }
+            });
+            setUsername(response.data.username);
+            setImageId(response.data.imageid);
+            setLoading(false); // Set loading to false after data is fetched
+        } catch (error) {
+            console.error('Error fetching username and imageid:', error);
+            setLoading(false); // Set loading to false even if there's an error
         }
-      })
-        .then(response => {
-          setUsername(response.data.username);
-          setImageId(response.data.imageid);
-          setLoading(false); // Set loading to false after data is fetched
-        })
-        .catch(error => {
-          console.error('Error fetching username and imageid:', error);
-          setLoading(false); // Set loading to false even if there's an error
-        });
-    }, 10);
+    };
 
-    // Clear the timer when component unmounts
-    return () => clearTimeout(fetchData);
-  }, []);
+    fetchData(); // Call the fetchData function
+
+    // Clean-up function
+    return () => {
+        // You can add clean-up code here if needed
+    };
+}, []); // Empty dependency array to run only once on component mount
+
+useEffect(() => {
+  // Define fetchUserGroups function
+  const fetchUserGroups = async () => {
+    try {
+      const jwtToken = sessionStorage.getItem('token');
+      if (!jwtToken) {
+        console.error('JWT token not found');
+        return;
+      }
+
+      const response = await axios.get('http://localhost:3001/groupmember/userGroups', {
+        headers: {
+          'Authorization': `Bearer ${jwtToken}`
+        }
+      });
+
+      // Extract group names from the response data
+      const groupNames = response.data.map(group => group.groupname);
+
+      // Set the group names to the state
+      setUserGroups(groupNames);
+    } catch (error) {
+      console.error('Error fetching user groups:', error);
+    }
+  };
+
+  // Call fetchUserGroups
+  fetchUserGroups();
+
+  return () => {
+    // Cleanup function
+  };
+}, []);
 
   useEffect(() => {
     console.log('Image ID:', imageid);
@@ -124,7 +162,6 @@ export default function Profile() {
     });
 };
 
-
   return (
     <div className='profile-container'>
       <div className='profile-info'>
@@ -147,10 +184,14 @@ export default function Profile() {
         <div className='profile-text'>
           <p>Käyttäjätunnus: {username}</p>
           <p>Kuvaus?</p>
+          <div className='profile-buttons'>
           <Button aria-describedby={id} type="button" onClick={togglePasswordPopup} className='change-password'>
             Vaihda salasana
           </Button>
-
+          <Button deleteButton={true} onClick={handleDeleteUser}>
+  {deleteConfirmed ? "Confirm Delete" : "Delete User"}
+</Button>
+        </div>
           <BasePopup id={id} open={openPasswordPopup} anchor={anchorEl} onClose={handleClosePopup}>
                     <div className='vaihdasalasana'>
                         <PopupBody>
@@ -173,17 +214,25 @@ export default function Profile() {
       <div className='profile-favorite'>
         favorite
       </div>
+      <div className='profile-group-container'>
       <div className='profile-group'>
-        group
-      </div>
+          <h3 className='profile-group-name'>OMAT RYHMÄT</h3>
+          <ul className='profile-group-list'>
+            {userGroups.map((groupName, index) => (
+              <li className='profile-group-list-item' key={index}>{groupName}</li>
+            ))}
+          </ul>
+        </div>
       <div className='profile-invites'>
         <SeeInvites /> { }
+      </div>
       </div>
       <div className='delete-user'>
         <button onClick={handleDeleteUser}>
           {deleteConfirmed ? "Confirm Delete" : "Delete User"}
         </button>
       </div>
+
       {openPhotoPopup && <ProfilePicUpdate closePhotoPopup={handleClosePopup} setImageId={setImageId} username={username} />}
 
     </div>
@@ -212,6 +261,12 @@ const blue = {
   700: '#0066CC',
 };
 
+const darkRed = {
+  500: '#8B0000', // Dark Red
+  400: '#A52A2A', // Brown
+  600: '#800000', // Maroon
+};
+
 const PopupBody = styled('div')(
   ({ theme }) => `
   width: max-content;
@@ -234,42 +289,69 @@ const PopupBody = styled('div')(
 );
 
 const Button = styled('button')(
-  ({ theme }) => `
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-weight: 600;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  background-color: ${blue[500]};
-  padding: 8px 16px;
-  border-radius: 8px;
-  color: white;
-  transition: all 150ms ease;
-  cursor: pointer;
-  border: 1px solid ${blue[500]};
-  box-shadow: 0 2px 1px ${theme.palette.mode === 'dark' ? 'rgba(0, 0, 0, 0.5)' : 'rgba(45, 45, 60, 0.2)'
-    }, inset 0 1.5px 1px ${blue[400]}, inset 0 -2px 1px ${blue[600]};
-
-  &:hover {
-    background-color: ${blue[600]};
-  }
-
-  &:active {
-    background-color: ${blue[700]};
-    box-shadow: none;
-  }
-
-  &:focus-visible {
-    box-shadow: 0 0 0 4px ${theme.palette.mode === 'dark' ? blue[300] : blue[200]};
-    outline: none;
-  }
-
-  &.disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-    box-shadow: none;
-    &:hover {
-      background-color: ${blue[500]};
-    }
-  }
-`,
+  ({ theme, deleteButton }) => ({
+    fontFamily: 'IBM Plex Sans, sans-serif',
+    fontWeight: 600,
+    fontSize: '0.875rem',
+    lineHeight: 1.5,
+    color: 'white',
+    transition: 'all 150ms ease',
+    cursor: 'pointer',
+    borderRadius: 8,
+    padding: '8px 16px',
+    ...(deleteButton
+      ? {
+          backgroundColor: darkRed[500],
+          border: `1px solid ${darkRed[500]}`,
+          boxShadow: `0 2px 1px ${theme.palette.mode === 'dark' ? 'rgba(0, 0, 0, 0.5)' : 'rgba(45, 45, 60, 0.2)'}, inset 0 1.5px 1px ${darkRed[400]}, inset 0 -2px 1px ${darkRed[600]}`,
+          '&:hover': {
+            backgroundColor: darkRed[600],
+            borderColor: darkRed[600],
+          },
+          '&:active': {
+            backgroundColor: darkRed[400],
+            borderColor: darkRed[400],
+            boxShadow: 'none',
+          },
+          '&:focus-visible': {
+            boxShadow: `0 0 0 4px ${theme.palette.mode === 'dark' ? darkRed[500] : darkRed[400]}`,
+            outline: 'none',
+          },
+          '&.disabled': {
+            opacity: 0.4,
+            cursor: 'not-allowed',
+            boxShadow: 'none',
+            '&:hover': {
+              backgroundColor: darkRed[500],
+              borderColor: darkRed[500],
+            },
+          },
+        }
+      : {
+          backgroundColor: blue[500],
+          border: `1px solid ${blue[500]}`,
+          boxShadow: `0 2px 1px ${theme.palette.mode === 'dark' ? 'rgba(0, 0, 0, 0.5)' : 'rgba(45, 45, 60, 0.2)'}, inset 0 1.5px 1px ${blue[400]}, inset 0 -2px 1px ${blue[600]}`,
+          '&:hover': {
+            backgroundColor: blue[600],
+          },
+          '&:active': {
+            backgroundColor: blue[700],
+            boxShadow: 'none',
+          },
+          '&:focus-visible': {
+            boxShadow: `0 0 0 4px ${theme.palette.mode === 'dark' ? blue[300] : blue[200]}`,
+            outline: 'none',
+          },
+          '&.disabled': {
+            opacity: 0.4,
+            cursor: 'not-allowed',
+            boxShadow: 'none',
+            '&:hover': {
+              backgroundColor: blue[500],
+              borderColor: blue[500],
+            },
+          },
+        }),
+  }),
+  { shouldForwardProp: (prop) => prop !== 'deleteButton' }
 );

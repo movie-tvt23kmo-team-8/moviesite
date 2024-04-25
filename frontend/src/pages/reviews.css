@@ -8,6 +8,7 @@
 
 .review-header{
   margin-top: 10%;
+  font-size: 100%;
 }
 
 .review-area{
@@ -30,6 +31,7 @@
   border-radius: 50px;
   padding: 2%;
   align-items: center;
+  font-size: 100%;
 }
 
 .review-text {
@@ -42,4 +44,63 @@
   height: 200px;
   border: 1px solid #ccc;
   margin-left: auto; /* Push picture to the right */
+}
+
+@media (max-width: 1200px){
+
+  .review-card {
+    font-size: 70%;
+  }
+
+  .review-picture {
+    height: 150px;
+  }
+
+}
+
+@media (max-width: 800px){
+  .review-header{
+    margin-top: 15%;
+  }
+
+  .review-picture {
+    height: 150px;
+  }
+
+  .review-card {
+    margin: 1%;
+    border-radius: 15px;
+    height: 200px;
+    padding: 1%;
+    width: 45%;
+    font-size: 60%;
+  }
+
+  .review-area{
+    margin: 2%;
+    border-radius: 5px;
+  }
+}
+
+@media (max-width: 400px){
+
+
+  .review-picture {
+    height: 95px;
+  }
+
+  .review-card {
+    margin: 1%;
+    border-radius: 5px;
+    height: 100px;
+    padding: 1%;
+    width: 80%;
+    font-size: 60%;
+  }
+
+  .review-area{
+    margin: 2%;
+    border-radius: 5px;
+  }
+  
 }

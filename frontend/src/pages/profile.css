@@ -2,9 +2,10 @@
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 50%;
+    top: 20%;
     justify-content: center;
     align-items: center;
+    margin-bottom: 10%;
 }
 
 .profile-info {
@@ -55,14 +56,21 @@
     position: relative;
 }
 
-.change-password {
-    margin-left: 55%;
+.profile-buttons{
     position: absolute;
     bottom: 0;
-    right: 0;
     margin-bottom: 20px;
-    margin-right: 20px;
+    right: 0%;
+    display: inline-block;
 }
+
+.change-password {
+    margin-right: 10px; /* Lisää tilaa alapuolelle */
+  }
+  
+  .delete-user {
+    background-color: brown;
+  }
 
 .change-password-form{
     display: flex;
@@ -85,8 +93,45 @@ input{
     padding: 2%;
 }
 
-.profile-group {
-    background-color: aqua;
+.profile-group-container{
+    display: flex;
+    width: 250%;
     margin: 2%;
     padding: 2%;
+    color: aliceblue;
 }
+
+.profile-group-name{
+    font-size: 200%;
+    font-family: "Poiret One", sans-serif;
+}
+
+.profile-group {
+    flex: 50%;
+    background-color: rgba(37, 37, 37, 0.5);
+    margin: 2%;
+    padding: 2%;
+   
+}
+
+.profile-group-list{
+    list-style: none;
+    padding: 2%;
+    text-align: center;
+    font-size: 110%;
+}
+
+.profile-group-list-item{
+    padding: 2%;
+}
+
+.profile-invites{
+    background-color: rgba(37, 37, 37, 0.5);
+    margin-bottom: 2%;
+    padding: 2%;
+    text-align: center;
+    flex: 50%;
+    margin: 2%;
+}
+
+
