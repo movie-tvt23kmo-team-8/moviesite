@@ -1,7 +1,7 @@
-const {makeUser} = require('../database/groupmember_db');
+const { makeUser, getUserGroups } = require('../database/groupmember_db');
 const { checkIfAccepted, getIdinvitesForUser } = require('../database/invite_db');
 const { getUserID } = require('../database/users_db');
-const { auth } = require('../middleware/auth')
+const { auth } = require('../middleware/auth');
 
 const router = require('express').Router();
 
@@ -27,6 +27,17 @@ router.post('/makeUser', auth, async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500).json({error: 'User not authorized'});
+    }
+});
+
+router.get('/userGroups', auth, async (req, res) => {
+    try {
+        const idaccount = await getUserID(res.locals.username);
+        const userGroups = await getUserGroups(idaccount);
+        res.status(200).json(userGroups);
+    } catch (error) {
+        console.error('Error fetching user groups:', error);
+        res.status(500).json({ error: 'Error fetching user groups' });
     }
 });
 

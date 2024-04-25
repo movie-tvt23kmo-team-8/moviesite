@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './profile.css';
 import { jwtToken } from '../components/Signals';
-import Avatar from '@mui/material/Avatar';
 import { Unstable_Popup as BasePopup } from '@mui/base/Unstable_Popup';
 import { styled } from '@mui/system';
-import Password from '../components/Password';
 import SeeInvites from './SeeInvites';
 import ProfilePicUpdate from '../components/ProfilePicUpdate';
 
