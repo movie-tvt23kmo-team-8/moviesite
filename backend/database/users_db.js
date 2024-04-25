@@ -8,7 +8,7 @@ const sql = {
     UPDATE_PIC: 'UPDATE "account" SET imageid = $1 WHERE "idaccount" = $2',
     GET_USER_GROUPS: 'SELECT "group"."groupname" FROM "group" JOIN "groupmember" ON "group"."idgroup"="groupmember"."idgroup" WHERE "group"."idaccount" = $1 ',
     UPDATE_PASSWORD: 'UPDATE "account" SET "password" = $1 WHERE "idaccount" = $2'
-
+}
 
 async function getUsers(){
     let result = await pgPool.query(sql.GET_ALL_USERS);
