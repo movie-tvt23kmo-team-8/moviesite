@@ -46,34 +46,37 @@ export default function Favourite() {
           return;
         }
 
-        // Fetch favorites data from the backend
         const response = await axios.get(`http://localhost:3001/favourite/getFavourites`, {
           headers: {
             Authorization: `Bearer ${jwtToken}`,
           },
         });
 
-        const favoritesData = response.data;
+        const favoritesData = response.data.favourites;
+
+        console.log('favouritesData: ',favoritesData)
+        console.log('type of favouritedata: ', typeof favoritesData)
+        console.log('favoritesData length:', favoritesData.length);
 
         if (favoritesData && favoritesData.length > 0) {
-          const favouritesWithPosters = await Promise.all(favoritesData.map(async (favourite) => {
+          const favouritesWithPosters = await Promise.all(favoritesData.map(async (favourites) => {
             try {
-              const tmdbResponse = await axios.get(`http://localhost:3001/tmdb/poster?id=${favourite.mdbdata}`);
+              const tmdbResponse = await axios.get(`http://localhost:3001/tmdb/poster?id=${favourites.mdbdata}`);
               const tmdbData = tmdbResponse.data;
               if (tmdbData && tmdbData.poster_path) {
                 return {
-                  ...favourite,
+                  ...favourites,
                   posterUrl: tmdbData.poster_path,
                   title: tmdbData.title,
                   details: tmdbData.overview,
                   link: `https://www.themoviedb.org/movie/${tmdbData.id}`,
                 };
               } else {
-                return favourite;
+                return favourites;
               }
             } catch (error) {
               console.error('Failed to fetch poster from TMDB', error);
-              return favourite;
+              return favourites;
             }
           }));
           setFavourites(favouritesWithPosters);
@@ -87,7 +90,7 @@ export default function Favourite() {
     fetchFavourites();
   }, [idAccount]);
 
-  const handleAddFavourite = async (mdbData) => {
+  const handleAddFavourite = async (mdbData, mediaType) => {
     try {
       const jwtToken = sessionStorage.getItem('token'); 
       if (!jwtToken) {
@@ -98,6 +101,7 @@ export default function Favourite() {
       const response = await axios.post('/favourite/addFavourite', {
           idaccount: idAccount, 
           mdbdata: mdbData,
+          type: mediaType,
       }, {
         headers: {
           Authorization: `Bearer ${jwtToken}`,
