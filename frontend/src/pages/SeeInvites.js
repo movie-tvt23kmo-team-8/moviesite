@@ -50,11 +50,12 @@ export default function SeeInvites() {
       const idaccountreceiver = idaccountreceiverResponse.data.idaccount;
   
       const acceptInvite = await axios.post(`/invite/acceptRequest`, {idaccountReceiver: idaccountreceiver,idaccountSender: idaccountsender,idgroup: idgroup}, { headers });
-      if (acceptInvite.status === 200) {
-        console.log('Accepted invite');
+      const makeUser = await axios.post(`/groupmember/makeUser`, {idaccountSender: idaccountsender,idgroup: idgroup}, { headers });
+      if (acceptInvite.status === 200 && makeUser.status === 200) {
+        console.log('Accepted invite and made user in group');
         window.location.reload();
       } else {
-        console.error('Failed to acceot invite');
+        console.error('Failed to accept invite');
       }
     } catch (error) {
       console.error('Error accepting invite:', error);

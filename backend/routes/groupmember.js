@@ -6,7 +6,7 @@ const { auth } = require('../middleware/auth');
 const router = require('express').Router();
 
 router.post('/makeUser', auth, async (req, res) => {
-    const idaccount = await getUserID(res.locals.username);
+    const idaccount = req.body.idaccountSender;
     const idgroup = req.body.idgroup;
     const now = new Date();
     const grouprole = 'user'
