@@ -22,6 +22,12 @@ export default function Group() {
   const [groupName, setGroupName] = useState('');
   const [groupDetails, setGroupDetails] = useState('');
   const [selectedGroup, setSelectedGroup] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+
+  useEffect(() => {
+    const jwtToken = sessionStorage.getItem('token');
+    setIsLoggedIn(!!jwtToken); 
+  }, []);
 
   useEffect(() => {
     const fetchGroups = async () => {
@@ -120,7 +126,7 @@ export default function Group() {
                 <div>
                   <p>Name: {selectedGroup.groupname}</p>
                   <p>Description: {selectedGroup.groupdetails}</p>
-                  <button onClick={sendRequest}>Lähetä liittymispyyntö</button>
+                  {isLoggedIn && <button onClick={sendRequest}>Lähetä liittymispyyntö</button>}
                 </div>
               </Popup>
             )}
@@ -128,8 +134,7 @@ export default function Group() {
         </section>
         <section className='createGroup'>
           <button className='create-group-button' onClick={() => setButtonPopup(true)}>Create a group</button>
-          <Popup trigger={buttonPopup} setTrigger=
-            {setButtonPopup}>
+          <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
             <h3>Create a new group</h3>
             <br></br>
             <p>Name: <input value={groupName} onChange={e => setGroupName(e.target.value)}></input></p>
