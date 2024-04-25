@@ -25,8 +25,8 @@ router.get('/personal', auth, async (req, res) => {
         const username = res.locals.username;
         const imageid = await getImageIdByUsername(username); // Assuming you have a function to fetch imageid
         const idaccount = await getUserID(username);
-        console.log('Username:', username); // Log username
-        console.log('Image ID:', imageid); // Log imageid
+        //console.log('Username:', username); // Log username
+        //console.log('Image ID:', imageid); // Log imageid
         res.status(200).json({ username: username, imageid: imageid, idaccount: idaccount });
     } catch (err) {
         console.error('Error:', err.message); // Log error

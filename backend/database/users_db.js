@@ -12,6 +12,7 @@ const sql = {
 
 async function getUsers(){
     let result = await pgPool.query(sql.GET_ALL_USERS);
+    console.log('GET_ALL_USERS: ', result)
     return result.rows;
 }
 
