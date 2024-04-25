@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './profile.css';
 
 export default function SeeInvites() {
   const [invites, setInvites] = useState([]);
@@ -86,7 +87,7 @@ export default function SeeInvites() {
   }
   return (
     <div>
-      <h2>Group join requests:</h2>
+      <h3 className='profile-group-name'>LIITTYMISPYYNNÖT:</h3>
       {invites.length === 0 ? (
         <p>You have no pending requests.</p>
       ) : (

@@ -21,6 +21,7 @@ export default function Group() {
   const [buttonPopup, setButtonPopup] = useState(false);
   const [groupName, setGroupName] = useState('');
   const [groupDetails, setGroupDetails] = useState('');
+  const [selectedGroup, setSelectedGroup] = useState(null);
 
   const fetchGroups = async () => {
     try {
@@ -68,33 +69,40 @@ export default function Group() {
     fetchUserGroups();
   }, []);
 
-  const handleJoinGroup = async (groupId) => {
+  const handleJoinGroup = async (groupId, accountReceiverId) => {
     try {
+      setSelectedGroup({
+        idgroup: groupId,
+        idaccountReceiver: accountReceiverId
+      });
+  
       const jwtToken = sessionStorage.getItem('token');
       if (!jwtToken) {
         console.error('JWT token not found');
         return;
       }
-
-      const response = await axios.post('http://localhost:3001/invite/sendRequest', {
-        groupId
-      }, {
+  
+      const headers = {
         headers: {
+          'Content-Type': 'application/json',
           'Authorization': `Bearer ${jwtToken}`
         }
-      });
-
+      };
+  
+      const response = await axios.post('http://localhost:3001/invite/sendRequest',
+        { idgroup: groupId, idaccountReceiver: accountReceiverId }, headers);
+  
       if (response.status === 200) {
-        console.log('Joined group successfully');
-        // Refresh user groups after joining
+        console.log('Request sent successfully');
         fetchUserGroups();
       } else {
-        console.error('Failed to join group');
+        console.error('Failed to send request');
       }
     } catch (error) {
-      console.error('Error joining group:', error);
+      console.error('Error sending request:', error);
     }
   };
+  
 
   const submitGroup = async () => {
     try {
@@ -136,16 +144,16 @@ export default function Group() {
           <div className='group-card'>
             {groups.map((group) => (
               <div key={group.idgroup} className='group-card-item'>
-                  <div className='group-name'>{group.groupname}</div>
-                  <div>{group.groupdetails}</div>
+                <div className='group-name'>{group.groupname}</div>
+                <div>{group.groupdetails}</div>
                 {userGroups.find(userGroup => userGroup.idgroup === group.idgroup) ? (
                   <button className="show-group-info-button">
-                 <Link to={`/group/${group.idgroup}`} className="link-style" style={{ textDecoration: 'none', color: 'inherit', margin: '0', padding:'0', background:'none' }}>
-                  Näytä ryhmä
-                  </Link>
-                </button>
+                    <Link to={`/group/${group.idgroup}`} className="link-style" style={{ textDecoration: 'none', color: 'inherit', margin: '0', padding: '0', background: 'none' }}>
+                      Näytä ryhmä
+                    </Link>
+                  </button>
                 ) : (
-                  isLoggedIn && <button className="show-group-info-button" onClick={() => handleJoinGroup(group.idgroup)}>Lähetä liittymispyyntö</button>
+                  isLoggedIn && <button className="show-group-info-button" onClick={() => handleJoinGroup(group.idgroup, group.idaccount)}>Lähetä liittymispyyntö</button>
                 )}
               </div>
             ))}
