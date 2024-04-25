@@ -105,36 +105,29 @@ export default function Group() {
   
 
   const submitGroup = async () => {
-    try {
-      const jwtToken = sessionStorage.getItem('token');
-      if (!jwtToken) {
-        console.error('JWT token not found');
-        return;
-      }
+    const groupData = {
+      groupname: groupName,
 
-      const response = await axios.post('http://localhost:3001/group/addGroup', {
-        groupname: groupName,
-        groupdetails: groupDetails
-      }, {
-        headers: {
-          'Authorization': `Bearer ${jwtToken}`
-        }
-      });
+      groupdetails: groupDetails,
 
-      if (response.status === 200) {
-        console.log('Group created successfully');
-        // Refresh group list after creation
-        setButtonPopup(false);
-        setGroupName('');
-        setGroupDetails('');
-        fetchGroups();
-      } else {
-        console.error('Failed to create group');
-      }
-    } catch (error) {
-      console.error('Error creating group:', error);
+      grouprole: 'admin'
     }
-  };
+    const jwtToken = sessionStorage.getItem('token'); 
+    if (!jwtToken) {
+      console.error('JWT token not found');
+      return;
+    }
+    const result = await fetch('http://localhost:3001/group/addGroup', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json','Authorization': `Bearer ${jwtToken}`
+      },
+      body: JSON.stringify(groupData)
+    })
+    const resultInJson = await result.json()
+    console.log(resultInJson)
+    window.location.reload();
+  }
 
   return (
     <div className='group-container'>
