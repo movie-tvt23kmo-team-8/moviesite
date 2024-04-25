@@ -25,4 +25,3 @@ async function deleteGroupChoice(idgroupchoice) {
 }
 
 module.exports = {add2GroupChoices, getGroupChoices, deleteGroupChoice}
-
