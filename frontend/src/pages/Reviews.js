@@ -19,7 +19,7 @@ export default function Reviews() {
         // Haetaan TMDB:stä kullekin arvostelulle vastaava posterin osoite
         const reviewsWithPosters = await Promise.all(data.map(async (review) => {
           try {
-            const tmdbResponse = await axios.get(`http://localhost:3001/tmdb/poster?id=${review.mdbdata}`);
+            const tmdbResponse = await axios.get(`http://localhost:3001/tmdb/poster?id=${review.mdbdata}&type=movie`);
 
             // Tarkistetaan, onko vastauksessa posterin URL
             if (tmdbResponse.data && tmdbResponse.data.poster_path) {
