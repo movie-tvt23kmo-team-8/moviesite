@@ -20,7 +20,9 @@ router.post('/addFavourite', auth, async (req, res) => {
 
 router.get('/getFavourites', auth, async (req,res) => {
     const idAccount = await getUserID(res.locals.username);
-    const favourites = await getFavourites(idAccount)
+    const items = isNaN(parseInt(req.query.items)) ? 0 : parseInt(req.query.items);
+    console.log("items: ", items)
+    const favourites = await getFavourites(idAccount, items);
     console.log('favourites: ', favourites)
     res.status(200).json({ idaccount: idAccount, favourites: favourites });
 });
