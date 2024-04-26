@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './reviews.css';
+import Box from '@mui/material/Box';
+import Rating from '@mui/material/Rating';
 
 export default function Reviews() {
   const [reviews, setReviews] = useState([]);
@@ -60,7 +62,8 @@ export default function Reviews() {
             <div className='review-text'>
             <p>Arvostelija: {review.username}</p>
             <p>Elokuvan nimi: {review.title}</p>
-            <p>Review: {review.review}</p>
+            <p>Arvostelu: {review.review}</p>
+            <BasicRating value={review.star}></BasicRating>
             </div>
             <div>
             <a href={review.link}target="_blank">{review.posterUrl && <img className="review-picture" src={`https://image.tmdb.org/t/p/original${review.posterUrl}`} alt="Movie Poster" />}</a>
@@ -71,3 +74,20 @@ export default function Reviews() {
     </div>
   );
 }
+
+const BasicRating = ({ value }) => {
+  return (
+      <div className='rating'>
+          <Box
+              sx={{
+                  '& > legend': { mt: 2 },
+                  '& .MuiRating-icon': {
+                      fontSize: '1vw',
+                  },
+              }}
+          >
+              <Rating className="read-only" value={value} readOnly />
+          </Box>
+      </div>
+  );
+};
