@@ -95,12 +95,21 @@ router.get('/poster', async (req, res) => {
   console.log("posterin fetchin sisällä backarissa");
   try {
     const apiKey = process.env.TMDB_API_KEY;
-    const movieID = parseInt(req.query.id);
-    console.log(movieID);
-    const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${apiKey}&language=fi-FI`);
-    const movie = response.data;
-    console.log(movie)
-    res.json(movie);
+    const ID = parseInt(req.query.id);
+    const type = req.query.type;
+    console.log(type, ID);
+    if (type=="movie"){
+      const response = await axios.get(`https://api.themoviedb.org/3/movie/${ID}?api_key=${apiKey}&language=fi-FI`);
+      const result = response.data;
+      res.json(result);
+    }else {
+      const response = await axios.get(`https://api.themoviedb.org/3/tv/${ID}?api_key=${apiKey}&language=fi-FI`);
+      const result = response.data;
+      res.json(result);
+    }
+    //const result = response.data;
+    //console.log(movie.id)
+    //res.json(result);
   } catch (error) {
     console.error('Error fetching with id from TMDB:', error);
     res.status(500).json({ error: 'Error fetching with id from TMDB' });
