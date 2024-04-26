@@ -1,6 +1,6 @@
 const {addFavourite, getFavourites} = require('../database/favourite_db')
 const { auth } = require('../middleware/auth')
-const { getUserID } = require('../database/users_db');
+const { getUserID, getUserIDByPasskey, getSharekey } = require('../database/users_db');
 
 const router = require('express').Router();
 
@@ -23,15 +23,18 @@ router.get('/getFavourites', auth, async (req,res) => {
     const items = isNaN(parseInt(req.query.items)) ? 0 : parseInt(req.query.items);
     console.log("items: ", items)
     const favourites = await getFavourites(idAccount, items);
+    const sharekey = await getSharekey(idAccount);
     console.log('favourites: ', favourites)
-    res.status(200).json({ idaccount: idAccount, favourites: favourites });
+    res.status(200).json({ idaccount: idAccount, favourites: favourites, sharekey: sharekey });
 });
-
+ 
 router.get('/sharedFavourites', async (req, res) => {
-    const passkey = req.params.passkey;
-    const idAccount = await getUserIDByPasskey(passkey);
-    const favourites = await getFavourites(idAccount)
-    res.status(200).json({favourites: favourites});
-})
-
+    const sharekey = req.query.sharekey;
+    console.log("backendissä, sharekey:",sharekey);
+    const idAccount = await getUserIDByPasskey(sharekey);
+    const favourites = await getFavourites(idAccount);
+    console.log("suosikit haettu, yhteensä ",favourites.length);
+    res.status(200).json({favourites: favourites}); 
+}) 
+ 
 module.exports = router;
