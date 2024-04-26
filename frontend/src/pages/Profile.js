@@ -6,6 +6,7 @@ import { Unstable_Popup as BasePopup } from '@mui/base/Unstable_Popup';
 import { styled } from '@mui/system';
 import SeeInvites from './SeeInvites';
 import ProfilePicUpdate from '../components/ProfilePicUpdate';
+import { Link } from 'react-router-dom';
 
 
 export default function Profile() {
@@ -90,6 +91,9 @@ export default function Profile() {
         const response = await axios.get('http://localhost:3001/favourite/getFavourites', {
           headers: {
             'Authorization': `Bearer ${jwtToken}`
+          },
+          params: {
+            'items': 5
           }
         });
         const favoritesData = response.data.favourites;
@@ -275,7 +279,15 @@ export default function Profile() {
         </div>
       </div>
       <div className='profile-favorite'>
-        favourites
+      {Array.isArray(favourites) && favourites.map((favourite, mediaItem, index) => (
+              <Link
+                key={mediaItem.id}
+                className={`favourite-card-item favourite-${index}`}
+                to={`${favourite.link}`}>
+                <a href={favourite.link}target="_blank">{favourite.posterUrl && <img className="favourite-picture" src={`https://image.tmdb.org/t/p/original${favourite.posterUrl}`} alt="Movie Poster" />}</a>
+                <h3 className='favourite-title'>{favourite.title}</h3>
+              </Link>
+            ))}
       </div>
       <div className='profile-group-container'>
         <div className='profile-group'>

@@ -2,26 +2,38 @@ const pgPool = require('./pg_connection');
 
 const sql = {
     ADD_FAVOURITE: 'INSERT INTO "favourite" (idaccount, mdbdata, type) VALUES ($1, $2, $3)',
-    GET_FAVOURITES: 'SELECT * FROM "favourite" WHERE "idaccount" = $1'
+    GET_FAVOURITES: 'SELECT * FROM "favourite" WHERE "idaccount" = $1',
+    GET_5FAVOURITES: 'SELECT * FROM "favourite" WHERE "idaccount" = $1 ORDER BY "idfavourite" DESC LIMIT $2;'
 }
 
 async function addFavourite(idaccount, mdbdata, type) {
     // Convert mdbdata to a string representation
-    const truncatedMdbdata = JSON.stringify(mdbdata).substring(0, 255);  
+    const truncatedMdbdata = JSON.stringify(mdbdata).substring(0, 255);
     let result = await pgPool.query(sql.ADD_FAVOURITE, [idaccount, truncatedMdbdata, type]);
     return result.rows;
 }
 
-async function getFavourites(idAccount) {
-    try {
-        const result = await pgPool.query(sql.GET_FAVOURITES, [idAccount]);
-        console.log('idaccount: ', idAccount);
-        return result.rows;
-    } catch (error) {
-        console.error('Error getting favorites:', error);
-        return [];
+async function getFavourites(idAccount, items) {
+    if (items == 0) {
+        try {
+            const result = await pgPool.query(sql.GET_FAVOURITES, [idAccount]);
+            console.log('idaccount: ', idAccount);
+            return result.rows;
+        } catch (error) {
+            console.error('Error getting favorites:', error);
+            return [];
+        }
+    } else {
+        try {
+            const result = await pgPool.query(sql.GET_5FAVOURITES, [idAccount, items]);
+            console.log('idaccount: ', idAccount);
+            return result.rows;
+        } catch (error) {
+            console.error('Error getting favorites:', error);
+            return [];
+        }
     }
 }
 
 
-module.exports = {addFavourite, getFavourites}
+module.exports = { addFavourite, getFavourites }
