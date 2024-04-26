@@ -166,12 +166,12 @@ const Popupwindow = ({ mediaItem, onClose }) => {
                 <div className='popup-img-container'>
                         <img className='popup-img' src={`https://image.tmdb.org/t/p/w400/${mediaItem.poster_path}`} alt={mediaItem.title} />
                         <div className="group-icon-container">
-                            <button className='popupbutton' onClick={onClose}>Close</button>
-                            <AddToFavoritesIcon mdbdata={mediaItem} onAddToFavorites={handleAddToFavorites} />
-                                <i className="popupIcon-group fa-solid fa-users-rectangle" onClick={handleTogglePopup}></i>
-                                {isPopupOpen && (
-                                    <GroupPopup userGroups={userGroups} onSelectGroup={handleSelectGroup} />
-                                )}
+                        <button className='popupbutton' onClick={onClose}>Close</button>
+                            {isLoggedIn && <AddToFavoritesIcon mdbdata={mediaItem} onAddToFavorites={handleAddToFavorites} />}
+                            {isLoggedIn && <i className="popupIcon-group fa-solid fa-users-rectangle" onClick={handleTogglePopup}></i>}
+                            {isPopupOpen && (
+                                <GroupPopup userGroups={userGroups} onSelectGroup={handleSelectGroup} />
+                            )}
 
                         </div>
                     </div>
