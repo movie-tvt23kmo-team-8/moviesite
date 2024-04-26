@@ -25,4 +25,11 @@ router.get('/getFavourites', auth, async (req,res) => {
     res.status(200).json({ idaccount: idAccount, favourites: favourites });
 });
 
+router.get('/sharedFavourites', async (req, res) => {
+    const passkey = req.params.passkey;
+    const idAccount = await getUserIDByPasskey(passkey);
+    const favourites = await getFavourites(idAccount)
+    res.status(200).json({favourites: favourites});
+})
+
 module.exports = router;

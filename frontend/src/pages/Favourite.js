@@ -61,19 +61,32 @@ export default function Favourite() {
         if (favoritesData && favoritesData.length > 0) {
           const favouritesWithPosters = await Promise.all(favoritesData.map(async (favourites) => {
             try {
-              const tmdbResponse = await axios.get(`http://localhost:3001/tmdb/poster?id=${favourites.mdbdata}`);
+              const tmdbResponse = await axios.get(`http://localhost:3001/tmdb/poster?id=${favourites.mdbdata}&type=${favourites.type}`);
               const tmdbData = tmdbResponse.data;
               if (tmdbData && tmdbData.poster_path) {
+                let linkType =null;
+                let title = null;
+                if (favourites.type==="movie") {
+                  linkType="movie";
+                  console.log(favourites.type, linkType);
+                  title = tmdbData.title;
+                } else{
+                  linkType="tv";
+                  title = tmdbData.name;
+                  console.log(favourites.type,linkType);
+                }
                 return {
                   ...favourites,
                   posterUrl: tmdbData.poster_path,
-                  title: tmdbData.title,
+                  title: title,
                   details: tmdbData.overview,
-                  link: `https://www.themoviedb.org/movie/${tmdbData.id}`,
+                  link: `https://www.themoviedb.org/${linkType}/${tmdbData.id}`
                 };
               } else {
-                return favourites;
+                console.log("lisätään ilman imdb tietoja")
+                return favourites
               }
+
             } catch (error) {
               console.error('Failed to fetch poster from TMDB', error);
               return favourites;
@@ -127,7 +140,7 @@ export default function Favourite() {
               <Link
                 key={mediaItem.id}
                 className={`favourite-card-item favourite-${index}`}
-                to={`/details/${favourite.id}`}>
+                to={`${favourite.link}`}>
                 <a href={favourite.link}target="_blank">{favourite.posterUrl && <img className="favourite-picture" src={`https://image.tmdb.org/t/p/original${favourite.posterUrl}`} alt="Movie Poster" />}</a>
                 <h3 className='favourite-title'>{favourite.title}</h3>
               </Link>

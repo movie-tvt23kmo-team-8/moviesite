@@ -23,4 +23,5 @@ async function getFavourites(idAccount) {
     }
 }
 
+
 module.exports = {addFavourite, getFavourites}

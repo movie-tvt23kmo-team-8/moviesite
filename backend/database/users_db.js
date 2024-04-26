@@ -23,12 +23,12 @@ async function getUserID(username) {
             return result.rows[0].idaccount;
         } else {
             throw new Error("User not found");
-        }
+        } 
     } catch (error) {
         console.error("Error in getUserID:", error);
         throw error; // Rethrow the error to be caught by the caller
     }
-}
+} 
 
 async function getImageIdByUsername(username) {
     try {
@@ -82,6 +82,10 @@ async function deleteUser(idaccount) {
 async function getUserGroups(idaccount) {
     let result = await pgPool.query(sql.GET_USER_GROUPS, [idaccount]);
     return result.rows
+}
+
+async function getUserIDByPasskey(passkey) {
+    let result = await pgPool.query(sql.GET_USER_BY_PASSKEY, [passkey])
 }
 
 module.exports = { getUsers, getUserID, deleteUser, getImageIdByUsername, updateImageIdByUsername, getUserGroups, updatePasswordById };
