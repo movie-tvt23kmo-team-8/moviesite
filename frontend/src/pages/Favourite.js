@@ -1,4 +1,4 @@
-import React, { useState, useEffect }from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { jwtToken } from '../components/Signals'
@@ -23,7 +23,8 @@ export default function Favourite() {
   const [idAccount, setIdAccount] = useState('')
   const [searchTerm, setSearchTerm] = useState('');
   const [results, setResults] = useState([]);
-  
+  const [sharekey, setSharekey] = useState("");
+
   const handleSearch = async () => {
     try {
       const response = await fetch(
@@ -53,27 +54,28 @@ export default function Favourite() {
         });
 
         const favoritesData = response.data.favourites;
-
-        console.log('favouritesData: ',favoritesData)
+        const sharekey1 = response.data.sharekey;
+        console.log('favouritesData: ', favoritesData)
         console.log('type of favouritedata: ', typeof favoritesData)
         console.log('favoritesData length:', favoritesData.length);
-
+        console.log("Sharekey haettu: ", sharekey1);
+        setSharekey(sharekey1);
         if (favoritesData && favoritesData.length > 0) {
           const favouritesWithPosters = await Promise.all(favoritesData.map(async (favourites) => {
             try {
               const tmdbResponse = await axios.get(`http://localhost:3001/tmdb/poster?id=${favourites.mdbdata}&type=${favourites.type}`);
               const tmdbData = tmdbResponse.data;
               if (tmdbData && tmdbData.poster_path) {
-                let linkType =null;
+                let linkType = null;
                 let title = null;
-                if (favourites.type==="movie") {
-                  linkType="movie";
+                if (favourites.type === "movie") {
+                  linkType = "movie";
                   console.log(favourites.type, linkType);
                   title = tmdbData.title;
-                } else{
-                  linkType="tv";
+                } else {
+                  linkType = "tv";
                   title = tmdbData.name;
-                  console.log(favourites.type,linkType);
+                  console.log(favourites.type, linkType);
                 }
                 return {
                   ...favourites,
@@ -101,20 +103,22 @@ export default function Favourite() {
       }
     };
     fetchFavourites();
+
+
   }, [idAccount]);
 
   const handleAddFavourite = async (mdbData, mediaType) => {
     try {
-      const jwtToken = sessionStorage.getItem('token'); 
+      const jwtToken = sessionStorage.getItem('token');
       if (!jwtToken) {
         console.error('JWT token not found');
         return;
       }
-  
+
       const response = await axios.post('/favourite/addFavourite', {
-          idaccount: idAccount, 
-          mdbdata: mdbData,
-          type: mediaType,
+        idaccount: idAccount,
+        mdbdata: mdbData,
+        type: mediaType,
       }, {
         headers: {
           Authorization: `Bearer ${jwtToken}`,
@@ -133,6 +137,10 @@ export default function Favourite() {
   return (
     <div className='favourite-container'>
       <h1>Favourites</h1>
+      <div className='favourite-sharing'>
+      <p>Voit jakaa suosikkisi linkillä:</p>
+      <a href={`https://localhost:3000/sharedfavourites/${sharekey}`} target="_blank">{`https://localhost:3000/sharedfavourites/${sharekey}`}</a>
+      </div>
       <div className='favourites-container'>
         <section className='allFavourites'>
           <div className='favourite-card'>
@@ -141,7 +149,7 @@ export default function Favourite() {
                 key={mediaItem.id}
                 className={`favourite-card-item favourite-${index}`}
                 to={`${favourite.link}`}>
-                <a href={favourite.link}target="_blank">{favourite.posterUrl && <img className="favourite-picture" src={`https://image.tmdb.org/t/p/original${favourite.posterUrl}`} alt="Movie Poster" />}</a>
+                <a href={favourite.link} target="_blank">{favourite.posterUrl && <img className="favourite-picture" src={`https://image.tmdb.org/t/p/original${favourite.posterUrl}`} alt="Movie Poster" />}</a>
                 <h3 className='favourite-title'>{favourite.title}</h3>
               </Link>
             ))}
