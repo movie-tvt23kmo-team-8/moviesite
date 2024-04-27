@@ -6,7 +6,7 @@ const sql = {
    CHECK_IF_ACCEPTED: 'SELECT "hasaccepted" FROM "invites" WHERE idinvites = $1',
    GET_IDINVITES: 'SELECT "idinvites" FROM "invites" WHERE idaccountReceiver = $1 AND idaccountSender = $2 AND idgroup = $3',
    GET_IDINVITES_FORUSER: 'SELECT "idinvites" FROM "invites" WHERE idaccountsender = $1 AND idgroup = $2',
-   GET_ALL_INVITES: 'SELECT * FROM "invites" WHERE idaccountreceiver = $1',
+   GET_ALL_INVITES: 'SELECT invites.*, account.username AS sender_username, "group".groupname AS group_name FROM invites JOIN account ON invites.idaccountsender = account.idaccount JOIN "group" ON invites.idgroup = "group".idgroup WHERE invites.idaccountreceiver = $1',
    DENY_REQUEST: 'DELETE FROM "invites" WHERE "idaccountreceiver" = $1 AND "idaccountsender" = $2 AND "idgroup" = $3'
 }
 

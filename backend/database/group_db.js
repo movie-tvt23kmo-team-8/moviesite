@@ -8,7 +8,15 @@ const sql = {
     GET_GROUP_ID: 'SELECT (idgroup) FROM "group" WHERE idaccount = $1 ORDER BY "idgroup" DESC LIMIT 1',
     GET_GROUP_ID_BY_NAME: 'SELECT (idgroup) FROM "group" WHERE groupname= $1',
     GET_GROUP_MEMBERS: 'SELECT groupmember.*, account.username AS username FROM groupmember JOIN  account ON groupmember.idaccount = account.idaccount WHERE idgroup=$1',
-    GET_GROUP_DETAILS: 'SELECT * FROM "group" WHERE idgroup=$1'
+    GET_GROUP_DETAILS: 'SELECT * FROM "group" WHERE idgroup=$1',
+    GET_GROUP_ID_BY_NAME: 'SELECT (idgroup) FROM "group" WHERE groupname= $1', 
+    DELETE_GROUP: `
+        BEGIN;
+        DELETE FROM "groupchoices" WHERE idgroup = $1;
+        DELETE FROM "groupmember" WHERE idgroup = $1;
+        DELETE FROM "group" WHERE idgroup = $1;
+        COMMIT;
+    `
 }
 
 async function addGroup(idaccount, groupname, groupdetails) {
@@ -46,4 +54,18 @@ async function getGroupDetails(idgroup) {
 }
 
 
-module.exports = {addGroup, getGroups, getGroupID, getGroupIDbyGroupname, getGroupMembers, getGroupDetails};
+const deleteGroup = async (idgroup) => {
+    await pgPool.query('BEGIN'); 
+    try {
+        await pgPool.query('DELETE FROM "invites" WHERE idgroup = $1', [idgroup]);
+        await pgPool.query('DELETE FROM "groupchoices" WHERE idgroup = $1', [idgroup]);
+        await pgPool.query('DELETE FROM "groupmember" WHERE idgroup = $1', [idgroup]);
+        await pgPool.query('DELETE FROM "group" WHERE idgroup = $1', [idgroup]);
+        await pgPool.query('COMMIT');
+    } catch (error) {
+        await pgPool.query('ROLLBACK'); // Peruutetaan, jos tapahtuu virhe
+        throw error;
+    }
+};
+
+module.exports = {addGroup, getGroups, getGroupID, getGroupIDbyGroupname, getGroupMembers, getGroupDetails, deleteGroup};

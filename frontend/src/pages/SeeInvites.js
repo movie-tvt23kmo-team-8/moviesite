@@ -94,7 +94,7 @@ export default function SeeInvites() {
       ) : (
         invites.map(invite => (
           <div key={invite.idinvites}>
-            <p>Invite ID: {invite.idinvites}, Sender ID: {invite.idaccountsender}, Group ID: {invite.idgroup}</p>
+            <p>{/*Invite ID: {invite.idinvites},*/} Lähettäjä: {invite.sender_username}, Ryhmän nimi: {invite.group_name}</p>
             <button onClick={() => handleAccept(invite.idaccountsender, invite.idgroup)}>Accept</button>
             <button onClick={() => handleDeny(invite.idaccountsender, invite.idgroup)}>Deny</button>
           </div>

@@ -62,7 +62,7 @@ router.get('/movies', async (req, res) => {
         pointEnd = 10;
         break;
       default:
-        console.log("case default");
+        //console.log("case default");
         return;
     }
 
@@ -83,8 +83,8 @@ router.get('/movies', async (req, res) => {
     };
 
     res.json(combinedResults);
-    console.log("haku onnistui")
-    console.log(combinedResults);
+    //console.log("haku onnistui")
+    //console.log(combinedResults);
   } catch (error) {
     console.error('Error fetching from TMDB:', error);
     res.status(500).json({ error: 'Error fetching from TMDB2' });
@@ -92,12 +92,12 @@ router.get('/movies', async (req, res) => {
 });
 
 router.get('/poster', async (req, res) => {
-  console.log("posterin fetchin sisällä backarissa");
+  //console.log("posterin fetchin sisällä backarissa");
   try {
     const apiKey = process.env.TMDB_API_KEY;
     const ID = parseInt(req.query.id);
     const type = req.query.type;
-    console.log(type, ID);
+    //console.log(type, ID);
     if (type=="movie"){
       const response = await axios.get(`https://api.themoviedb.org/3/movie/${ID}?api_key=${apiKey}&language=fi-FI`);
       const result = response.data;

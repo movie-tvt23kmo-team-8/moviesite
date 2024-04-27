@@ -50,7 +50,7 @@ export default function Group() {
         }
       });
 
-      setUserGroups(response.data);
+      setUserGroups(response.data.groups);
     } catch (error) {
       console.error('Error fetching user groups:', error);
     }

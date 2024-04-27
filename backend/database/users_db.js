@@ -9,19 +9,19 @@ const sql = {
     GET_USER_GROUPS: 'SELECT "group"."groupname" FROM "group" JOIN "groupmember" ON "group"."idgroup"="groupmember"."idgroup" WHERE "group"."idaccount" = $1 ',
     UPDATE_PASSWORD: 'UPDATE "account" SET "password" = $1 WHERE "idaccount" = $2',
     GET_USER_BY_PASSKEY: 'SELECT "idaccount" FROM "account" WHERE "sharekey" = $1',
-    GET_SHAREKEY: 'SELECT "sharekey" FROM "account" WHERE "idaccount" = $1'
-
+    GET_SHAREKEY: 'SELECT "sharekey" FROM "account" WHERE "idaccount" = $1',
+    GET_USERNAME: 'SELECT "username" FROM "account" WHERE "idaccount" = $1'
 }
 
 async function getUsers(){
     let result = await pgPool.query(sql.GET_ALL_USERS);
-    console.log('GET_ALL_USERS: ', result)
+    //console.log('GET_ALL_USERS: ', result)
     return result.rows;
 }
 
 async function getSharekey(idAccount){
     let result = await pgPool.query(sql.GET_SHAREKEY, [idAccount]);
-    console.log("Sharekey tietokannassa: ", result.rows[0].sharekey);
+    //console.log("Sharekey tietokannassa: ", result.rows[0].sharekey);
 
     return result.rows[0].sharekey;
 }
@@ -95,11 +95,11 @@ async function getUserGroups(idaccount) {
 }
 
 async function getUserIDByPasskey(sharedkey) {
-    console.log("tietokannassa sharedkey: ", sharedkey)
+    //console.log("tietokannassa sharedkey: ", sharedkey)
     try {
         const result = await pgPool.query(sql.GET_USER_BY_PASSKEY, [sharedkey])
         if (result.rows.length > 0) {
-            console.log(result.rows[0].idaccount)
+            //console.log(result.rows[0].idaccount)
             return result.rows[0].idaccount;
         } else {
             throw new Error("User not found");
@@ -110,5 +110,10 @@ async function getUserIDByPasskey(sharedkey) {
     }
 }
 
-module.exports = { getUsers, getUserID, deleteUser, getImageIdByUsername, updateImageIdByUsername, getUserGroups, updatePasswordById, getUserIDByPasskey, getSharekey };
+async function getUsername(idaccount){
+    let result = await pgPool.query(sql.GET_USERNAME, [idaccount])
+    return result.rows[0].username
+}
+
+module.exports = { getUsers, getUserID, deleteUser, getImageIdByUsername, updateImageIdByUsername, getUserGroups, updatePasswordById, getUserIDByPasskey, getSharekey, getUsername };
 

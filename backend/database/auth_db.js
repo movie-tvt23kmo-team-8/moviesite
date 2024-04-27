@@ -8,7 +8,7 @@ const sql = {
 };
 
 async function register(username, passwordHash, joindate, sharekey) {
-    console.log("tietokannassa sharekey: ", sharekey);
+    //console.log("tietokannassa sharekey: ", sharekey);
     let result = await pgPool.query(sql.REGISTER, [username, passwordHash, joindate, sharekey]);
     return result.rows[0];
 }

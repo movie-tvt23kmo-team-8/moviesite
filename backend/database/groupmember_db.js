@@ -8,7 +8,8 @@ const sql = {
     "group".idgroup, 
     "group".idaccount, 
     "group".groupname, 
-    "group".groupdetails 
+    "group".groupdetails,
+    "groupmember"."grouprole" 
 FROM 
     "group" 
 JOIN 
