@@ -31,7 +31,7 @@ export default function Favourite() {
         `https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&query=${searchTerm}&include_adult=false`
       );
       const data = await response.json();
-      console.log('Search results:', data.results);
+      //console.log('Search results:', data.results);
       setResults(data.results || []);
     } catch (error) {
       console.error('Error fetching results:', error);
@@ -55,10 +55,10 @@ export default function Favourite() {
 
         const favoritesData = response.data.favourites;
         const sharekey1 = response.data.sharekey;
-        console.log('favouritesData: ', favoritesData)
+        /*console.log('favouritesData: ', favoritesData)
         console.log('type of favouritedata: ', typeof favoritesData)
         console.log('favoritesData length:', favoritesData.length);
-        console.log("Sharekey haettu: ", sharekey1);
+        console.log("Sharekey haettu: ", sharekey1);*/
         setSharekey(sharekey1);
         if (favoritesData && favoritesData.length > 0) {
           const favouritesWithPosters = await Promise.all(favoritesData.map(async (favourites) => {
@@ -70,12 +70,12 @@ export default function Favourite() {
                 let title = null;
                 if (favourites.type === "movie") {
                   linkType = "movie";
-                  console.log(favourites.type, linkType);
+                  //console.log(favourites.type, linkType);
                   title = tmdbData.title;
                 } else {
                   linkType = "tv";
                   title = tmdbData.name;
-                  console.log(favourites.type, linkType);
+                  //console.log(favourites.type, linkType);
                 }
                 return {
                   ...favourites,
@@ -85,7 +85,7 @@ export default function Favourite() {
                   link: `https://www.themoviedb.org/${linkType}/${tmdbData.id}`
                 };
               } else {
-                console.log("lisätään ilman imdb tietoja")
+                //console.log("lisätään ilman imdb tietoja")
                 return favourites
               }
 
@@ -96,7 +96,7 @@ export default function Favourite() {
           }));
           setFavourites(favouritesWithPosters);
         } else {
-          console.log('No favorites data found');
+          //console.log('No favorites data found');
         }
       } catch (error) {
         console.error('Failed to fetch favorites data from the backend', error);

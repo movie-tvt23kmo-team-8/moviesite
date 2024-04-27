@@ -17,7 +17,7 @@ async function getFavourites(idAccount, items) {
     if (items == 0) {
         try {
             const result = await pgPool.query(sql.GET_FAVOURITES, [idAccount]);
-            console.log('idaccount: ', idAccount);
+            //console.log('idaccount: ', idAccount);
             return result.rows;
         } catch (error) {
             console.error('Error getting favorites:', error);
@@ -26,7 +26,7 @@ async function getFavourites(idAccount, items) {
     } else {
         try {
             const result = await pgPool.query(sql.GET_5FAVOURITES, [idAccount, items]);
-            console.log('idaccount: ', idAccount);
+            //console.log('idaccount: ', idAccount);
             return result.rows;
         } catch (error) {
             console.error('Error getting favorites:', error);
