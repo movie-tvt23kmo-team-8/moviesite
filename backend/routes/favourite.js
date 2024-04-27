@@ -28,13 +28,4 @@ router.get('/getFavourites', auth, async (req,res) => {
     res.status(200).json({ idaccount: idAccount, favourites: favourites, sharekey: sharekey });
 });
  
-router.get('/sharedFavourites', async (req, res) => {
-    const sharekey = req.query.sharekey;
-    console.log("backendissä, sharekey:",sharekey);
-    const idAccount = await getUserIDByPasskey(sharekey);
-    const favourites = await getFavourites(idAccount);
-    console.log("suosikit haettu, yhteensä ",favourites.length);
-    res.status(200).json({favourites: favourites}); 
-}) 
- 
 module.exports = router;

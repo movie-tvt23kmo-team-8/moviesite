@@ -139,7 +139,7 @@ export default function Favourite() {
       <h1>Favourites</h1>
       <div className='favourite-sharing'>
       <p>Voit jakaa suosikkisi linkillä:</p>
-      <a href={`https://localhost:3000/sharedfavourites/${sharekey}`} target="_blank">{`https://localhost:3000/sharedfavourites/${sharekey}`}</a>
+      <a href={`http://localhost:3000/sharedfavourites?sharekey=${sharekey}`} target="_blank">{`http://localhost:3000/sharedfavourites?sharekey=${sharekey}`}</a>
       </div>
       <div className='favourites-container'>
         <section className='allFavourites'>
