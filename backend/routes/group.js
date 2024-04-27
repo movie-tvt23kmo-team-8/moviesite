@@ -97,4 +97,18 @@ router.delete('/deleteGroup', async (req, res) => {
     }
 });
  
+router.get('/getGroupContent', async (req, res) => {
+    try {
+        const idgroup = req.body.idgroup;
+        console.log("backend, haetaan ryhmän tietoja", idgroup);
+        const members = await getGroupMembers(idgroup);
+        const groupDetails = await getGroupDetails(idgroup);
+        const groupchoices = await getGroupChoices(idgroup);
+        res.json({members: members, groupDetails:groupDetails, groupchoices:groupchoices});
+    } catch(err) {
+        console.log("virhe koko haussa");
+        res.status(500).json({ error: err.message })
+    }
+})
+
 module.exports = router;
