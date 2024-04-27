@@ -1,4 +1,28 @@
 .groupinfo-container{
     position: absolute;
-    top: 20%;
+    top: 20%; 
+}
+
+.group-favourite{
+    display: flex;
+    margin-top: 2%;
+}
+
+.movie-picture{
+    width: 80%;
+    height: 80%;
+}
+
+.group-movies{
+    width: 80%;
+    background-color: rgba(37, 37, 37, 0.5);
+    color: aliceblue;
+    padding: 2%;
+    margin: 1%;
+    text-align: center;
+}
+
+.group-name{
+    font-size: 200%;
+    font-family: "Poiret One", sans-serif;
 }

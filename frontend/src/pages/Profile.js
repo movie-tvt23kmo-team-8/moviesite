@@ -15,7 +15,7 @@ export default function Profile() {
   const [deleteConfirmed, setDeleteConfirmed] = useState(false);
   const [openPasswordPopup, setOpenPasswordPopup] = useState(false);
   const [openPhotoPopup, setOpenPhotoPopup] = useState(false);
-  const [loading, setLoading] = useState(true); // State to track loading status
+  const [loading, setLoading] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -23,7 +23,6 @@ export default function Profile() {
   const [passwordChangeError, setPasswordChangeError] = useState('');
   const [userGroups, setUserGroups] = useState([]);
   const [favourites, setFavourites] = useState([]);
-
 
   useEffect(() => {
     // Fetch user data after 5 seconds

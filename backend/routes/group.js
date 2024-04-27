@@ -32,8 +32,9 @@ router.post('/addGroup', auth, async (req, res) => {
 
 
 router.get('/allGroups', async (req, res) => {
+    const groupname = res.locals.groupname;
     const groups = await getGroups();
-    res.json(groups);
+    res.json({groups: groups, groupname: groupname});
 });
 
 router.post('/addToWatchlist', async (req, res) => {
@@ -68,7 +69,7 @@ router.post('/addToWatchlist', async (req, res) => {
 });
 
 router.get('/getFromWatchlist', async (req, res) => {
-    const idgroup = req.body.idgroup;
+    const idgroup = req.query.idgroup;
     //console.log(idgroup);
     const choices = await getGroupChoices(idgroup);
     res.json(choices);

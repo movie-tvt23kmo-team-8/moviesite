@@ -32,14 +32,13 @@ function App() {
             <Route path='/shows' element={<Shows />} />
             <Route path='/reviews' element={<Reviews />} />
             <Route path='/group' element={<Group />} />
+            <Route path="/group/:idgroup" element={<GroupInfo />}/>
             <Route path='/sharedfavourites' element={<Sharedfavourites />} />
             <Route element={<PrivateRoute />}>
-              <Route path="/group/:groupId" component={GroupInfo}/>
               <Route path='/profile' element={<Profile />} />
               <Route path='/favourite' element={<Favourite />} />
               <Route path='/logout' element={<Logout />} />
             </Route>
-
 
             <Route path='*' element={<NotFound />} />
           </Routes>

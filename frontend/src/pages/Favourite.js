@@ -10,7 +10,7 @@ function Popup(props) {
   return (props.trigger) ? (
     <div className='popup'>
       <div className='popup-inner'>
-        <button className='close-btn' onClick={() => props.setTrigger(false)}>close</button>
+        <button className='close-btn' onClick={() => props.setTrigger(false)}>sulje</button>
         {props.children}
       </div>
     </div>
@@ -156,14 +156,14 @@ export default function Favourite() {
           </div>
         </section>
         <section className='addFavourite'>
-          <button className='addFavouriteButton' onClick={() => setButtonPopup(true)}>Add favourites</button>
+          <button className='addFavouriteButton' onClick={() => setButtonPopup(true)}>Lisää suosikkeja</button>
           <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-            <h3>Add your favourites</h3>
+            <h3>Etsi suosikkeja</h3>
             <br />
             <form onSubmit={(e) => { e.preventDefault(); handleSearch(); }}>
               <input
                 type="text"
-                placeholder="Search for movies and TV shows"
+                placeholder="Etsi elokuvia ja/tai sarjoja"
                 value={searchTerm}
                 onChange={handleChange}
               />
@@ -174,7 +174,7 @@ export default function Favourite() {
                       {result.poster_path ? (
                         <img src={`https://image.tmdb.org/t/p/w92${result.poster_path}`} alt={result.title || result.name} />
                       ) : (
-                        <p>No poster available</p>
+                        <p>Ei saatavilla olevaa kuvaa</p>
                       )}
                       <p>{result.title || result.name}</p>
                       <button className='addfavourite-button' onClick={() => handleAddFavourite(result.id, result.media_type)}>Add to favorites</button>
