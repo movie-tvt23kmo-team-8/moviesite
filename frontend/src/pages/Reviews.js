@@ -65,7 +65,7 @@ export default function Reviews() {
             <p>Arvostelu: {review.review}</p>
             <BasicRating value={review.star}></BasicRating>
             </div>
-            <div>
+          <div>
             <a href={review.link}target="_blank">{review.posterUrl && <img className="review-picture" src={`https://image.tmdb.org/t/p/original${review.posterUrl}`} alt="Movie Poster" />}</a>
             </div>
            </div>

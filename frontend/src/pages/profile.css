@@ -6,14 +6,14 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 10%;
+    font-family: "Raleway", sans-serif;
 }
 
 .profile-info {
-    background-color: aqua;
     display: flex;
-    margin: 2%;
+    margin: 1%;
     padding: 2%;
-    width: 250%;
+    width: 80%;
     background-color: rgba(37, 37, 37, 0.5);
 }
 
@@ -34,9 +34,8 @@
 
 
 .photo-add {
-    font-family: "Poiret One", sans-serif;
     color: turquoise;
-    font-size: 250%;
+    font-size: 100%;
     padding: 5%;
     position: absolute;
     bottom: 0;
@@ -87,17 +86,11 @@ input{
     margin-bottom: 1%;
 }
 
-.profile-favorite {
-    background-color: green;
-    margin: 2%;
-    padding: 2%;
-}
-
 .profile-group-container{
     display: flex;
-    width: 250%;
-    margin: 2%;
-    padding: 2%;
+    width: 80%;
+    margin: 1%;
+    padding: 1%;
     color: aliceblue;
 }
 
@@ -132,6 +125,30 @@ input{
     text-align: center;
     flex: 50%;
     margin: 2%;
+}
+
+.profile-favorite{
+    width: 80%;
+    background-color: rgba(37, 37, 37, 0.5);
+    color: aliceblue;
+    padding: 2%;
+    margin: 1%;
+    text-align: center;
+}
+
+.profile-favorite-items{
+    display: flex;
+    margin-top: 2%;
+
+}
+
+.profile-favourite-picture{
+    width: 80%;
+    height: 80%;
+}
+
+.profile-favourite-title{
+    padding-top: 5%;
 }
 
 

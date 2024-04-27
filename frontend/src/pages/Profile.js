@@ -279,15 +279,19 @@ export default function Profile() {
         </div>
       </div>
       <div className='profile-favorite'>
-      {Array.isArray(favourites) && favourites.map((favourite, mediaItem, index) => (
-              <Link
-                key={mediaItem.id}
-                className={`favourite-card-item favourite-${index}`}
-                to={`${favourite.link}`}>
-                <a href={favourite.link}target="_blank">{favourite.posterUrl && <img className="favourite-picture" src={`https://image.tmdb.org/t/p/original${favourite.posterUrl}`} alt="Movie Poster" />}</a>
-                <h3 className='favourite-title'>{favourite.title}</h3>
-              </Link>
-            ))}
+        <h3 className='profile-group-name'>VIIMEISIMMÄT SUOSIKIT</h3>
+        <div className='profile-favorite-items'>
+          {Array.isArray(favourites) && favourites.map((favourite, mediaItem, index) => (
+            <Link
+              key={mediaItem.id}
+              className={`favourite-card-item favourite-${index}`}
+              to={`${favourite.link}`}
+              style={{ textDecoration: 'none', color: 'inherit', margin: '0', padding: '0', background: 'none' }}>
+              <a href={favourite.link} target="_blank">{favourite.posterUrl && <img className="profile-favourite-picture" src={`https://image.tmdb.org/t/p/w300${favourite.posterUrl}`} alt="Movie Poster" />}</a>
+              <h3 className='profile-favourite-title'>{favourite.title}</h3>
+            </Link>
+          ))}
+        </div>
       </div>
       <div className='profile-group-container'>
         <div className='profile-group'>
