@@ -10,16 +10,16 @@ export default function Home() {
     <div className='home-container'>
       <div className='trailer-back'>
         <header>
-      <Header />
-    </header>
+          <Header />
+        </header>
       </div>
-    
+
       <div className='home'>
-        <h3 className='home-header'>Popular movies</h3>
-       <PopularMoviesPanel /> 
-       <h3 className='home-header'>Popular series</h3> 
-       <PopularSeriesPanel />
-      </div>    
+        <h3 className='home-header'>Suosituimmat elokuvat</h3>
+        <PopularMoviesPanel />
+        <h3 className='home-header'>Suosituimmat sarjat</h3>
+        <PopularSeriesPanel />
+      </div>
 
     </div>
   )

@@ -131,7 +131,7 @@ export default function Group() {
 
   return (
     <div className='group-container'>
-      <h1>Groups</h1>
+      <h1>Ryhmät</h1>
       <div className='groups-container'>
         <section className='allGroups'>
           <div className='group-card'>

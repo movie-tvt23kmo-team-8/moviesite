@@ -241,6 +241,9 @@ export default function Profile() {
       });
   };
 
+  const adminGroups = userGroups.filter(group => group.grouprole === "admin");
+const nonAdminGroups = userGroups.filter(group => group.grouprole !== "admin");
+
   return (
     <div className='profile-container'>
       <div className='profile-info'>
@@ -306,21 +309,31 @@ export default function Profile() {
         </div>
       </div>
       <div className='profile-group-container'>
-        <div className='profile-group'>
-          <h3 className='profile-group-name'>OMAT RYHMÄT</h3>
-          <ul className='profile-group-list'>
-            {userGroups.map((group, index) => (
-              <li key={group.idgroup} className='profile-group-list-item'>
-                {group.groupname}
-                {group.grouprole === "admin" && (
-                  <button onClick={() => handleDeleteGroup(group.idgroup)}>
-                    Poista ryhmä
-                  </button>
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
+    <div className='profile-group'>
+      <h3 className='profile-group-name'>OMAT RYHMÄT (Admin)</h3>
+      <ul className='profile-group-list'>
+        {adminGroups.map((group, index) => (
+          <li key={group.idgroup} className='profile-group-list-item'>
+            {group.groupname}
+            {group.grouprole === "admin" && (
+              <button className='profile-group-button' onClick={() => handleDeleteGroup(group.idgroup)}>
+                Poista ryhmä
+              </button>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div className='profile-group'>
+      <h3 className='profile-group-name'>OMAT RYHMÄT (Jäsen)</h3>
+      <ul className='profile-group-list'>
+        {nonAdminGroups.map((group, index) => (
+          <li key={group.idgroup} className='profile-group-list-item'>
+            {group.groupname}
+          </li>
+        ))}
+      </ul>
+    </div>
         <div className='profile-invites'>
           <SeeInvites /> { }
         </div>

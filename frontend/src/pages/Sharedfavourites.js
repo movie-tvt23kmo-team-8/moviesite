@@ -74,8 +74,8 @@ export default function Sharedfavourites() {
     return (
         <div className='shared-favourite-container'>
             {favourites.length > 0 ? (
-                <div className='favourites-container'>
-                    <p>Käyttäjän {username} suosikit:</p>
+                <div className='shared-favourites-container'>
+                    <p className='shared-favourite-name'>Käyttäjän {username} suosikit:</p>
                     <section className='allFavourites'>
                         <div className='favourite-card'>
                             {Array.isArray(favourites) && favourites.map((favourite, mediaItem, index) => (
