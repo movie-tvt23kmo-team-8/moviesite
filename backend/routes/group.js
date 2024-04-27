@@ -99,7 +99,7 @@ router.delete('/deleteGroup', async (req, res) => {
  
 router.get('/getGroupContent', async (req, res) => {
     try {
-        const idgroup = req.body.idgroup;
+        const idgroup = req.query.idgroup;
         console.log("backend, haetaan ryhmän tietoja", idgroup);
         const members = await getGroupMembers(idgroup);
         const groupDetails = await getGroupDetails(idgroup);
