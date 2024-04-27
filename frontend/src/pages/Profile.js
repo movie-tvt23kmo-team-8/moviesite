@@ -67,11 +67,7 @@ export default function Profile() {
           }
         });
 
-        // Extract group names from the response data
-        const groupNames = response.data.map(group => group.groupname);
-
-        // Set the group names to the state
-        setUserGroups(groupNames);
+        setUserGroups(response.data.groups);
       } catch (error) {
         console.error('Error fetching user groups:', error);
       }
@@ -185,6 +181,22 @@ export default function Profile() {
     }
   };
 
+  const handleDeleteGroup = async (idgroup) => {
+    try {
+      const deleteResponse = await axios.delete('/group/deleteGroup', {
+        params: { idgroup: idgroup }
+      })
+      if (deleteResponse.status === 200) {
+        window.location.reload();
+      } else {
+        console.error('Failed to send group delete request');
+      }
+    } catch (error) {
+      console.error('Error sending group delete request', error);
+    }
+
+  }
+
   const id = openPasswordPopup ? 'password-popup' : undefined;
 
   const togglePasswordPopup = (event) => {
@@ -297,8 +309,15 @@ export default function Profile() {
         <div className='profile-group'>
           <h3 className='profile-group-name'>OMAT RYHMÄT</h3>
           <ul className='profile-group-list'>
-            {userGroups.map((groupName, index) => (
-              <li className='profile-group-list-item' key={index}>{groupName}</li>
+            {userGroups.map((group, index) => (
+              <li key={group.idgroup} className='profile-group-list-item'>
+                {group.groupname}
+                {group.grouprole === "admin" && (
+                  <button onClick={() => handleDeleteGroup(group.idgroup)}>
+                    Poista ryhmä
+                  </button>
+                )}
+              </li>
             ))}
           </ul>
         </div>
