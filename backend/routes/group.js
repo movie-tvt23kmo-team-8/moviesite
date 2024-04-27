@@ -1,5 +1,5 @@
 const { group, error } = require('console');
-const { addGroup, getGroups, getGroupID, getGroupIDbyGroupname } = require('../database/group_db');
+const { addGroup, getGroups, getGroupID, getGroupIDbyGroupname, getGroupMembers, getGroupDetails } = require('../database/group_db');
 const { add2GroupChoices, getGroupChoices, deleteGroupChoice } = require('../database/groupchoices_db')
 const { makeAdmin } = require('../database/groupmember_db');
 const { getUserID } = require('../database/users_db');
@@ -85,5 +85,18 @@ router.delete('/deleteFromWatchlist', async (req, res) => {
         res.status(500).json({ error: err.message })
     }
 });
- 
+  
+router.get('/getGroupContent', async (req, res) => {
+    try {
+        const idgroup = req.body.idgroup;
+        console.log("backend, haetaan ryhmän tietoja", idgroup);
+        const members = await getGroupMembers(idgroup);
+        const groupDetails = await getGroupDetails(idgroup);
+        const groupchoices = await getGroupChoices(idgroup);
+        res.json({members: members, groupDetails:groupDetails, groupchoices:groupchoices});
+    } catch(err) {
+        console.log("virhe koko haussa");
+        res.status(500).json({ error: err.message })
+    }
+})
 module.exports = router;
