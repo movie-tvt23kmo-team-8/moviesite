@@ -6,7 +6,7 @@ const sql = {
     DELETE_USER: 'DELETE FROM "account" WHERE "idaccount" = $1',
     GET_PIC: 'SELECT imageid FROM "account" WHERE "username" = $1',
     UPDATE_PIC: 'UPDATE "account" SET imageid = $1 WHERE "idaccount" = $2',
-    GET_USER_GROUPS:'SELECT "group"."groupname" FROM "groupmember" JOIN "group" ON "groupmember"."idgroup" = "group"."idgroup" WHERE "groupmember"."idaccount" = $1',
+    GET_USER_GROUPS: 'SELECT "group"."groupname" FROM "groupmember" JOIN "group" ON "groupmember"."idgroup" = "group"."idgroup" WHERE "groupmember"."idaccount" = $1',
     UPDATE_PASSWORD: 'UPDATE "account" SET "password" = $1 WHERE "idaccount" = $2',
     GET_USER_BY_PASSKEY: 'SELECT "idaccount" FROM "account" WHERE "sharekey" = $1',
     GET_SHAREKEY: 'SELECT "sharekey" FROM "account" WHERE "idaccount" = $1',
@@ -14,13 +14,13 @@ const sql = {
     GET_JOINDATE: 'SELECT "joindate" FROM "account" WHERE "idaccount" = $1'
 }
 
-async function getUsers(){
+async function getUsers() {
     let result = await pgPool.query(sql.GET_ALL_USERS);
     //console.log('GET_ALL_USERS: ', result)
     return result.rows;
 }
 
-async function getSharekey(idAccount){
+async function getSharekey(idAccount) {
     let result = await pgPool.query(sql.GET_SHAREKEY, [idAccount]);
     //console.log("Sharekey tietokannassa: ", result.rows[0].sharekey);
 
@@ -34,12 +34,12 @@ async function getUserID(username) {
             return result.rows[0].idaccount;
         } else {
             throw new Error("User not found");
-        } 
+        }
     } catch (error) {
         console.error("Error in getUserID:", error);
         throw error; // Rethrow the error to be caught by the caller
     }
-} 
+}
 
 async function getImageIdByUsername(username) {
     try {
@@ -104,14 +104,14 @@ async function getUserIDByPasskey(sharedkey) {
             return result.rows[0].idaccount;
         } else {
             throw new Error("User not found");
-        } 
+        }
     } catch (error) {
         console.error("Error in getUserID:", error);
         throw error; // Rethrow the error to be caught by the caller
     }
 }
 
-async function getUsername(idaccount){
+async function getUsername(idaccount) {
     let result = await pgPool.query(sql.GET_USERNAME, [idaccount])
     return result.rows[0].username
 }

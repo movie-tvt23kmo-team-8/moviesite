@@ -1,13 +1,13 @@
 const pgPool = require('./pg_connection');
 
 const sql = {
-   SEND_REQUEST: 'INSERT INTO "invites" (idaccountReceiver, idaccountSender, idgroup, hasaccepted) VALUES ($1, $2, $3, $4)',
-   ACCEPT_REQUEST: 'UPDATE "invites" SET hasaccepted = true WHERE idinvites = $1',
-   CHECK_IF_ACCEPTED: 'SELECT "hasaccepted" FROM "invites" WHERE idinvites = $1',
-   GET_IDINVITES: 'SELECT "idinvites" FROM "invites" WHERE idaccountReceiver = $1 AND idaccountSender = $2 AND idgroup = $3',
-   GET_IDINVITES_FORUSER: 'SELECT "idinvites" FROM "invites" WHERE idaccountsender = $1 AND idgroup = $2',
-   GET_ALL_INVITES: 'SELECT invites.*, account.username AS sender_username, "group".groupname AS group_name FROM invites JOIN account ON invites.idaccountsender = account.idaccount JOIN "group" ON invites.idgroup = "group".idgroup WHERE invites.idaccountreceiver = $1',
-   DENY_REQUEST: 'DELETE FROM "invites" WHERE "idaccountreceiver" = $1 AND "idaccountsender" = $2 AND "idgroup" = $3'
+    SEND_REQUEST: 'INSERT INTO "invites" (idaccountReceiver, idaccountSender, idgroup, hasaccepted) VALUES ($1, $2, $3, $4)',
+    ACCEPT_REQUEST: 'UPDATE "invites" SET hasaccepted = true WHERE idinvites = $1',
+    CHECK_IF_ACCEPTED: 'SELECT "hasaccepted" FROM "invites" WHERE idinvites = $1',
+    GET_IDINVITES: 'SELECT "idinvites" FROM "invites" WHERE idaccountReceiver = $1 AND idaccountSender = $2 AND idgroup = $3',
+    GET_IDINVITES_FORUSER: 'SELECT "idinvites" FROM "invites" WHERE idaccountsender = $1 AND idgroup = $2',
+    GET_ALL_INVITES: 'SELECT invites.*, account.username AS sender_username, "group".groupname AS group_name FROM invites JOIN account ON invites.idaccountsender = account.idaccount JOIN "group" ON invites.idgroup = "group".idgroup WHERE invites.idaccountreceiver = $1',
+    DENY_REQUEST: 'DELETE FROM "invites" WHERE "idaccountreceiver" = $1 AND "idaccountsender" = $2 AND "idgroup" = $3'
 }
 
 async function sendRequest(idaccountReceiver, idaccountSender, idgroup, hasAccpeted) {
@@ -29,9 +29,9 @@ async function checkIfAccepted(idinvites) {
     let result = await pgPool.query(sql.CHECK_IF_ACCEPTED, [idinvites]);
     if (result.rows.length > 0) {
         const hasAccepted = result.rows[0].hasaccepted;
-        return hasAccepted; 
+        return hasAccepted;
     } else {
-        return false; 
+        return false;
     }
 }
 
@@ -53,4 +53,4 @@ async function getAllInvites(idaccountReceiver) {
 }
 
 
-module.exports = {sendRequest, acceptRequest, checkIfAccepted, getIdinvites, getAllInvites, getIdinvitesForUser, denyRequest}
+module.exports = { sendRequest, acceptRequest, checkIfAccepted, getIdinvites, getAllInvites, getIdinvitesForUser, denyRequest }

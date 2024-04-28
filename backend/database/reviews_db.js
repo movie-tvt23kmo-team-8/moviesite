@@ -13,12 +13,12 @@ const sql = {
     ADD_REVIEW: 'INSERT INTO "review" (idaccount, star, review, mdbdata) VALUES ($1, $2, $3, $4)',
 }
 
-async function getReviews(){
+async function getReviews() {
     let result = await pgPool.query(sql.GET_ALL_REVIEWS);
     return result.rows;
 }
 
-async function getReview(mdbdata){
+async function getReview(mdbdata) {
     let result = await pgPool.query(sql.GET_REVIEW, [mdbdata]);
     return result.rows
 }
@@ -28,9 +28,9 @@ async function getReviewByUserID(idaccount) {
     return result.rows;
 }
 
-async function addReview(idaccount, star, review, mdbdata){
+async function addReview(idaccount, star, review, mdbdata) {
     let result = await pgPool.query(sql.ADD_REVIEW, [idaccount, star, review, mdbdata]);
     return result.rows[0];
 }
 
-module.exports = {getReviews, getReview, getReviewByUserID, addReview};
+module.exports = { getReviews, getReview, getReviewByUserID, addReview };

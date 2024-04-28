@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
     const favourites = await getFavourites(idAccount);
     const username = await getUsername(idAccount);
     //console.log("suosikit haettu, yhteensä ",favourites.length);
-    res.status(200).json({favourites: favourites, username: username}); 
-}) 
+    res.status(200).json({ favourites: favourites, username: username });
+})
 
 module.exports = router
