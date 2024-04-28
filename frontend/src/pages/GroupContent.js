@@ -8,9 +8,7 @@ export default function GroupContent() {
     const [groupDetails, setGroupDetails] = useState([]);
     const [groupchoices, setGroupChoices] = useState([]);
     const { groupId } = useParams();
-    //console.log("Sivulla, groupid: ", groupId)
     useEffect(() => {
-        //console.log("Sivulla, groupid: ", groupId)
         const fetchGroupDetails = async () => {
             try {
                 const response = await axios.get(`http://localhost:3001/group/getGroupContent?idgroup=${groupId}`, {
@@ -18,13 +16,9 @@ export default function GroupContent() {
                         'Content-Type': 'application/json'
                     }
                 });
-                //console.log(response);
                 const membersData = response.data.members;
                 const groupDetailsData = response.data.groupDetails;
                 const groupChoicesData = response.data.groupchoices;
-                //console.log("membersData", membersData);
-                //console.log("groupDetailsData", groupDetailsData);
-                //console.log("groupChoicesData", groupChoicesData);
                 setMembers(membersData);
                 setGroupDetails(groupDetailsData);
                 setGroupChoices(groupChoicesData);
@@ -55,7 +49,6 @@ export default function GroupContent() {
                                         details = tmdbData.overview;
                                         link = `https://www.themoviedb.org/${linkType}/${tmdbData.id}`
                                     }
-                                    //console.log("lisätään groupchoices mdb datan kanssa: ", groupChoices);
                                     return {
                                         ...groupChoices,
                                         posterUrl: posterUrl,
@@ -64,8 +57,7 @@ export default function GroupContent() {
                                         link: link
                                     };
                                 } else {
-                                    //console.log("lisätään ilman imdb tietoja: ", groupChoices);
-                                    return groupChoices
+                                    return groupChoices;
                                 }
 
                             } catch (error) {
@@ -76,7 +68,6 @@ export default function GroupContent() {
                             return groupChoices;
                         }
                     }));
-                    //console.log("setGroupChoices datalla: ", groupChoicesWithPosters)
                     setGroupChoices(groupChoicesWithPosters);
                 } else {
                     console.log('No favorites data found');

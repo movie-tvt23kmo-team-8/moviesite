@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import PopupWindow from './Popupwindow'; 
+import PopupWindow from './Popupwindow';
 import Box from '@mui/material/Box'; // Tuodaan MUI-kirjaston Box-komponentti
 import Rating from '@mui/material/Rating'; // Tuodaan MUI-kirjaston Rating-komponentti
 import './mediapanel.css';

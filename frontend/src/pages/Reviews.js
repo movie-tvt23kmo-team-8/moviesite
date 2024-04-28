@@ -28,17 +28,19 @@ export default function Reviews() {
                 posterUrl: tmdbResponse.data.poster_path,
                 title: tmdbResponse.data.title,
                 details: tmdbResponse.data.overview,
-                link: 'https://www.themoviedb.org/movie/'+tmdbResponse.data.id
+                link: 'https://www.themoviedb.org/movie/' + tmdbResponse.data.id
               };
             } else {
               // Palautetaan alkuperäinen arvostelu ilman posterin osoitetta, jos haku epäonnistui
-              return { ...review, 
+              return {
+                ...review,
                 title: tmdbResponse.data.title,
-                details: tmdbResponse.data.overview }; 
+                details: tmdbResponse.data.overview
+              };
             }
           } catch (error) {
             console.error('Failed to fetch poster from TMDB', error);
-            return { ...review }; // Palauta alkuperäinen arvostelu virhetilanteessa
+            return { ...review }; // Palautetaan alkuperäinen arvostelu virhetilanteessa
           }
         }));
 
@@ -55,20 +57,20 @@ export default function Reviews() {
       <div className='review-header'>
         <h1>Annetut arvostelut</h1>
       </div>
-      
+
       <div className='review-area'>
         {reviews.map((review, index) => (
           <div className='review-card' key={index}>
             <div className='review-text'>
-            <p>Arvostelija: {review.username}</p>
-            <p>Elokuvan nimi: {review.title}</p>
-            <p>Arvostelu: {review.review}</p>
-            <BasicRating value={review.star}></BasicRating>
+              <p>Arvostelija: {review.username}</p>
+              <p>Elokuvan nimi: {review.title}</p>
+              <p>Arvostelu: {review.review}</p>
+              <BasicRating value={review.star}></BasicRating>
             </div>
-          <div>
-            <a href={review.link}target="_blank">{review.posterUrl && <img className="review-picture" src={`https://image.tmdb.org/t/p/original${review.posterUrl}`} alt="Movie Poster" />}</a>
+            <div>
+              <a href={review.link} target="_blank">{review.posterUrl && <img className="review-picture" src={`https://image.tmdb.org/t/p/original${review.posterUrl}`} alt="Movie Poster" />}</a>
             </div>
-           </div>
+          </div>
         ))}
       </div>
     </div>
@@ -77,17 +79,17 @@ export default function Reviews() {
 
 const BasicRating = ({ value }) => {
   return (
-      <div className='rating'>
-          <Box
-              sx={{
-                  '& > legend': { mt: 2 },
-                  '& .MuiRating-icon': {
-                      fontSize: '1vw',
-                  },
-              }}
-          >
-              <Rating className="read-only" value={value} readOnly />
-          </Box>
-      </div>
+    <div className='rating'>
+      <Box
+        sx={{
+          '& > legend': { mt: 2 },
+          '& .MuiRating-icon': {
+            fontSize: '1vw',
+          },
+        }}
+      >
+        <Rating className="read-only" value={value} readOnly />
+      </Box>
+    </div>
   );
 };
