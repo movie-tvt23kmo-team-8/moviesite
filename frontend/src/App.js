@@ -32,7 +32,7 @@ function App() {
             <Route path='/shows' element={<Shows />} />
             <Route path='/reviews' element={<Reviews />} />
             <Route path='/group' element={<Group />} />
-            <Route path='/sharedfavourites' element={<Sharedfavourites />} />
+            <Route path='/sharedfavourite' element={<Sharedfavourites />} />
             <Route element={<PrivateRoute />}>
               <Route path="/group/:groupId" component={GroupInfo}/>
               <Route path='/profile' element={<Profile />} />

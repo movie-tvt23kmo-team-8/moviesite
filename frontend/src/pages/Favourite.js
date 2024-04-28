@@ -138,7 +138,7 @@ export default function Favourite() {
       <h1>Suosikit</h1>
       <div className='favourite-sharing'>
       <p>Voit jakaa suosikkisi linkillä:</p>
-      <a className='favourite-link' href={`/sharedfavourites?sharekey=${sharekey}`} target="_blank">{`/sharedfavourites?sharekey=${sharekey}`}</a>
+      <a className='favourite-link' href={`/sharedfavourite?sharekey=${sharekey}`} target="_blank">{`/sharedfavourite?sharekey=${sharekey}`}</a>
       </div>
       <div className='favourites-container'>
         <section className='allFavourites'>
