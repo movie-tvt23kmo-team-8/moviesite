@@ -1,5 +1,5 @@
-# FILMI VERKKO
-![logo](./frontend/src/img/readmelogo.png)
+# FILMI VERKKO ![logo](./frontend/src/img/readmelogo.png)
+
 
 ## ER Diagram
 ![ER-Diagram](./documents/ER-kaavio.png)
