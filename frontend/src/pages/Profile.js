@@ -212,6 +212,7 @@ export default function Profile() {
 
   const handleClosePopup = () => {
     setOpenPhotoPopup(false); // Close the photo popup
+    window.location.reload();
   };
 
   const imageSrc = `../img/avatar/${imageid}.png`;
