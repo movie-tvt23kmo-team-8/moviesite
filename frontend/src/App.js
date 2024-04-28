@@ -21,7 +21,6 @@ import Sharedfavourites from './pages/Sharedfavourites';
 function App() {
   return (
     <Router>
-      <UserProvider>
         <Topbar/>
         <div className='container'>
           <Routes>
@@ -45,7 +44,6 @@ function App() {
           </Routes>
         </div>
         <Footer />
-      </UserProvider>
     </Router>
   );
 }
