@@ -29,7 +29,7 @@ export default function Profile() {
     // Fetch user data after 5 seconds
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/users/personal', {
+        const response = await axios.get('/users/personal', {
           headers: {
             Authorization: `Bearer ${jwtToken.value}`
           }
@@ -61,7 +61,7 @@ export default function Profile() {
           return;
         }
 
-        const response = await axios.get('http://localhost:3001/groupmember/userGroups', {
+        const response = await axios.get('/groupmember/userGroups', {
           headers: {
             'Authorization': `Bearer ${jwtToken}`
           }
@@ -84,7 +84,7 @@ export default function Profile() {
           return;
         }
 
-        const response = await axios.get('http://localhost:3001/favourite/getFavourites', {
+        const response = await axios.get('/favourite/getFavourites', {
           headers: {
             'Authorization': `Bearer ${jwtToken}`
           },
@@ -99,7 +99,7 @@ export default function Profile() {
         if (favoritesData && favoritesData.length > 0) {
           const favouritesWithPosters = await Promise.all(favoritesData.map(async (favourites) => {
             try {
-              const tmdbResponse = await axios.get(`http://localhost:3001/tmdb/poster?id=${favourites.mdbdata}&type=${favourites.type}`);
+              const tmdbResponse = await axios.get(`/tmdb/poster?id=${favourites.mdbdata}&type=${favourites.type}`);
               const tmdbData = tmdbResponse.data;
               if (tmdbData && tmdbData.poster_path) {
                 let linkType = null;

@@ -10,35 +10,35 @@ export default function Reviews() {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await fetch('http://localhost:3001/review/allReviews');
-        if (!response.ok) {
+        const response = await axios.get('/review/allReviews');
+        const data = response.data;
+
+        if (response.status < 200 || response.status >= 300) {
           throw new Error('Failed to fetch reviews from database');
         }
-        const data = await response.json();
 
-        // Haetaan TMDB:stä kullekin arvostelulle vastaava posterin osoite
         const reviewsWithPosters = await Promise.all(data.map(async (review) => {
           try {
-            const tmdbResponse = await axios.get(`http://localhost:3001/tmdb/poster?id=${review.mdbdata}&type=movie`);
+            const tmdbResponse = await axios.get(`/tmdb/poster?id=${review.mdbdata}&type=movie`);
 
-            // Tarkistetaan, onko vastauksessa posterin URL
             if (tmdbResponse.data && tmdbResponse.data.poster_path) {
               return {
                 ...review,
                 posterUrl: tmdbResponse.data.poster_path,
                 title: tmdbResponse.data.title,
                 details: tmdbResponse.data.overview,
-                link: 'https://www.themoviedb.org/movie/'+tmdbResponse.data.id
+                link: 'https://www.themoviedb.org/movie/' + tmdbResponse.data.id
               };
             } else {
-              // Palautetaan alkuperäinen arvostelu ilman posterin osoitetta, jos haku epäonnistui
-              return { ...review, 
+              return {
+                ...review,
                 title: tmdbResponse.data.title,
-                details: tmdbResponse.data.overview }; 
+                details: tmdbResponse.data.overview
+              };
             }
           } catch (error) {
             console.error('Failed to fetch poster from TMDB', error);
-            return { ...review }; // Palauta alkuperäinen arvostelu virhetilanteessa
+            return { ...review };
           }
         }));
 

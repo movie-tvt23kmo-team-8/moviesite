@@ -13,7 +13,7 @@ export default function Sharedfavourites() {
                 const urlParams = new URLSearchParams(window.location.search);
                 const sharekey = urlParams.get('sharekey');
                 //console.log("kokeillaan hakea suosikkeja sharekey: ", sharekey);
-                const response = await axios.get(`http://localhost:3001/sharedfavourites?sharekey=${sharekey}`);
+                const response = await axios.get(`/sharedfavourites?sharekey=${sharekey}`);
                 const favoritesData = response.data.favourites;
                 setUsername(response.data.username)
                 /*console.log('respone username: ', response.data.username)
@@ -26,7 +26,7 @@ export default function Sharedfavourites() {
                 if (favoritesData && favoritesData.length > 0) {
                     const favouritesWithPosters = await Promise.all(favoritesData.map(async (favourites) => {
                         try {
-                            const tmdbResponse = await axios.get(`http://localhost:3001/tmdb/poster?id=${favourites.mdbdata}&type=${favourites.type}`);
+                            const tmdbResponse = await axios.get(`/tmdb/poster?id=${favourites.mdbdata}&type=${favourites.type}`);
                             const tmdbData = tmdbResponse.data;
                             if (tmdbData && tmdbData.poster_path) {
                                 let linkType = null;

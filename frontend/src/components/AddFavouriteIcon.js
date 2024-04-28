@@ -26,7 +26,7 @@ const AddToFavoritesIcon = ({ mdbdata, onAddToFavorites }) => {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${jwtToken}`
             };
-            const response = await fetch('http://localhost:3001/favourite/addFavourite', {
+            const response = await fetch('/favourite/addFavourite', {
                 method: 'POST',
                 headers,
                 body: JSON.stringify({ mdbdata: mdbdata.id, type: type})

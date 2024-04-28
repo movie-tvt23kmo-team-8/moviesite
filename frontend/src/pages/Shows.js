@@ -30,7 +30,7 @@ export default function Shows() {
         'Authorization': `Bearer ${jwtToken}`
       };
       try {
-        const response = await axios.get('http://localhost:3001/users/userGroups', { headers });
+        const response = await axios.get('/users/userGroups', { headers });
         const data = response.data;
         setUserGroups(data.groups || []); // Jos ryhmiä ei ole, asetatetaan tyhjä lista
       } catch (error) {

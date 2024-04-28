@@ -53,7 +53,7 @@ const Popupwindow = ({ mediaItem, onClose }) => {
     // Function to fetch reviews
     const fetchReviews = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/review/getReview?mdbdata=${mediaItem.id}`);
+            const response = await fetch(`/review/getReview?mdbdata=${mediaItem.id}`);
             if (response.ok) {
                 const reviewsData = await response.json();
                 setReviews(reviewsData);
@@ -76,7 +76,7 @@ const Popupwindow = ({ mediaItem, onClose }) => {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${jwtToken}`
             };
-            const response = await fetch(`http://localhost:3001/users/userGroups`, {
+            const response = await fetch(`/users/userGroups`, {
                 method: 'GET',
                 headers: headers
             });
@@ -108,7 +108,7 @@ const Popupwindow = ({ mediaItem, onClose }) => {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${jwtToken}`
             };
-            await axios.post('http://localhost:3001/review/addReview', {
+            await axios.post('/review/addReview', {
                 star: ratingValue,
                 review: reviewText,
                 mdbdata: mediaItem.id

@@ -14,7 +14,7 @@ const MediaPanel = ({ mediaType }) => { // Luodaan MediaPanel-komponentti ja ann
     useEffect(() => { // Effekti, joka käynnistyy kun mediatyyppi muuttuu
         const fetchMediaItems = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/tmdb/popular-${mediaType}`);
+                const response = await axios.get(`/tmdb/popular-${mediaType}`);
                 setMediaItems(response.data);
             } catch (error) {
                 console.error(`Error fetching popular ${mediaType}:`, error);

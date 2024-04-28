@@ -35,7 +35,7 @@ const Search = () => {
   const selailuHaku = async () => {
     //console.log("selailuhaku alkaa  year, language, genre, points", year, language, genre, points )
     try {
-      const response = await axios.get(`http://localhost:3001/tmdb/movies?year=${year}&language=${language}&genre=${genre}&points=${points}`
+      const response = await axios.get(`/tmdb/movies?year=${year}&language=${language}&genre=${genre}&points=${points}`
       );
       console.log('Response:', response);
       setResults(response.data);

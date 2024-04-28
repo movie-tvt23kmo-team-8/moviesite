@@ -47,7 +47,7 @@ export default function Favourite() {
           return;
         }
 
-        const response = await axios.get(`http://localhost:3001/favourite/getFavourites`, {
+        const response = await axios.get(`/favourite/getFavourites`, {
           headers: {
             Authorization: `Bearer ${jwtToken}`,
           },
@@ -63,7 +63,7 @@ export default function Favourite() {
         if (favoritesData && favoritesData.length > 0) {
           const favouritesWithPosters = await Promise.all(favoritesData.map(async (favourites) => {
             try {
-              const tmdbResponse = await axios.get(`http://localhost:3001/tmdb/poster?id=${favourites.mdbdata}&type=${favourites.type}`);
+              const tmdbResponse = await axios.get(`/tmdb/poster?id=${favourites.mdbdata}&type=${favourites.type}`);
               const tmdbData = tmdbResponse.data;
               if (tmdbData && tmdbData.poster_path) {
                 let linkType = null;
@@ -139,7 +139,7 @@ export default function Favourite() {
       <h1>Suosikit</h1>
       <div className='favourite-sharing'>
       <p>Voit jakaa suosikkisi linkillä:</p>
-      <a className='favourite-link' href={`http://localhost:3000/sharedfavourites?sharekey=${sharekey}`} target="_blank">{`http://localhost:3000/sharedfavourites?sharekey=${sharekey}`}</a>
+      <a className='favourite-link' href={`/sharedfavourites?sharekey=${sharekey}`} target="_blank">{`/sharedfavourites?sharekey=${sharekey}`}</a>
       </div>
       <div className='favourites-container'>
         <section className='allFavourites'>

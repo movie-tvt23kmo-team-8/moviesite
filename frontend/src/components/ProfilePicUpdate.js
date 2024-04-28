@@ -16,7 +16,7 @@ const ProfilePicUpdate = ({ closePhotoPopup, setImageId, username }) => {
                 }
                 console.log('JWT token found:', jwtToken);
                 
-                const response = await axios.get('http://localhost:3001/users/getUserID', {
+                const response = await axios.get('/users/getUserID', {
                     params: {
                         username: username // Use the username prop here
                     },
@@ -57,7 +57,7 @@ const handleImageClick = async (imageId) => {
             return;
         }
 
-        const response = await axios.put('http://localhost:3001/users/updatePic', { imageId, idaccount }, {
+        const response = await axios.put('/users/updatePic', { imageId, idaccount }, {
             headers: {
                 Authorization: `Bearer ${jwtToken}` // Include JWT token in request headers
             }

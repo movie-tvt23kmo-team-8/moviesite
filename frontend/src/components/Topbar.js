@@ -16,7 +16,7 @@ export default function TopBar() {
   useEffect(() => {
     // Fetch user data after 5 seconds
     const fetchData = setTimeout(() => {
-      axios.get('http://localhost:3001/users/personal', {
+      axios.get('/users/personal', {
         headers: {
           Authorization: `Bearer ${jwtToken.value}`
         }
