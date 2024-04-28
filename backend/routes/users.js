@@ -1,5 +1,5 @@
 const { error } = require('console');
-const { getUsers, getUserID, deleteUser, getImageIdByUsername, updateImageIdByUsername, getUserGroups } = require('../database/users_db');
+const { getUsers, getUserID, deleteUser, getImageIdByUsername, updateImageIdByUsername, getUserGroups, removeUserFromGroup } = require('../database/users_db');
 const { auth } = require('../middleware/auth')
 const jwt = require('jsonwebtoken')
 
@@ -77,6 +77,24 @@ router.delete('/delete', auth, async (req, res) =>{
         await deleteUser(idaccount);
         res.status(200).json({ message: 'You have deleted your account' });
     } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+router.delete('/removeFromGroup', auth, async (req, res) => {
+    try {
+        const groupId = req.body.groupId; // Assuming groupId is sent in the request body
+        const username = res.locals.username;
+        const idaccount = await getUserID(username);
+        const rowsAffected = await removeUserFromGroup(idaccount, groupId);
+        
+        if (rowsAffected === 1) {
+            res.status(200).json({ message: 'User removed from group successfully' });
+        } else {
+            throw new Error('Failed to remove user from group');
+        }
+    } catch (err) {
+        console.error('Error removing user from group:', err);
         res.status(500).json({ error: err.message });
     }
 });

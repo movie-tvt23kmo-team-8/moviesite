@@ -7,7 +7,8 @@ const sql = {
     GET_PIC: 'SELECT imageid FROM "account" WHERE "username" = $1',
     UPDATE_PIC: 'UPDATE "account" SET imageid = $1 WHERE "idaccount" = $2',
     GET_USER_GROUPS: 'SELECT "group"."groupname" FROM "group" JOIN "groupmember" ON "group"."idgroup"="groupmember"."idgroup" WHERE "group"."idaccount" = $1 ',
-    UPDATE_PASSWORD: 'UPDATE "account" SET "password" = $1 WHERE "idaccount" = $2'
+    UPDATE_PASSWORD: 'UPDATE "account" SET "password" = $1 WHERE "idaccount" = $2',
+    REMOVE_USER_FROM_GROUP: 'DELETE FROM "groupmember" WHERE "idaccount" = $1 AND "idgroup" = $2'
 }
 
 async function getUsers(){
@@ -88,5 +89,15 @@ async function getUserIDByPasskey(passkey) {
     let result = await pgPool.query(sql.GET_USER_BY_PASSKEY, [passkey])
 }
 
-module.exports = { getUsers, getUserID, deleteUser, getImageIdByUsername, updateImageIdByUsername, getUserGroups, updatePasswordById };
+async function removeUserFromGroup(idaccount, idgroup) {
+    try {
+        const result = await pgPool.query(sql.REMOVE_USER_FROM_GROUP, [idaccount, idgroup]);
+        return result.rowCount; // Return the number of rows affected (should be 1 if successful)
+    } catch (error) {
+        console.error('Error in removeUserFromGroup:', error);
+        throw error;
+    }
+}
+
+module.exports = { getUsers, getUserID, deleteUser, getImageIdByUsername, updateImageIdByUsername, getUserGroups, updatePasswordById, removeUserFromGroup };
 

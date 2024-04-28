@@ -10,6 +10,7 @@ const invite = require('./routes/invite');
 const search = require('./routes/search');
 const review = require('./routes/reviews');
 const passwordRouter = require('./routes/password');
+const removeFromGroup = require('./routes/removeFromGroup');
 
 const cors = require('cors');
 const express = require('express');
@@ -37,6 +38,7 @@ app.use('/search', search);
 app.use('/review', review);
 app.use('/favourite', favourite)
 app.use('/password', passwordRouter);
+app.use('/removeFromGroup', removeFromGroup);
 
 app.get('/', (req, res) => {
     res.send('Welcome to moviesite website')
