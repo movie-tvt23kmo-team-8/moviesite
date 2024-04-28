@@ -1,14 +1,15 @@
 const pgPool = require('./pg_connection');
 
 const sql = {
-    REGISTER: 'INSERT INTO "account" (username, password, joindate) VALUES ($1, $2, $3)',
+    REGISTER: 'INSERT INTO "account" (username, password, joindate, sharekey) VALUES ($1, $2, $3, $4)',
     GETPASSWORD: 'SELECT "password" FROM "account" WHERE "username" = $1',
     GETUSERBYUSERNAME: 'SELECT * FROM "account" WHERE "username" = $1',
     UPDATEPASSWORD: 'UPDATE "account" SET "password" = $1 WHERE "username" = $2'
 };
 
-async function register(username, passwordHash, joindate) {
-    let result = await pgPool.query(sql.REGISTER, [username, passwordHash, joindate]);
+async function register(username, passwordHash, joindate, sharekey) {
+    //console.log("tietokannassa sharekey: ", sharekey);
+    let result = await pgPool.query(sql.REGISTER, [username, passwordHash, joindate, sharekey]);
     return result.rows[0];
 }
 

@@ -50,7 +50,7 @@ export default function Group() {
         }
       });
 
-      setUserGroups(response.data);
+      setUserGroups(response.data.groups);
     } catch (error) {
       console.error('Error fetching user groups:', error);
     }
@@ -131,7 +131,7 @@ export default function Group() {
 
   return (
     <div className='group-container'>
-      <h1>Groups</h1>
+      <h1>Ryhmät</h1>
       <div className='groups-container'>
         <section className='allGroups'>
           <div className='group-card'>

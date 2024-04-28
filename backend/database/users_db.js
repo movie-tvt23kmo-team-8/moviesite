@@ -6,15 +6,30 @@ const sql = {
     DELETE_USER: 'DELETE FROM "account" WHERE "idaccount" = $1',
     GET_PIC: 'SELECT imageid FROM "account" WHERE "username" = $1',
     UPDATE_PIC: 'UPDATE "account" SET imageid = $1 WHERE "idaccount" = $2',
+<<<<<<< HEAD
     GET_USER_GROUPS: 'SELECT "group"."groupname" FROM "group" JOIN "groupmember" ON "group"."idgroup"="groupmember"."idgroup" WHERE "group"."idaccount" = $1 ',
     UPDATE_PASSWORD: 'UPDATE "account" SET "password" = $1 WHERE "idaccount" = $2',
     REMOVE_USER_FROM_GROUP: 'DELETE FROM "groupmember" WHERE "idaccount" = $1 AND "idgroup" = $2'
+=======
+    GET_USER_GROUPS:'SELECT "group"."groupname" FROM "groupmember" JOIN "group" ON "groupmember"."idgroup" = "group"."idgroup" WHERE "groupmember"."idaccount" = $1',
+    UPDATE_PASSWORD: 'UPDATE "account" SET "password" = $1 WHERE "idaccount" = $2',
+    GET_USER_BY_PASSKEY: 'SELECT "idaccount" FROM "account" WHERE "sharekey" = $1',
+    GET_SHAREKEY: 'SELECT "sharekey" FROM "account" WHERE "idaccount" = $1',
+    GET_USERNAME: 'SELECT "username" FROM "account" WHERE "idaccount" = $1'
+>>>>>>> aab94d69d99fd40115a3052f5a4c467892d5ce2a
 }
 
 async function getUsers(){
     let result = await pgPool.query(sql.GET_ALL_USERS);
-    console.log('GET_ALL_USERS: ', result)
+    //console.log('GET_ALL_USERS: ', result)
     return result.rows;
+}
+
+async function getSharekey(idAccount){
+    let result = await pgPool.query(sql.GET_SHAREKEY, [idAccount]);
+    //console.log("Sharekey tietokannassa: ", result.rows[0].sharekey);
+
+    return result.rows[0].sharekey;
 }
 
 async function getUserID(username) {
@@ -85,10 +100,23 @@ async function getUserGroups(idaccount) {
     return result.rows
 }
 
-async function getUserIDByPasskey(passkey) {
-    let result = await pgPool.query(sql.GET_USER_BY_PASSKEY, [passkey])
+async function getUserIDByPasskey(sharedkey) {
+    //console.log("tietokannassa sharedkey: ", sharedkey)
+    try {
+        const result = await pgPool.query(sql.GET_USER_BY_PASSKEY, [sharedkey])
+        if (result.rows.length > 0) {
+            //console.log(result.rows[0].idaccount)
+            return result.rows[0].idaccount;
+        } else {
+            throw new Error("User not found");
+        } 
+    } catch (error) {
+        console.error("Error in getUserID:", error);
+        throw error; // Rethrow the error to be caught by the caller
+    }
 }
 
+<<<<<<< HEAD
 async function removeUserFromGroup(idaccount, idgroup) {
     try {
         const result = await pgPool.query(sql.REMOVE_USER_FROM_GROUP, [idaccount, idgroup]);
@@ -100,4 +128,12 @@ async function removeUserFromGroup(idaccount, idgroup) {
 }
 
 module.exports = { getUsers, getUserID, deleteUser, getImageIdByUsername, updateImageIdByUsername, getUserGroups, updatePasswordById, removeUserFromGroup };
+=======
+async function getUsername(idaccount){
+    let result = await pgPool.query(sql.GET_USERNAME, [idaccount])
+    return result.rows[0].username
+}
+
+module.exports = { getUsers, getUserID, deleteUser, getImageIdByUsername, updateImageIdByUsername, getUserGroups, updatePasswordById, getUserIDByPasskey, getSharekey, getUsername };
+>>>>>>> aab94d69d99fd40115a3052f5a4c467892d5ce2a
 

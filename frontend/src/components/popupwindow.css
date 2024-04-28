@@ -51,11 +51,11 @@
 .popupIcon-heart, .popupIcon-group{
     font-size: 300%;
     margin: 2%;
+    cursor: pointer;
 }
 
 .popupIcon-heart{
     color: rgb(214, 82, 104);
-    cursor: pointer;
 }
 
 .popup-reviews-section{

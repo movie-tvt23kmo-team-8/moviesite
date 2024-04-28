@@ -34,11 +34,11 @@ router.get('/userGroups', auth, async (req, res) => {
     try {
         const idaccount = await getUserID(res.locals.username);
         const userGroups = await getUserGroups(idaccount);
-        res.status(200).json(userGroups);
+        res.status(200).json({ groups: userGroups });
     } catch (error) {
         console.error('Error fetching user groups:', error);
         res.status(500).json({ error: 'Error fetching user groups' });
     }
 });
-
+ 
 module.exports = router;

@@ -22,22 +22,42 @@ h1 {
 .favourite-card {
     display: flex;
     flex-wrap: wrap;
-    padding: 2%;
+    padding: 2%;    
 }
 
 .favourite-card > * {
     flex: 0 0 calc(20% - 20px); 
     margin: 2%; 
     text-align: center; 
+    border-radius: 15px;
 }
 
 .favourite-picture{
-    width: 80%; 
+    width: 90%; 
 }
 
 .favourite-title{
     font-size: 80%;
     padding: 2%;
+}
+
+.favourite-sharing{
+    background-color: #333333;
+    padding: 2%;
+    border-radius: 15px;
+    color: aliceblue;
+    font-size: 90%;
+    width: 40%;
+    
+}
+
+.favourite-link{
+    color: aliceblue;
+}
+
+.favourite-link:hover{
+    color: aliceblue;
+    text-decoration: none;
 }
 
 .allFavourites a {

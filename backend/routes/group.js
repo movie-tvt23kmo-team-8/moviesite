@@ -1,5 +1,5 @@
 const { group, error } = require('console');
-const { addGroup, getGroups, getGroupID, getGroupIDbyGroupname } = require('../database/group_db');
+const { addGroup, getGroups, getGroupID, getGroupIDbyGroupname, deleteGroup, getGroupMembers, getGroupDetails } = require('../database/group_db');
 const { add2GroupChoices, getGroupChoices, deleteGroupChoice } = require('../database/groupchoices_db')
 const { makeAdmin } = require('../database/groupmember_db');
 const { getUserID } = require('../database/users_db');
@@ -85,5 +85,30 @@ router.delete('/deleteFromWatchlist', async (req, res) => {
         res.status(500).json({ error: err.message })
     }
 });
+
+router.delete('/deleteGroup', async (req, res) => {
+    try {
+        const idgroup = req.query.idgroup; // Varmista, että käytät query-parametreja
+        await deleteGroup(idgroup); // Kutsu poisto-funktiota
+        res.status(200).json({ message: `Group deleted: ${idgroup}` });
+    } catch (error) {
+        console.error('Error deleting group:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
  
+router.get('/getGroupContent', async (req, res) => {
+    try {
+        const idgroup = req.query.idgroup;
+        console.log("backend, haetaan ryhmän tietoja", idgroup);
+        const members = await getGroupMembers(idgroup);
+        const groupDetails = await getGroupDetails(idgroup);
+        const groupchoices = await getGroupChoices(idgroup);
+        res.json({members: members, groupDetails:groupDetails, groupchoices:groupchoices});
+    } catch(err) {
+        console.log("virhe koko haussa");
+        res.status(500).json({ error: err.message })
+    }
+})
+
 module.exports = router;

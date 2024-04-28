@@ -93,10 +93,11 @@ export default function SeeInvites() {
         <p>You have no pending requests.</p>
       ) : (
         invites.map(invite => (
-          <div key={invite.idinvites}>
-            <p>Invite ID: {invite.idinvites}, Sender ID: {invite.idaccountsender}, Group ID: {invite.idgroup}</p>
-            <button onClick={() => handleAccept(invite.idaccountsender, invite.idgroup)}>Accept</button>
-            <button onClick={() => handleDeny(invite.idaccountsender, invite.idgroup)}>Deny</button>
+          <div style={{ margin: '2%', padding: '1%', background: 'lightgray' , borderRadius: '15px', color: 'black' }} key={invite.idinvites}>
+            <p>{/*Invite ID: {invite.idinvites},*/} Lähettäjä: {invite.sender_username}</p> 
+            <p> Ryhmän nimi: {invite.group_name}</p>
+            <button className='profile-group-button' onClick={() => handleAccept(invite.idaccountsender, invite.idgroup)}>Accept</button>
+            <button className='profile-group-button' onClick={() => handleDeny(invite.idaccountsender, invite.idgroup)}>Deny</button>
           </div>
         ))
       )}
