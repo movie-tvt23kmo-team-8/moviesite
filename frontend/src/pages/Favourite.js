@@ -21,21 +21,9 @@ export default function Favourite() {
   const [buttonPopup, setButtonPopup] = useState(false);
   const [idAccount, setIdAccount] = useState('')
   const [searchTerm, setSearchTerm] = useState('');
-  const [results, setResults] = useState([]);
   const [sharekey, setSharekey] = useState("");
 
-  const handleSearch = async () => {
-    try {
-      const response = await fetch(
-        `https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&query=${searchTerm}&include_adult=false`
-      );
-      const data = await response.json();
-      //console.log('Search results:', data.results);
-      setResults(data.results || []);
-    } catch (error) {
-      console.error('Error fetching results:', error);
-    }
-  };
+
 
   useEffect(() => {
     const fetchFavourites = async () => {
@@ -105,33 +93,6 @@ export default function Favourite() {
 
 
   }, [idAccount]);
-
-  const handleAddFavourite = async (mdbData, mediaType) => {
-    try {
-      const jwtToken = sessionStorage.getItem('token');
-      if (!jwtToken) {
-        console.error('JWT token not found');
-        return;
-      }
-
-      const response = await axios.post('/favourite/addFavourite', {
-        idaccount: idAccount,
-        mdbdata: mdbData,
-        type: mediaType,
-      }, {
-        headers: {
-          Authorization: `Bearer ${jwtToken}`,
-        }
-      });
-      setButtonPopup(false);
-    } catch (error) {
-      console.error('Error adding favourite:', error);
-    }
-  };
-
-  const handleChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
 
   return (
     <div className='favourite-container'>
