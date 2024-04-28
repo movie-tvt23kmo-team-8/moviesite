@@ -1,7 +1,7 @@
 import {effect, signal} from '@preact/signals-react'
 import axios from "axios";
 
-axios.defaults.baseURL = '';
+axios.defaults.baseURL = 'http://localhost:3001';
 
 export const jwtToken = signal(getSessionToken());
 
