@@ -29,6 +29,14 @@ router.post('/register', async (req, res) => {
   const sharekey = generateShareKey(username);
 
   try {
+    if (!username) {
+      return res.status(400).json({ error: 'Käyttäjänimi vaaditaan!' });
+    }
+
+    if (!password) {
+      return res.status(400).json({ error: 'Salasana vaaditaan!' });
+    }
+
     if (isUsernameLengthOver4(username) || isPasswordLengthOver4(password)) {
       return res.status(400).json({ error: 'Käyttäjänimen ja salasanan on oltava 4 kirjainta tai enemmän!' })
     }
