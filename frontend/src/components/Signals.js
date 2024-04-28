@@ -1,7 +1,7 @@
 import {effect, signal} from '@preact/signals-react'
 import axios from "axios";
 
-axios.defaults.baseURL = '';
+axios.defaults.baseURL = 'https://filmiverkko.onrender.com';
 
 export const jwtToken = signal(getSessionToken());
 
