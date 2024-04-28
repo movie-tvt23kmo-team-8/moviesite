@@ -98,7 +98,7 @@ export default function Favourite() {
     <div className='favourite-container'>
       <h1>Suosikit</h1>
       <div className='favourite-sharing'>
-      <p>Voit jakaa suosikkisi linkillä:</p>
+      <p>Voit jakaa suosikkisi linkillä: onko vielä S?</p>
       <a className='favourite-link' href={`/sharedfavourite?sharekey=${sharekey}`} target="_blank">{`/sharedfavourite?sharekey=${sharekey}`}</a>
       </div>
       <div className='favourites-container'>
