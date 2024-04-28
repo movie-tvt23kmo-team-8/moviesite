@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { getFavourites } = require('../database/favourite_db');
 const { getUserIDByPasskey, getUsername } = require('../database/users_db');
 
-router.get('/', async (req, res) => {
+router.get('/suosikkijako', async (req, res) => {
     const sharekey = req.query.sharekey;
     //console.log("backendissä, sharekey:",sharekey);
     const idAccount = await getUserIDByPasskey(sharekey);
