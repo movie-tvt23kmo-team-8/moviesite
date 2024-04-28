@@ -136,10 +136,10 @@ export default function Favourite() {
 
   return (
     <div className='favourite-container'>
-      <h1>Favourites</h1>
+      <h1>Suosikit</h1>
       <div className='favourite-sharing'>
       <p>Voit jakaa suosikkisi linkillä:</p>
-      <a href={`http://localhost:3000/sharedfavourites?sharekey=${sharekey}`} target="_blank">{`http://localhost:3000/sharedfavourites?sharekey=${sharekey}`}</a>
+      <a className='favourite-link' href={`http://localhost:3000/sharedfavourites?sharekey=${sharekey}`} target="_blank">{`http://localhost:3000/sharedfavourites?sharekey=${sharekey}`}</a>
       </div>
       <div className='favourites-container'>
         <section className='allFavourites'>
@@ -154,36 +154,6 @@ export default function Favourite() {
               </Link>
             ))}
           </div>
-        </section>
-        <section className='addFavourite'>
-          <button className='addFavouriteButton' onClick={() => setButtonPopup(true)}>Add favourites</button>
-          <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-            <h3>Add your favourites</h3>
-            <br />
-            <form onSubmit={(e) => { e.preventDefault(); handleSearch(); }}>
-              <input
-                type="text"
-                placeholder="Search for movies and TV shows"
-                value={searchTerm}
-                onChange={handleChange}
-              />
-              <div className="-container">
-                {results && results.length > 0 && (
-                  results.slice(0, 5).map((result, index) => (
-                    <div className="result" key={`${result.id}-${index}`}>
-                      {result.poster_path ? (
-                        <img src={`https://image.tmdb.org/t/p/w92${result.poster_path}`} alt={result.title || result.name} />
-                      ) : (
-                        <p>No poster available</p>
-                      )}
-                      <p>{result.title || result.name}</p>
-                      <button className='addfavourite-button' onClick={() => handleAddFavourite(result.id, result.media_type)}>Add to favorites</button>
-                    </div>
-                  ))
-                )}
-              </div>
-            </form>
-          </Popup>
         </section>
       </div>
     </div>

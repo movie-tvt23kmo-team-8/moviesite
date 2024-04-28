@@ -32,7 +32,6 @@
     border-radius: 50%;
 }
 
-
 .photo-add {
     color: turquoise;
     font-size: 100%;
@@ -41,8 +40,6 @@
     bottom: 0;
     right: 10%;
 }
-
-
 
 .profile-input:focus {
     outline: none;
@@ -86,6 +83,31 @@ input{
     margin-bottom: 1%;
 }
 
+
+.profile-favorite{
+    width: 80%;
+    background-color: rgba(37, 37, 37, 0.5);
+    color: aliceblue;
+    padding: 2%;
+    margin: 1%;
+    text-align: center;
+}
+
+.profile-favorite-items{
+    display: flex;
+    margin-top: 2%;
+
+}
+
+.profile-favourite-picture{
+    width: 80%;
+    height: 80%;
+}
+
+.profile-favourite-title{
+    padding-top: 5%;
+}
+
 .profile-group-container{
     display: flex;
     width: 80%;
@@ -127,28 +149,11 @@ input{
     margin: 2%;
 }
 
-.profile-favorite{
-    width: 80%;
-    background-color: rgba(37, 37, 37, 0.5);
-    color: aliceblue;
-    padding: 2%;
-    margin: 1%;
-    text-align: center;
+.profile-group-button{
+    margin: 2%;
 }
 
-.profile-favorite-items{
-    display: flex;
-    margin-top: 2%;
 
-}
 
-.profile-favourite-picture{
-    width: 80%;
-    height: 80%;
-}
-
-.profile-favourite-title{
-    padding-top: 5%;
-}
 
 
