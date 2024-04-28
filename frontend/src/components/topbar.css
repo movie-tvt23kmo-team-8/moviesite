@@ -166,21 +166,22 @@
 @media (max-width: 400px){
 
     .top {
-        font-size: 50%;
+        font-size: 60%;
     }
   
     .websitename{
         font-size: 70%;
         line-height: 2;
-        margin-top: 10%;
+        margin-top: 20%;
     }
 
     .topLeftImg{
-        width: 40%;
+        width: 60%;
     }
-       
+     
+
     .topRightImg{
-        margin-top: 10%;
+        margin-top: 0%;
     }
     
     .topRightList{
