@@ -10,7 +10,8 @@ const sql = {
     UPDATE_PASSWORD: 'UPDATE "account" SET "password" = $1 WHERE "idaccount" = $2',
     GET_USER_BY_PASSKEY: 'SELECT "idaccount" FROM "account" WHERE "sharekey" = $1',
     GET_SHAREKEY: 'SELECT "sharekey" FROM "account" WHERE "idaccount" = $1',
-    GET_USERNAME: 'SELECT "username" FROM "account" WHERE "idaccount" = $1'
+    GET_USERNAME: 'SELECT "username" FROM "account" WHERE "idaccount" = $1',
+    GET_JOINDATE: 'SELECT "joindate" FROM "account" WHERE "idaccount" = $1'
 }
 
 async function getUsers(){
@@ -115,5 +116,10 @@ async function getUsername(idaccount){
     return result.rows[0].username
 }
 
-module.exports = { getUsers, getUserID, deleteUser, getImageIdByUsername, updateImageIdByUsername, getUserGroups, updatePasswordById, getUserIDByPasskey, getSharekey, getUsername };
+async function getJoinDate(idaccount) {
+    let result = await pgPool.query(sql.GET_JOINDATE, [idaccount]);
+    return result.rows[0].joindate
+}
+
+module.exports = { getUsers, getUserID, deleteUser, getImageIdByUsername, updateImageIdByUsername, getUserGroups, updatePasswordById, getUserIDByPasskey, getSharekey, getUsername, getJoinDate };
 

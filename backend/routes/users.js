@@ -1,5 +1,5 @@
 const { error } = require('console');
-const { getUsers, getUserID, deleteUser, getImageIdByUsername, updateImageIdByUsername, getUserGroups } = require('../database/users_db');
+const { getUsers, getUserID, deleteUser, getImageIdByUsername, updateImageIdByUsername, getUserGroups, getJoinDate } = require('../database/users_db');
 const { auth } = require('../middleware/auth')
 const jwt = require('jsonwebtoken')
 
@@ -25,9 +25,10 @@ router.get('/personal', auth, async (req, res) => {
         const username = res.locals.username;
         const imageid = await getImageIdByUsername(username); // Assuming you have a function to fetch imageid
         const idaccount = await getUserID(username);
+        const joindate = await getJoinDate(idaccount);
         //console.log('Username:', username); // Log username
         //console.log('Image ID:', imageid); // Log imageid
-        res.status(200).json({ username: username, imageid: imageid, idaccount: idaccount });
+        res.status(200).json({ username: username, imageid: imageid, idaccount: idaccount, joindate: joindate});
     } catch (err) {
         console.error('Error:', err.message); // Log error
         res.status(500).json({ error: err.message });

@@ -23,8 +23,7 @@ export default function Profile() {
   const [passwordChangeError, setPasswordChangeError] = useState('');
   const [userGroups, setUserGroups] = useState([]);
   const [favourites, setFavourites] = useState([]);
-
-
+  const [joindate, setJoinDate] = useState(new Date());
   useEffect(() => {
     // Fetch user data after 5 seconds
     const fetchData = async () => {
@@ -36,6 +35,9 @@ export default function Profile() {
         });
         setUsername(response.data.username);
         setImageId(response.data.imageid);
+        const joinDate = new Date(response.data.joindate);
+        const finlandDate = joinDate.toLocaleDateString('fi-FI', {day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', timeZone: 'Europe/Helsinki'});
+        setJoinDate(finlandDate);
         setLoading(false); // Set loading to false after data is fetched
       } catch (error) {
         console.error('Error fetching username and imageid:', error);
@@ -262,10 +264,11 @@ const nonAdminGroups = userGroups.filter(group => group.grouprole !== "admin");
             </label>
           </div>
         </div>
-
+       
         <div className='profile-text'>
-          <p>Käyttäjätunnus: {username}</p>
-          <p>Kuvaus?</p>
+          <p>Käyttäjätunnus: {username}</p>        
+          <p>Kuvaus?</p> 
+          <p>Liittynyt: {joindate}</p>
           <div className='profile-buttons'>
             <Button aria-describedby={id} type="button" onClick={togglePasswordPopup} className='change-password'>
               Vaihda salasana
