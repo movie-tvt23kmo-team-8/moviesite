@@ -9,6 +9,10 @@ router.post('/login', async (req, res) => {
     const password = req.body.password;
     
     try {
+        if (!username && !password) {
+            return res.status(400).json({ error: 'Käyttäjänimi ja salasana vaaditaan!' });
+        }
+    
         const storedPassword = await getPassword(username);
 
         if(storedPassword){
