@@ -1,4 +1,6 @@
-# Moviesite
+![logo](./frontend/src/img/readmelogo.png) 
+# FILMI VERKKO 
+
 
 ## ER Diagram
 ![ER-Diagram](./documents/ER-kaavio.png)

@@ -247,7 +247,22 @@ const ControlledRating = ({ value, onChange }) => {
                 sx={{
                     '& > legend': { mt: 2 },
                     '& .MuiRating-icon': {
-                        fontSize: '1vw',
+                        fontSize: '16px', // Default font size
+                    },
+                    '@media (max-width: 1200px)': {
+                        '& .MuiRating-icon': {
+                            fontSize: '14px', // Adjust for screens up to 1200px
+                        },
+                    },
+                    '@media (max-width: 800px)': {
+                        '& .MuiRating-icon': {
+                            fontSize: '12px', // Adjust for screens up to 800px
+                        },
+                    },
+                    '@media (max-width: 400px)': {
+                        '& .MuiRating-icon': {
+                            fontSize: '10px', // Adjust for screens up to 400px
+                        },
                     },
                 }}
             >
