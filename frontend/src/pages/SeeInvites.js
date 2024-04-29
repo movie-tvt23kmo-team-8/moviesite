@@ -4,6 +4,7 @@ import './profile.css';
 
 export default function SeeInvites() {
   const [invites, setInvites] = useState([]);
+  const [accepting, setAccepting] = useState(false); 
 
   useEffect(() => {
     seeInvites();
@@ -37,7 +38,9 @@ export default function SeeInvites() {
   }
 
   async function handleAccept(idaccountsender, idgroup) {
+    if (accepting) return;
     try {
+      setAccepting(true);
       const jwtToken = sessionStorage.getItem('token');
       if (!jwtToken) {
         console.error('JWT token not found');
@@ -59,8 +62,11 @@ export default function SeeInvites() {
       }
     } catch (error) {
       console.error('Error accepting invite:', error);
+    } finally {
+      setAccepting(false); // Reset accepting state after completion
     }
   }
+  
 
   async function handleDeny(idaccountsender, idgroup) {
     try {
