@@ -1,0 +1,97 @@
+.group-info-page{
+    position: absolute;
+    top: 15%;
+    margin: 2%;
+    width: 90%;
+}
+
+.group-choices-description{
+    background-color: #333333;
+    padding: 2%;
+    border-radius: 15px;
+    color: aliceblue;
+}
+
+.group-choices-members{
+    display: flex;
+}
+
+.group-content-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.group-movies-container{
+    display: flex;
+    margin-bottom: 5%;
+    justify-content: center;
+    align-items: center;
+}
+
+.all-group-movies{
+    flex: 100%;
+}
+
+.group-movie-card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-color: #333333;
+    padding: 1%;
+    border-radius: 50px;
+}
+
+.groupchoice-picture{
+    width: 200px;
+    height: 300px;
+    padding: 5%;
+}
+
+.groupchoice-title{
+    font-size: 90%;
+    text-align: center;
+    color: aliceblue;
+    width: 100%; 
+    white-space: normal;
+}
+
+.group-movie-card-item {
+    max-width: 200px; /* Adjust the maximum width as needed */
+    margin: 10px; /* Add some spacing between items */
+}
+
+.group-members-container{
+    display: flex;
+    margin-left: 2%;
+    width: 50%;
+}
+
+.group-member-card {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #333333;
+    padding: 2%;
+    margin-left: 10%;
+    border-radius: 50px;
+    color: aliceblue;
+}
+
+.group-member-photo{
+    width: 30%;
+    border-radius: 50%;
+    padding: 2%;
+}
+
+.group-member-card-item{
+    display: flex;
+}
+
+.group-member-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2%;
+}
+

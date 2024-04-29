@@ -2,7 +2,7 @@ const pgPool = require('./pg_connection');
 
 const sql = {
     ADD: 'INSERT INTO "groupchoices" (idgroup, data, type) VALUES ($1, $2, $3)',
-    GET: 'SELECT data, type FROM "groupchoices" WHERE idgroup= $1',
+    GET: 'SELECT DISTINCT data, type FROM "groupchoices" WHERE idgroup= $1',
     DELETE: 'DELETE from "groupchoices" WHERE idgroupchoises = $1'
 }
 
@@ -24,4 +24,4 @@ async function deleteGroupChoice(idgroupchoice) {
     return result.rows;
 }
 
-module.exports = {add2GroupChoices, getGroupChoices, deleteGroupChoice}
+module.exports = { add2GroupChoices, getGroupChoices, deleteGroupChoice }

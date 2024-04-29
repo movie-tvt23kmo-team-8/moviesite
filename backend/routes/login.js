@@ -7,24 +7,28 @@ const jwt = require('jsonwebtoken');
 router.post('/login', async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-    
+
     try {
+        if (!username && !password) {
+            return res.status(400).json({ error: 'Käyttäjänimi ja salasana vaaditaan!' });
+        }
+
         const storedPassword = await getPassword(username);
 
-        if(storedPassword){
+        if (storedPassword) {
             const passwordMatch = await bcrypt.compare(password, storedPassword);
-            if(passwordMatch){
-                const token = jwt.sign({username: username }, process.env.JWT_SECRET);
-                res.status(200).json({jwtToken: token},);
+            if (passwordMatch) {
+                const token = jwt.sign({ username: username }, process.env.JWT_SECRET);
+                res.status(200).json({ jwtToken: token },);
             } else {
-                res.status(401).json({error: 'User not authorized'});            
+                res.status(401).json({ error: 'User not authorized' });
             }
-            } else {
-                res.status(404).json({error: 'User not found'});
-            }
-            } catch (error) {
+        } else {
+            res.status(404).json({ error: 'User not found' });
+        }
+    } catch (error) {
         console.log(error);
-        res.status(500).json({error: error.message});
+        res.status(500).json({ error: error.message });
     }
 });
 

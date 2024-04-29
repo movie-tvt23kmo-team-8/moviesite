@@ -6,13 +6,11 @@ chai.use(chaiHttp);
 
 let jwtToken;
 
-const testUser = {
-  username: 'testuser', password: 'testpassword'
-};
-
-const wrongCredentials = {
-    username: 'testuser', password: 'wrongpassword'
-}
+const testUser = {username: 'testuser', password: 'testpassword'};
+const wrongPassword = {username: 'testuser', password: 'wrongpassword'};
+const blankUser = {username: '', password: 'testpassword'};
+const blankPassword = {username: 'testuser', password: ''};
+const blank = {username: '', password: ''};
 
 describe('POST /register', () => {
     it('should register a new user', (done) => {
@@ -22,6 +20,28 @@ describe('POST /register', () => {
         .end((err, res) => {
             expect(res).to.have.status(200);
             expect(res.body).to.have.property('message').equal('Käyttäjä luotu!');
+            done();
+        });
+    });
+
+    it('should reject registration if username is missing', (done) => {
+        chai.request(server)
+        .post('/register')
+        .send(blankUser)
+        .end((err, res) => {
+            expect(res).to.have.status(400);
+            expect(res.body).to.have.property('error').equal('Käyttäjänimi vaaditaan!');
+            done();
+        });
+    });
+
+    it('should reject registration if password is missing', (done) => {
+        chai.request(server)
+        .post('/register')
+        .send(blankPassword)
+        .end((err, res) => {
+            expect(res).to.have.status(400);
+            expect(res.body).to.have.property('error').equal('Salasana vaaditaan!');
             done();
         });
     });
@@ -62,10 +82,21 @@ describe('POST /login', () => {
         });
     });
 
+    it('should reject login if username and password are empty', (done) => {
+        chai.request(server)
+        .post('/login')
+        .send(blank)
+        .end((err, res) => {
+            expect(res).to.have.status(400);
+            expect(res.body).to.have.property('error').equal('Käyttäjänimi ja salasana vaaditaan!');
+            done();
+        });
+    });
+
     it('should not login user with wrong password', (done) => {
         chai.request(server)
         .post('/login')
-        .send(wrongCredentials)
+        .send(wrongPassword)
         .end((err, res) => {
             expect(res).to.have.status(401);
             expect(res.body).to.have.property('error').equal('User not authorized');
@@ -86,7 +117,7 @@ describe('DELETE /delete', () => {
         });
     });
 
-    it('should not delete the test user if no token in sessionstorage', (done) => {
+    it('should not delete user without valid JWT token', (done) => {
         chai.request(server)
         .delete('/users/delete')
         .set('Authorization', 'Bearer ')

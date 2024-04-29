@@ -7,7 +7,7 @@ function Popup(props) {
   return (props.trigger) ? (
     <div className='popup'>
       <div className='popup-inner'>
-        <button className='close-btn' onClick={() => props.setTrigger(false)}>close</button>
+        <button className='close-btn' onClick={() => props.setTrigger(false)}>X</button>
         {props.children}
       </div>
     </div>
@@ -71,23 +71,25 @@ export default function Group() {
         idgroup: groupId,
         idaccountReceiver: accountReceiverId
       });
-  
+
       const jwtToken = sessionStorage.getItem('token');
       if (!jwtToken) {
         console.error('JWT token not found');
         return;
       }
-  
+
       const headers = {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${jwtToken}`
         }
       };
+
   
       const response = await axios.post('/invite/sendRequest',
+
         { idgroup: groupId, idaccountReceiver: accountReceiverId }, headers);
-  
+
       if (response.status === 200) {
         console.log('Request sent successfully');
         fetchUserGroups();
@@ -98,7 +100,7 @@ export default function Group() {
       console.error('Error sending request:', error);
     }
   };
-  
+
 
   const submitGroup = async () => {
     const groupData = {
@@ -123,7 +125,24 @@ export default function Group() {
     } catch (error) {
       console.error('Error creating group:', error);
     }
-  };
+
+    const jwtToken = sessionStorage.getItem('token');
+    if (!jwtToken) {
+      console.error('JWT token not found');
+      return;
+    }
+    const result = await fetch('/group/addGroup', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json', 'Authorization': `Bearer ${jwtToken}`
+      },
+      body: JSON.stringify(groupData)
+    })
+    const resultInJson = await result.json()
+    console.log(resultInJson)
+    window.location.reload();
+  }
+
 
   return (
     <div className='group-container'>
@@ -148,18 +167,20 @@ export default function Group() {
             ))}
           </div>
         </section>
+        {isLoggedIn && (
         <section className='createGroup'>
-          <button className='create-group-button' onClick={() => setButtonPopup(true)}>Create a group</button>
+          <button className='create-group-button' onClick={() => setButtonPopup(true)}>Luo ryhmä</button>
           <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-            <h3>Create a new group</h3>
+            <h3>Luo uusi ryhmä</h3>
             <br></br>
-            <p>Name: <input value={groupName} onChange={e => setGroupName(e.target.value)}></input></p>
+            <p>Nimi: <input value={groupName} onChange={e => setGroupName(e.target.value)}></input></p>
             <br></br>
-            <p>Description: <input value={groupDetails} onChange={e => setGroupDetails(e.target.value)}></input></p>
+            <p>Kuvaus:<br></br> <input value={groupDetails} onChange={e => setGroupDetails(e.target.value)}></input></p>
             <br></br>
-            <button onClick={submitGroup}>Submit</button>
+            <button onClick={submitGroup}>Lähetä</button>
           </Popup>
         </section>
+      )}
       </div>
     </div>
   );

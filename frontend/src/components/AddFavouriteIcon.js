@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './addfavouriteicon.css'; 
+import './addfavouriteicon.css';
 
 const AddToFavoritesIcon = ({ mdbdata, onAddToFavorites }) => {
     const [addedToFavorites, setAddedToFavorites] = useState(false);
@@ -9,12 +9,12 @@ const AddToFavoritesIcon = ({ mdbdata, onAddToFavorites }) => {
             return; // Exit early if already added to favorites
         }
         let type = null
-        if(!mdbdata.first_air_date){
+        if (!mdbdata.first_air_date) {
             type = "movie";
-        }else {
-            type= "series";
+        } else {
+            type = "series";
         }
-        console.log( mdbdata.id, type);
+        //console.log( mdbdata.id, type);
         try {
             const jwtToken = sessionStorage.getItem('token');
             if (!jwtToken) {
@@ -29,10 +29,10 @@ const AddToFavoritesIcon = ({ mdbdata, onAddToFavorites }) => {
             const response = await fetch('/favourite/addFavourite', {
                 method: 'POST',
                 headers,
-                body: JSON.stringify({ mdbdata: mdbdata.id, type: type})
+                body: JSON.stringify({ mdbdata: mdbdata.id, type: type })
             });
             if (response.ok) {
-                console.log('Added to favorites');
+                //console.log('Added to favorites');
                 setAddedToFavorites(true); // Update state to indicate added to favorites
                 onAddToFavorites(); // Trigger a callback to update UI or state
             } else {

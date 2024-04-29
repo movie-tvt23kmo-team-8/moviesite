@@ -23,10 +23,9 @@ export default function Profile() {
   const [passwordChangeError, setPasswordChangeError] = useState('');
   const [userGroups, setUserGroups] = useState([]);
   const [favourites, setFavourites] = useState([]);
-
+  const [joindate, setJoinDate] = useState(new Date());
 
   useEffect(() => {
-    // Fetch user data after 5 seconds
     const fetchData = async () => {
       try {
         const response = await axios.get('/users/personal', {
@@ -36,6 +35,9 @@ export default function Profile() {
         });
         setUsername(response.data.username);
         setImageId(response.data.imageid);
+        const joinDate = new Date(response.data.joindate);
+        const finlandDate = joinDate.toLocaleDateString('fi-FI', { day: 'numeric', month: 'long', year: 'numeric',});
+        setJoinDate(finlandDate);
         setLoading(false); // Set loading to false after data is fetched
       } catch (error) {
         console.error('Error fetching username and imageid:', error);
@@ -73,7 +75,6 @@ export default function Profile() {
       }
     };
 
-    // Call fetchUserGroups
     fetchUserGroups();
 
     const fetchUserFavourites = async () => {
@@ -93,9 +94,9 @@ export default function Profile() {
           }
         });
         const favoritesData = response.data.favourites;
-        console.log('favouritesData: ', favoritesData);
+        /*console.log('favouritesData: ', favoritesData);
         console.log('type of favouritedata: ', typeof favoritesData);
-        console.log('favoritesData length:', favoritesData.length);
+        console.log('favoritesData length:', favoritesData.length);*/
         if (favoritesData && favoritesData.length > 0) {
           const favouritesWithPosters = await Promise.all(favoritesData.map(async (favourites) => {
             try {
@@ -106,12 +107,12 @@ export default function Profile() {
                 let title = null;
                 if (favourites.type === "movie") {
                   linkType = "movie";
-                  console.log(favourites.type, linkType);
+                  //console.log(favourites.type, linkType);
                   title = tmdbData.title;
                 } else {
                   linkType = "tv";
                   title = tmdbData.name;
-                  console.log(favourites.type, linkType);
+                  //console.log(favourites.type, linkType);
                 }
                 return {
                   ...favourites,
@@ -121,7 +122,7 @@ export default function Profile() {
                   link: `https://www.themoviedb.org/${linkType}/${tmdbData.id}`
                 };
               } else {
-                console.log("lisätään ilman imdb tietoja")
+                //console.log("lisätään ilman imdb tietoja")
                 return favourites
               }
 
@@ -132,11 +133,11 @@ export default function Profile() {
           }));
           setFavourites(favouritesWithPosters);
         } else {
-          console.log('No favorites data found');
+          //console.log('No favorites data found');
         }
 
       } catch (error) {
-        console.error('Error fetching user favourites: ', error);
+        //console.error('Error fetching user favourites: ', error);
       }
     };
     fetchUserFavourites();
@@ -147,8 +148,8 @@ export default function Profile() {
   }, []);
 
   useEffect(() => {
-    console.log('Image ID:', imageid);
-    console.log('Image Source:', `../img/avatar/${imageid}.png`);
+    //console.log('Image ID:', imageid);
+    //console.log('Image Source:', `../img/avatar/${imageid}.png`);
   }, [imageid]);
 
   // Render loading message while data is being fetched
@@ -167,7 +168,7 @@ export default function Profile() {
         const headers = { headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${jwtToken}` } };
         const deleteResponse = await axios.delete(`/users/delete`, headers);
         if (deleteResponse.status === 200) {
-          console.log('User deleted successfully');
+          //console.log('User deleted successfully');
           sessionStorage.removeItem('token');
           window.location.reload();
         } else {
@@ -210,10 +211,11 @@ export default function Profile() {
 
   const handleClosePopup = () => {
     setOpenPhotoPopup(false); // Close the photo popup
+    window.location.reload();
   };
 
   const imageSrc = `../img/avatar/${imageid}.png`;
-  console.log('Image Source:', imageSrc);
+  //console.log('Image Source:', imageSrc);
 
   const handleChangePassword = () => {
     if (!oldPassword || !newPassword || !confirmNewPassword) {
@@ -242,7 +244,7 @@ export default function Profile() {
   };
 
   const adminGroups = userGroups.filter(group => group.grouprole === "admin");
-const nonAdminGroups = userGroups.filter(group => group.grouprole !== "admin");
+  const nonAdminGroups = userGroups.filter(group => group.grouprole !== "admin");
 
   return (
     <div className='profile-container'>
@@ -265,13 +267,13 @@ const nonAdminGroups = userGroups.filter(group => group.grouprole !== "admin");
 
         <div className='profile-text'>
           <p>Käyttäjätunnus: {username}</p>
-          <p>Kuvaus?</p>
+          <p>Liittynyt: {joindate}</p>
           <div className='profile-buttons'>
             <Button aria-describedby={id} type="button" onClick={togglePasswordPopup} className='change-password'>
               Vaihda salasana
             </Button>
             <Button deleteButton={true} onClick={handleDeleteUser}>
-              {deleteConfirmed ? "Confirm Delete" : "Delete User"}
+              {deleteConfirmed ? "Haluatko varmasti poistaa" : "Poista käyttäjä"}
             </Button>
           </div>
           <BasePopup id={id} open={openPasswordPopup} anchor={anchorEl} onClose={handleClosePopup}>
@@ -309,39 +311,36 @@ const nonAdminGroups = userGroups.filter(group => group.grouprole !== "admin");
         </div>
       </div>
       <div className='profile-group-container'>
-    <div className='profile-group'>
-      <h3 className='profile-group-name'>OMAT RYHMÄT (Admin)</h3>
-      <ul className='profile-group-list'>
-        {adminGroups.map((group, index) => (
-          <li key={group.idgroup} className='profile-group-list-item'>
-            {group.groupname}
-            {group.grouprole === "admin" && (
-              <button className='profile-group-button' onClick={() => handleDeleteGroup(group.idgroup)}>
-                Poista ryhmä
-              </button>
-            )}
-          </li>
-        ))}
-      </ul>
-    </div>
-    <div className='profile-group'>
-      <h3 className='profile-group-name'>OMAT RYHMÄT (Jäsen)</h3>
-      <ul className='profile-group-list'>
-        {nonAdminGroups.map((group, index) => (
-          <li key={group.idgroup} className='profile-group-list-item'>
-            {group.groupname}
-          </li>
-        ))}
-      </ul>
-    </div>
+        <div className='profile-group'>
+          <h3 className='profile-group-name'>OMAT RYHMÄT (Admin)</h3>
+          <ul className='profile-group-list'>
+            {adminGroups.map((group, index) => (
+              <li key={group.idgroup} className='profile-group-list-item'>
+                {group.groupname}
+                <div className="centered-button-container">
+                {group.grouprole === "admin" && (
+                  <button className='profile-group-button' onClick={() => handleDeleteGroup(group.idgroup)}>
+                    Poista ryhmä
+                  </button>
+                )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className='profile-group'>
+          <h3 className='profile-group-name'>OMAT RYHMÄT (Jäsen)</h3>
+          <ul className='profile-group-list'>
+            {nonAdminGroups.map((group, index) => (
+              <li key={group.idgroup} className='profile-group-list-item'>
+                {group.groupname}
+              </li>
+            ))}
+          </ul>
+        </div>
         <div className='profile-invites'>
           <SeeInvites /> { }
         </div>
-      </div>
-      <div className='delete-user'>
-        <button onClick={handleDeleteUser}>
-          {deleteConfirmed ? "Confirm Delete" : "Delete User"}
-        </button>
       </div>
 
       {openPhotoPopup && <ProfilePicUpdate closePhotoPopup={handleClosePopup} setImageId={setImageId} username={username} />}
@@ -409,7 +408,15 @@ const Button = styled('button')(
     transition: 'all 150ms ease',
     cursor: 'pointer',
     borderRadius: 8,
-    padding: '8px 16px',
+    padding: '4px 10px',
+    '@media (max-width: 800px)': {
+      padding: '4px 10px', // Adjust padding for smaller screens
+      fontSize: '0.6rem', // Decrease font size for smaller screens
+    },
+    '@media (max-width: 400px)': {
+      padding: '2px 8px', // Adjust padding for smaller screens
+      fontSize: '0.25rem', // Decrease font size for smaller screens
+    },
     ...(deleteButton
       ? {
         backgroundColor: darkRed[500],

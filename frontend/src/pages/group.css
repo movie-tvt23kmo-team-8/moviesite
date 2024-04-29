@@ -27,7 +27,7 @@ h1 {
 }
 
 .group-card > * {
-    flex: 0 0 calc(33.33%); 
+    flex: 0 0 calc(30%); 
     margin: 1%; 
 }
 
@@ -64,8 +64,8 @@ h1 {
     margin-top: 2%;
     margin-right: 5%;
     flex: 3;
-
 }
+
 
 .create-group-button {
     height: 50px;
@@ -105,4 +105,82 @@ h1 {
     border: 2px solid white;
     color: #fff; /* White text color on hover */
     background-color: #333; /* Dark gray background color on hover */
+  }
+
+  .popup-inner{
+    background-color: #fff;
+    margin: 2%;
+    padding: 5%;
+    border-radius: 15px;
+  }
+
+  .close-btn{
+    padding: 0.5% 2%;
+    margin-left: 90%;
+  }
+
+  @media (max-width: 800px){
+
+    h1{
+        font-size: 100%;
+    }
+
+    .group-container {
+        top: 10%;   
+    }
+    
+    .group-card-item{
+        padding: 5%;
+        border-radius: 15px;
+        font-size: 50%;
+    }
+    
+    .createGroup {
+        flex: 3;
+        font-size: 60%;
+        padding: 2%;
+    }
+
+    .create-group-button{
+        font-size: 90%;
+    }
+   
+    .group-name{
+        font-size: 120%;
+    }
+         
+    .show-group-info-button {
+        font-size: 80%; /* Adjust font size as needed */
+      }
+ 
+  }
+
+  @media (max-width: 400px){
+    .group-container {
+        top: 10%;   
+    }
+    
+    .group-card-item{
+        padding: 5%;
+        border-radius: 15px;
+        font-size: 25%;
+    }
+    
+    .createGroup {
+        flex: 2;
+        font-size: 50%;
+    }
+
+    .create-group-button{
+        font-size: 80%;
+    }
+   
+    .group-name{
+        font-size: 120%;
+    }
+         
+    .show-group-info-button {
+        font-size: 80%; /* Adjust font size as needed */
+      }
+ 
   }

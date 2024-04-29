@@ -10,7 +10,7 @@
 }
 
 #otsikko {
-  margin-bottom: 10px;
+  margin-bottom: 1%;
   margin-top: 10%;
 }
 
@@ -56,81 +56,107 @@ h3{
 }
 
 .elokuvat-area{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center; /* Center contents horizontally */
-  align-items: center; /* Center contents vertically */
-  background-color: rgba(37, 37, 37, 0.5);
-  border-radius: 50px;
-  margin: 0 5%;
+  background-color: #444;
+  margin: 2%;
+  border-radius: 15px;
 }
 
-#elokuvatLista {
-  list-style: none;
-  padding: 10px;
+.elokuvat-areas{
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* Center contents horizontally */
-  width: 100%; /* Ensure it takes up the full width of the elokuvat-container */
-  margin: 0;
+  justify-content: center;
+  align-items: center; 
 }
 
-.show-list{
+#elokuvat{
+  padding: 1%;
+  background-color: #ccc;
   margin: 1%;
-}
+  border-radius: 15px;
+} 
 
-.show-img{
+#elokuvat p{
+  line-height: 10px;
+  color: black;
+} 
+
+.show-group-popup-area{
   position: relative;
+  margin-bottom: 5%;
 }
 
-
-.show-img img {
-  max-width: 100%; /* Set the maximum width of the image to 100% of its container */
-  height: auto;
+.show-image{
+  width: 100%;
 }
 
-.showsicon-heart, .showsicon-group {
-  font-size: 1.5rem; /* Voit muuttaa tämän arvon tarpeidesi mukaan */
+.show-popupIcon-group{
+  position: absolute; /* Set the icon to absolute positioning */
+  bottom: 0;
+  right: 0; /* Adjust as needed */
+  z-index: 0; /* Ensure the icon is above other content */
+  background-color: black; /* Add some background to make the icon visible */
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 200%;
+}
+
+.show-group-popup{
+  color: black;
   position: absolute;
-  bottom: 0; /* Voit muuttaa tämän arvon tarpeidesi mukaan */
-  z-index: 999;
-}
-
-.showsicon-heart{
-  left: 15%; /* Voit muuttaa tämän arvon tarpeidesi mukaan */
+  top: calc(100%); /* Adjust the distance from the icon */
+  right: 0;
   background-color: white;
-  border-radius: 50%;
-  padding: 2%;
-  margin-right: 4%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  z-index: 20000; /* Ensure it's above other elements */
+  line-height: 10px;
 }
 
-.showsicon-group {
-  right: 15%; /* Voit muuttaa tämän arvon tarpeidesi mukaan */
-  background-color: white;
-  border-radius: 50%;
-  padding: 2%;
-  color: #444;
-}
-
-
-@media (max-width: 700px){
+@media (max-width: 800px){
+  
   #otsikko {
     margin-top: 15%;
   }
   
-  h3{
-    font-size: 80%;
+  .hakualue{
+    font-size: 70%;
   }
-
-  
+   
   #alue {
-    width: 40%;
-    height: 80px;
+    padding: 2.5%;
+  }
+    
+  .elokuvat-container{
+    margin: 1%;
   }
   
-  #pvm {
-    width: 40%;
-    height: 80px;
+  .elokuvat-area{
+    padding: 2%;
+  }
+   
+  #elokuvat{
+    padding: 2%;
+    width: 30%;
+  } 
+  
+  #elokuvat p, .buy-ticket{
+    font-size: 70%;
+  } 
+  
+  .show-group-popup-area{
+    margin-bottom: 3%;
+  }
+  
+  .show-image{
+    width: 100%;
+  }
+  
+  .show-popupIcon-group{
+    font-size: 150%;
+  }
+  
+  .show-group-popup{
+   font-size: 70%;
   }
   
 }

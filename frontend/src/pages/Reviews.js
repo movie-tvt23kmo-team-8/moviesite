@@ -30,6 +30,9 @@ export default function Reviews() {
                 link: 'https://www.themoviedb.org/movie/' + tmdbResponse.data.id
               };
             } else {
+
+              // Palautetaan alkuperäinen arvostelu ilman posterin osoitetta, jos haku epäonnistui
+
               return {
                 ...review,
                 title: tmdbResponse.data.title,
@@ -38,7 +41,9 @@ export default function Reviews() {
             }
           } catch (error) {
             console.error('Failed to fetch poster from TMDB', error);
-            return { ...review };
+
+            return { ...review }; // Palautetaan alkuperäinen arvostelu virhetilanteessa
+
           }
         }));
 
@@ -55,20 +60,20 @@ export default function Reviews() {
       <div className='review-header'>
         <h1>Annetut arvostelut</h1>
       </div>
-      
+
       <div className='review-area'>
         {reviews.map((review, index) => (
           <div className='review-card' key={index}>
             <div className='review-text'>
-            <p>Arvostelija: {review.username}</p>
-            <p>Elokuvan nimi: {review.title}</p>
-            <p>Arvostelu: {review.review}</p>
-            <BasicRating value={review.star}></BasicRating>
+              <p>Arvostelija: {review.username}</p>
+              <p>Elokuvan nimi: {review.title}</p>
+              <p>Arvostelu: {review.review}</p>
+              <BasicRating value={review.star}></BasicRating>
             </div>
-          <div>
-            <a href={review.link}target="_blank">{review.posterUrl && <img className="review-picture" src={`https://image.tmdb.org/t/p/original${review.posterUrl}`} alt="Movie Poster" />}</a>
+            <div>
+              <a href={review.link} target="_blank">{review.posterUrl && <img className="review-picture" src={`https://image.tmdb.org/t/p/original${review.posterUrl}`} alt="Movie Poster" />}</a>
             </div>
-           </div>
+          </div>
         ))}
       </div>
     </div>
@@ -77,17 +82,32 @@ export default function Reviews() {
 
 const BasicRating = ({ value }) => {
   return (
-      <div className='rating'>
-          <Box
-              sx={{
-                  '& > legend': { mt: 2 },
-                  '& .MuiRating-icon': {
-                      fontSize: '1vw',
-                  },
-              }}
-          >
-              <Rating className="read-only" value={value} readOnly />
-          </Box>
-      </div>
+    <div>
+    <Box className='rating'
+        sx={{
+            '& > legend': { mt: 2 },
+            '& .MuiRating-icon': {
+                fontSize: '16px', // Default font size
+            },
+            '@media (max-width: 1200px)': {
+                '& .MuiRating-icon': {
+                    fontSize: '14px', // Adjust for screens up to 1200px
+                },
+            },
+            '@media (max-width: 800px)': {
+                '& .MuiRating-icon': {
+                    fontSize: '12px', // Adjust for screens up to 800px
+                },
+            },
+            '@media (max-width: 400px)': {
+                '& .MuiRating-icon': {
+                    fontSize: '10px', // Adjust for screens up to 400px
+                },
+            },
+        }}
+    >
+        <Rating className="read-only" value={value} readOnly />
+    </Box>
+</div>
   );
 };

@@ -1,4 +1,4 @@
-const {addFavourite, getFavourites} = require('../database/favourite_db')
+const { addFavourite, getFavourites } = require('../database/favourite_db')
 const { auth } = require('../middleware/auth')
 const { getUserID, getUserIDByPasskey, getSharekey } = require('../database/users_db');
 
@@ -15,17 +15,17 @@ router.post('/addFavourite', auth, async (req, res) => {
         console.error('Error adding favourite:', error);
         res.status(500).json({ error: 'Error adding favourite' });
     }
-    
+
 });
 
-router.get('/getFavourites', auth, async (req,res) => {
+router.get('/getFavourites', auth, async (req, res) => {
     const idAccount = await getUserID(res.locals.username);
     const items = isNaN(parseInt(req.query.items)) ? 0 : parseInt(req.query.items);
-    console.log("items: ", items)
+    //console.log("items: ", items)
     const favourites = await getFavourites(idAccount, items);
     const sharekey = await getSharekey(idAccount);
-    console.log('favourites: ', favourites)
+    //console.log('favourites: ', favourites)
     res.status(200).json({ idaccount: idAccount, favourites: favourites, sharekey: sharekey });
 });
- 
+
 module.exports = router;

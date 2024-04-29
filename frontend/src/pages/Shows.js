@@ -2,20 +2,36 @@ import React, { useEffect, useState } from 'react'
 import './shows.css'
 import { jwtToken } from '../components/Signals';
 import axios from 'axios';
-import { MenuItem, Select } from '@mui/material';
-
 
 export default function Shows() {
-
   const isLoggedIn = jwtToken.value.length !== 0;//tarkistetaan onko käyttäjä kirjautunut sisään
   const [userGroups, setUserGroups] = useState([]);
   const [selectedGroup, setSelectedGroup] = useState('');
+  const [results, setResults] = useState([]);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [openPopupForMovie, setOpenPopupForMovie] = useState(null);
   let ryhma = "";
-  const handleGroupChange = (event) => {
-    setSelectedGroup(event.target.value);
-    ryhma=event.target.value;
-    console.log("Selected group changed:", event.target.value);
-    console.log("Ryhmä-muuttuja: ", ryhma);
+
+  const GroupPopup = ({ userGroups, onSelectGroup }) => (
+    <div className="show-group-popup">
+      {userGroups.map((group, index) => (
+        <div key={index} className="group-option" onClick={() => onSelectGroup(group.groupname)}>
+          {group.groupname}
+        </div>
+      ))}
+    </div>
+  );
+
+  const handleTogglePopup = (movieId) => {
+    setOpenPopupForMovie(openPopupForMovie === movieId ? null : movieId);
+  };
+
+  const handleSelectGroup = async (groupName, result) => {
+    console.log("ryhmä valittu ryhmä on", groupName);
+    setSelectedGroup(groupName);
+    ryhma = groupName;
+    setIsPopupOpen(false);
+    await add2GroupChoices(result);
   };
 
   useEffect(() => {
@@ -23,6 +39,7 @@ export default function Shows() {
   }, [selectedGroup]);
 
   const fetchUserGroups = async () => {
+    console.log("haetaan käyttäjän ryhmiä");
     const jwtToken = sessionStorage.getItem('token');
     if (jwtToken) {
       const headers = {
@@ -32,6 +49,7 @@ export default function Shows() {
       try {
         const response = await axios.get('/users/userGroups', { headers });
         const data = response.data;
+        console.log("käyttäjän ryhmät", data.groups);
         setUserGroups(data.groups || []); // Jos ryhmiä ei ole, asetatetaan tyhjä lista
       } catch (error) {
         console.error('Error fetching user groups:', error);
@@ -55,49 +73,28 @@ export default function Shows() {
     }
   }, [userGroups]);
 
-  const handleAdd2Group = (show) => {
-    console.log("Current group:", selectedGroup); // Tarkista arvo
-    console.log("Current ryhma-muuttuja", ryhma);
-    if (ryhma.trim() === "") {
-      console.log("No group selected");
-      return;
-    }
-    add2GroupChoices(show);
-  };
-
-  const add2GroupChoices = async (show) => {
+  const add2GroupChoices = async (result) => {
     if (!ryhma) {
       console.error("No group selected");
       return;
     }
-    const type = "show";
-    const title = show.getElementsByTagName('Title')[0].textContent;
-    const theatre = show.getElementsByTagName('TheatreAndAuditorium')[0].textContent;
-    const showtime = parseroiShowtime(show.getElementsByTagName('dttmShowStart')[0].textContent);
-    const image = show.getElementsByTagName('EventMediumImagePortrait')[0].textContent;//Small||Medium||Large
-    const linkki = show.getElementsByTagName('ShowURL')[0].textContent;//kyseisen esityksen linkki
-
-    console.log("lisätään ryhmään:", ryhma); // Varmista, että arvo on oikein
-    setTimeout(() => {
-        // tee toiminto pienen viiveen jälkeen
-        console.log("lisätään ryhmään viiveellä:", selectedGroup);
-    }, 100); // 100 ms viive
-    //console.log("lisätään ryhmään: Sk8OrDie", title, theatre, showtime, image, linkki)
-    //console.log(selectedGroup, type);
+    console.log("lisätään ryhmään: ryhma: ", ryhma);
+    
     const postData = {
       idgroup: ryhma,
-      mediaType: type,
+      mediaType: "show",
       data: {
-        title,
-        theatre,
-        showtime,
-        image,
-        linkki
-      },
+        title: result.title,
+        theatre: result.theatre,
+        showtime: result.showtime,
+        image: result.image,
+        linkki: result.linkki
+      }
     };
+
     try {
       await axios.post('group/addToWatchlist', postData);
-      console.log("lisätty ryhmään:", postData);
+      console.log("Lisätty ryhmään:", postData);
     } catch (error) {
       console.error('Error when trying to add2group:', error);
     }
@@ -126,70 +123,34 @@ export default function Shows() {
     return parsedShowtime;
   }
 
-
-  const haeNaytokset = () => {
-    // Haetaan XML-dokumentti ja käsitellään se
-    console.log("fetchin haku: https://www.finnkino.fi/xml/Schedule/?area=" + area + "&dt=" + date2Finkino(date))
-    fetch('https://www.finnkino.fi/xml/Schedule/?area=' + area + '&dt=' + date2Finkino(date))
-      .then(response => response.text())
-      .then(data => {
-
-        let parser = new DOMParser();
-        let xmlDoc = parser.parseFromString(data, 'text/xml');
-
-        //haetaan kaikki <Show> -elementit
-        let shows = xmlDoc.getElementsByTagName('Show');
-
-        //käydään läpi jokainen elementti ja lisätään halutut tiedot niistä listaan
-        let elokuvat = [];
-        for (let i = 0; i < shows.length; i++) {
-          let title = shows[i].getElementsByTagName('Title')[0].textContent;
-          let id = shows[i].getElementsByTagName('ID')[0].textContent;
-          let showtime = shows[i].getElementsByTagName('dttmShowStart')[0].textContent;
-          let image = shows[i].getElementsByTagName('EventMediumImagePortrait')[0].textContent;//Small||Medium||Large
-          let linkki = shows[i].getElementsByTagName('ShowURL')[0].textContent;//kyseisen esityksen linkki
-          //console.log("Title: "+title+" ID:"+id+" imageAdress: "+image +" ja linkki: "+linkki);
-
-          let kuvaElementti = <div className='show-img'><img src={image} alt={title} />
-            {isLoggedIn && (<>
-              <Select value={selectedGroup} onChange={handleGroupChange}>
-                <MenuItem value="testiryhmä">Valitse Ryhmä</MenuItem>
-                {userGroups.map((group, index) => (
-                  <MenuItem key={index} value={group.groupname}>{group.groupname}</MenuItem>
-                ))}
-              </Select>
-              <i className="popupIcon-group showsicon-group fa-solid fa-users-rectangle" onClick={() => handleAdd2Group(shows[i])}></i></>)}</div>
-          let tekstiElementti = (
-            <>
-              <span className="title">{title}</span>
-              <br />
-              <span className="showtime">{"Näytösaika: " + parseroiShowtime(showtime)}</span>
-            </>
-          );
-          let linkkiElementti = <a href={linkki} target="_blank">Osta liput</a>
-
-          let elokuvaElementti = (
-            <li className='show-list' key={id}>
-              {kuvaElementti}
-              <br />
-              {tekstiElementti}
-              <br />
-              {linkkiElementti}
-            </li>
-          );
-
-          elokuvat.push(elokuvaElementti);
-        }
-        setElokuvatLista(elokuvat);
-      })
-      .catch(error => console.error('Error:', error));
-
+  const haeNaytokset = async () => {
+    //Haetaan XML-dokumentti ja käsitellään se
+    //console.log("fetchin haku: https://www.finnkino.fi/xml/Schedule/?area=" + area + "&dt=" + date2Finkino(date))
+    try {
+      const response = await axios.get('https://www.finnkino.fi/xml/Schedule/?area=' + area + '&dt=' + date2Finkino(date))
+      //console.log("Response: ", response.data);
+      let parser = new DOMParser();
+      let xmlDoc = parser.parseFromString(response.data, 'text/xml');
+      let shows = xmlDoc.getElementsByTagName('Show');
+      let parsedShows = [];
+      for (let i = 0; i < shows.length; i++) {
+        const title = shows[i].getElementsByTagName('Title')[0].textContent;
+        const showtime = parseroiShowtime(shows[i].getElementsByTagName('dttmShowStart')[0].textContent);
+        const image = shows[i].getElementsByTagName('EventMediumImagePortrait')[0].textContent;
+        const linkki = shows[i].getElementsByTagName('ShowURL')[0].textContent;
+        const theatre = shows[i].getElementsByTagName('Theatre')[0].textContent;
+        const id = i;
+        parsedShows.push({ title, showtime, image, linkki, theatre, id });
+      }
+      setResults(parsedShows);
+    } catch (error) {
+      console.error('Error fetching shows:', error);
+    }
   }
 
 
   const [area, setArea] = useState(1029);
   const [date, setDate] = useState(setTodayDate());
-  const [elokuvatLista, setElokuvatLista] = useState([]);
   useEffect(() => {
     haeNaytokset();
   }, [area, date]);
@@ -234,8 +195,27 @@ export default function Shows() {
         </div>
         <div className="elokuvat-container">
           <div className='elokuvat-area'>
-            <div id="elokuvat">
-              <ul id="elokuvatLista">{elokuvatLista}</ul>
+            <div className='elokuvat-areas'>
+              {results.map((result, index) => (
+                <div id="elokuvat" key={result.id}>
+                  <div className='show-group-popup-area'>
+                  <img className='show-image' src={result.image} alt={result.title} />
+                    {isLoggedIn && (
+                      <i
+                        className="show-popupIcon-group fa-solid fa-users-rectangle"
+                        onClick={() => handleTogglePopup(result.id)} // Pass movie ID to the handler
+                      ></i>
+                    )}
+                    {openPopupForMovie === result.id && ( // Check if popup should be open for this movie
+                      <GroupPopup userGroups={userGroups} onSelectGroup={(groupName) => handleSelectGroup(groupName, result)} />
+                    )}
+                  </div>
+                  <p>{result.title}</p>
+                  <p>Teatteri: {result.theatre}</p>
+                  <p>Showtime: {result.showtime}</p>
+                  <a className='buy-ticket' href={result.linkki} target="_blank">Osta liput!</a>                 
+                </div>
+              ))}
             </div>
           </div>
         </div>

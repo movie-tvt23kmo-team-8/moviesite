@@ -132,14 +132,14 @@ const Popupwindow = ({ mediaItem, onClose }) => {
         } else {
             type = "series";
         }
-        console.log(selectedGroup, mediaItem.id, type);
+        //console.log(selectedGroup, mediaItem.id, type);
         try {
             await axios.post('group/addToWatchlist', {
                 idgroup: ryhma,
                 data: mediaItem.id,
                 mediaType: type
             });
-            console.log("lisätty type: ", type, " ryhmään: ", ryhma, " id: ", mediaItem.id)
+            //console.log("lisätty type: ", type, " ryhmään: ", ryhma, " id: ", mediaItem.id)
         } catch (error) {
             console.error('Error when trying to add2group:', error);
         }
@@ -156,17 +156,17 @@ const Popupwindow = ({ mediaItem, onClose }) => {
     };
 
     const handleAddToFavorites = () => {
-        console.log('Added to favorites');
+        //console.log('Added to favorites');
     };
 
     return (
         <div className="popup-overlay">
             <div className="popup-window">
                 <div className="popup-content">
-                <div className='popup-img-container'>
+                    <div className='popup-img-container'>
                         <img className='popup-img' src={`https://image.tmdb.org/t/p/w400/${mediaItem.poster_path}`} alt={mediaItem.title} />
                         <div className="group-icon-container">
-                        <button className='popupbutton' onClick={onClose}>Close</button>
+                            <button className='popupbutton' onClick={onClose}>Close</button>
                             {isLoggedIn && <AddToFavoritesIcon mdbdata={mediaItem} onAddToFavorites={handleAddToFavorites} />}
                             {isLoggedIn && <i className="popupIcon-group fa-solid fa-users-rectangle" onClick={handleTogglePopup}></i>}
                             {isPopupOpen && (
@@ -247,7 +247,22 @@ const ControlledRating = ({ value, onChange }) => {
                 sx={{
                     '& > legend': { mt: 2 },
                     '& .MuiRating-icon': {
-                        fontSize: '1vw',
+                        fontSize: '16px', // Default font size
+                    },
+                    '@media (max-width: 1200px)': {
+                        '& .MuiRating-icon': {
+                            fontSize: '14px', // Adjust for screens up to 1200px
+                        },
+                    },
+                    '@media (max-width: 800px)': {
+                        '& .MuiRating-icon': {
+                            fontSize: '12px', // Adjust for screens up to 800px
+                        },
+                    },
+                    '@media (max-width: 400px)': {
+                        '& .MuiRating-icon': {
+                            fontSize: '10px', // Adjust for screens up to 400px
+                        },
                     },
                 }}
             >

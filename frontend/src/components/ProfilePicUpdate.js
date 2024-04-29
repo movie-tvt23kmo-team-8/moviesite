@@ -14,9 +14,11 @@ const ProfilePicUpdate = ({ closePhotoPopup, setImageId, username }) => {
                     console.error('JWT token not found');
                     return;
                 }
+
                 console.log('JWT token found:', jwtToken);
                 
                 const response = await axios.get('/users/getUserID', {
+
                     params: {
                         username: username // Use the username prop here
                     },
@@ -24,8 +26,8 @@ const ProfilePicUpdate = ({ closePhotoPopup, setImageId, username }) => {
                         Authorization: `Bearer ${jwtToken}` // Include JWT token in request headers
                     }
                 });
-                console.log('Get UserID response:', response);
-                
+                //console.log('Get UserID response:', response);
+
                 if (response.status === 200) {
                     setIdAccount(response.data.idaccount);
                 } else {
@@ -40,48 +42,48 @@ const ProfilePicUpdate = ({ closePhotoPopup, setImageId, username }) => {
         getUserID();
     }, [username]); // Add username as a dependency
 
-// Inside handleImageClick function
-const handleImageClick = async (imageId) => {
-    console.log('Handle image click initiated');
-    try {
-        const jwtToken = sessionStorage.getItem('token');
-        if (!jwtToken) {
-            console.error('JWT token not found');
-            return;
-        }
-        console.log('JWT token found:', jwtToken);
 
-        // Check if idaccount is available
-        if (!idaccount) {
-            console.error('idaccount not found');
-            return;
-        }
+    // Inside handleImageClick function
+    const handleImageClick = async (imageId) => {
+        //console.log('Handle image click initiated');
+        try {
+            const jwtToken = sessionStorage.getItem('token');
+            if (!jwtToken) {
+                console.error('JWT token not found');
+                return;
 
-        const response = await axios.put('/users/updatePic', { imageId, idaccount }, {
-            headers: {
-                Authorization: `Bearer ${jwtToken}` // Include JWT token in request headers
             }
-        });
-        console.log('Update pic request sent:', response);
-        
-        if (response.status === 200) {
-            console.log('Update successful:', response);
-            if (setImageId && typeof setImageId === 'function') {
-                setImageId(imageId);
+            //console.log('JWT token found:', jwtToken);
+
+            // Check if idaccount is available
+            if (!idaccount) {
+                console.error('idaccount not found');
+                return;
+            }
+
+            const response = await axios.put('http://localhost:3001/users/updatePic', { imageId, idaccount }, {
+                headers: {
+                    Authorization: `Bearer ${jwtToken}` // Include JWT token in request headers
+                }
+            });
+            //console.log('Update pic request sent:', response);
+
+            if (response.status === 200) {
+                //console.log('Update successful:', response);
+                if (setImageId && typeof setImageId === 'function') {
+                    setImageId(imageId);
+                } else {
+                    console.error('setImageId is not a function or not provided as a prop.');
+                }
+                closePhotoPopup();
             } else {
-                console.error('setImageId is not a function or not provided as a prop.');
+                console.error('Error updating profile picture:', response);
             }
-            closePhotoPopup();
-        } else {
-            console.error('Error updating profile picture:', response);
+        } catch (error) {
+            console.error('Error updating profile picture:', error);
+            // Handle error in a user-friendly way, e.g., show a notification
         }
-    } catch (error) {
-        console.error('Error updating profile picture:', error);
-        // Handle error in a user-friendly way, e.g., show a notification
-    }
-};
-
-    
+    };
 
     return (
         <div className="popup-overlay">
