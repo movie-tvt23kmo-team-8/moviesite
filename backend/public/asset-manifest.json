@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.1d20aa4d.css",
-    "main.js": "/static/js/main.f57161d8.js",
+    "main.css": "/static/css/main.aa19aa26.css",
+    "main.js": "/static/js/main.3f46d805.js",
     "reactPlayerYouTube.js": "/static/js/reactPlayerYouTube.0a6f330e.chunk.js",
     "reactPlayerSoundCloud.js": "/static/js/reactPlayerSoundCloud.a7405afb.chunk.js",
     "reactPlayerVimeo.js": "/static/js/reactPlayerVimeo.af90a770.chunk.js",
@@ -17,7 +17,6 @@
     "reactPlayerFilePlayer.js": "/static/js/reactPlayerFilePlayer.f983abd5.chunk.js",
     "reactPlayerPreview.js": "/static/js/reactPlayerPreview.3c1da0a9.chunk.js",
     "static/media/login.png": "/static/media/login.51ebe0ce0bf4f127a5aa.png",
-    "static/media/logo5.png": "/static/media/logo5.cc50a0ffe5a10e513977.png",
     "static/media/register.png": "/static/media/register.74cfd36db1dc1a13ad6d.png",
     "static/media/14.png": "/static/media/14.d29f70ec156baef36eb5.png",
     "static/media/8.png": "/static/media/8.c09c99a54b370c6e36ae.png",
@@ -33,10 +32,11 @@
     "static/media/13.png": "/static/media/13.b5790864c76adbfa8072.png",
     "static/media/1.png": "/static/media/1.b209a93d1a159deaca6e.png",
     "static/media/7.png": "/static/media/7.1b2e4e3b5b5a29a3516b.png",
+    "static/media/logo5.png": "/static/media/logo5.9d9d86cfe86347dd67fd.png",
     "static/media/11.png": "/static/media/11.f0dfb6dee361b956f2e6.png",
     "index.html": "/index.html",
-    "main.1d20aa4d.css.map": "/static/css/main.1d20aa4d.css.map",
-    "main.f57161d8.js.map": "/static/js/main.f57161d8.js.map",
+    "main.aa19aa26.css.map": "/static/css/main.aa19aa26.css.map",
+    "main.3f46d805.js.map": "/static/js/main.3f46d805.js.map",
     "reactPlayerYouTube.0a6f330e.chunk.js.map": "/static/js/reactPlayerYouTube.0a6f330e.chunk.js.map",
     "reactPlayerSoundCloud.a7405afb.chunk.js.map": "/static/js/reactPlayerSoundCloud.a7405afb.chunk.js.map",
     "reactPlayerVimeo.af90a770.chunk.js.map": "/static/js/reactPlayerVimeo.af90a770.chunk.js.map",
@@ -53,7 +53,7 @@
     "reactPlayerPreview.3c1da0a9.chunk.js.map": "/static/js/reactPlayerPreview.3c1da0a9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1d20aa4d.css",
-    "static/js/main.f57161d8.js"
+    "static/css/main.aa19aa26.css",
+    "static/js/main.3f46d805.js"
   ]
 }

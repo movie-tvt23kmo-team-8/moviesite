@@ -17,7 +17,7 @@ export default function GroupContent() {
 
     const fetchUsername = async () => {
         try {
-            const response = await axios.get('http://localhost:3001/users/personal', {
+            const response = await axios.get('/users/personal', {
               headers: {
                 Authorization: `Bearer ${jwtToken.value}`
               }
@@ -34,7 +34,7 @@ export default function GroupContent() {
     const fetchGroupDetails = async () => {
         console.log("haetaan ryhmän tietoja");
         try {
-            const response = await axios.get(`http://localhost:3001/group/getGroupContent?idgroup=${groupId}`, {
+            const response = await axios.get(`/group/getGroupContent?idgroup=${groupId}`, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -51,7 +51,7 @@ export default function GroupContent() {
                 const groupChoicesWithPosters = await Promise.all(groupChoicesData.map(async (groupChoices) => {
                     if (groupChoices.type === "movie" || groupChoices.type === "series") {
                         try {
-                            const tmdbResponse = await axios.get(`http://localhost:3001/tmdb/poster?id=${groupChoices.data}&type=${groupChoices.type}`);
+                            const tmdbResponse = await axios.get(`/tmdb/poster?id=${groupChoices.data}&type=${groupChoices.type}`);
                             const tmdbData = tmdbResponse.data;
                             if (tmdbData && tmdbData.poster_path) {
                                 let linkType = null;
@@ -117,7 +117,7 @@ export default function GroupContent() {
         console.log(groupid, memberid);
         console.log(jwtToken);
         try {
-            await axios.delete(`http://localhost:3001/users/removeFromGroup/${groupid}/${memberid}`, {
+            await axios.delete(`/users/removeFromGroup/${groupid}/${memberid}`, {
                 headers: {
                     Authorization: `Bearer ${jwtToken}`
                 }
