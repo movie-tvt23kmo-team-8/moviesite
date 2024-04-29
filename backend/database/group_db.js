@@ -7,8 +7,7 @@ const sql = {
     GET_GROUPS: 'SELECT * FROM "group"',
     GET_GROUP_ID: 'SELECT (idgroup) FROM "group" WHERE idaccount = $1 ORDER BY "idgroup" DESC LIMIT 1',
     GET_GROUP_ID_BY_NAME: 'SELECT (idgroup) FROM "group" WHERE groupname= $1',
-    GET_GROUP_MEMBERS: `SELECT groupmember.*, account.imageid, account.username AS username 
-                            FROM groupmember JOIN  account ON groupmember.idaccount = account.idaccount WHERE idgroup=$1`,
+    GET_GROUP_MEMBERS: 'SELECT DISTINCT groupmember.*, account.imageid, account.username AS username FROM groupmember JOIN  account ON groupmember.idaccount = account.idaccount WHERE idgroup=$1 ORDER BY "grouprole"',
     GET_GROUP_DETAILS: 'SELECT * FROM "group" WHERE idgroup=$1',
     GET_GROUP_ID_BY_NAME: 'SELECT (idgroup) FROM "group" WHERE groupname= $1', 
     DELETE_GROUP: ` BEGIN;
