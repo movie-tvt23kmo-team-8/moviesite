@@ -85,7 +85,7 @@ router.delete('/removeFromGroup/:idgroup/:idAccount', auth, async (req, res) => 
         const { idgroup, idAccount } = req.params;
         //console.log('idgroup:', idgroup);
         //console.log('idAccount:', idAccount);
-        
+
         await removeUserFromGroup(idgroup, idAccount);
 
         res.status(200).json({ message: 'User removed from the group successfully' });
@@ -94,5 +94,5 @@ router.delete('/removeFromGroup/:idgroup/:idAccount', auth, async (req, res) => 
         res.status(500).json({ error: err.message });
     }
 });
- 
+
 module.exports = router;
