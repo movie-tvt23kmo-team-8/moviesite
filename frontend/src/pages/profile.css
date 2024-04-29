@@ -161,6 +161,25 @@ input{
     margin: 2%;
 }
 
+.profile-image-container {
+    position: relative;
+  }
+  
+  .invite-count {
+    position: absolute;
+    top: -10px; /* Adjust position */
+    right: -10px; /* Adjust position */
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+}
+
 .seeinvites-container{
     margin: 2%; 
     padding: 1%; 
@@ -272,5 +291,3 @@ input{
     }
        
 }
-
-

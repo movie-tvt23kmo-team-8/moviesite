@@ -3,12 +3,13 @@ import axios from 'axios';
 import './topbar.css'
 import { Link } from 'react-router-dom'
 import { jwtToken } from '../components/Signals';
+import { seeInvites } from '../context/seeInvites';
 
 export default function TopBar() {
   const [username, setUsername] = useState('');
   const [imageid, setImageId] = useState('');
   const [loading, setLoading] = useState(true); // State to track loading status
-
+  const [inviteCount, setInviteCount] = useState(0);
 
   const user = jwtToken.value.length !== 0;
 
@@ -36,6 +37,9 @@ export default function TopBar() {
   }, []);
 
   useEffect(() => {
+    seeInvites(setInviteCount).catch(error => {
+      console.error('Error fetching invites:', error);
+    });
     //console.log('Image ID:', imageid);
     //console.log('Image Source:', `../img/avatar/${imageid}.png`);
   }, [imageid]);
@@ -81,15 +85,18 @@ export default function TopBar() {
             (
               <>
                 <ul className='topLogout'><li className='topLogoutItem'>
-                  <Link to="/profile">{imageid && (
-                    <img
-                      className='topRightImg'
-                      src={require(`../img/avatar/${imageid}.png`)}
-                      alt="topimg"
-                    />
+                <Link to="/profile">
+                  <div className="topRightImgContainer">
+                   {imageid && (
+                 <img
+                    className='topRightImg'
+                       src={require(`../img/avatar/${imageid}.png`)}
+                       alt="topimg"
+                   />
                   )}
-                  </Link>
-
+                {inviteCount > 0 && <div className="redBall">{inviteCount}</div>}
+                  </div>
+                </Link>
                 </li><li className='topLogoutItem'>
                     <Link className='link logout' to="/logout">Kirjaudu ulos</Link>
                   </li></ul>

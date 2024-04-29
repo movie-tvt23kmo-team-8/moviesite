@@ -5,6 +5,7 @@ import './profile.css';
 export default function SeeInvites() {
   const [invites, setInvites] = useState([]);
   const [accepting, setAccepting] = useState(false); 
+  const [inviteCount, setInviteCount] = useState(0);
 
   useEffect(() => {
     seeInvites();
@@ -24,11 +25,12 @@ export default function SeeInvites() {
       const idaccountreceiverResponse = await axios.get(`/users/getUserID?username=${username}`, { headers });
       const idaccountreceiver = idaccountreceiverResponse.data.idaccount;
       const response = await axios.get(`/invite/getAllInvites?idaccountreceiver=${idaccountreceiver}`, { headers });
-
+      
       if (response.status === 200) {
         console.log('Acquired all invites');
         const filteredInvites = response.data.invites.filter(invite => !invite.hasaccepted);
         setInvites(filteredInvites);
+        setInviteCount(filteredInvites.length);
       } else {
         console.error('Failed to get invites');
       }
@@ -94,6 +96,9 @@ export default function SeeInvites() {
   }
   return (
     <div>
+      <div className="profile-image-container">
+        {inviteCount > 0 && <div className="invite-count">{inviteCount}</div>}
+      </div>
       <h3 className='profile-group-name'>LIITTYMISPYYNNÖT:</h3>
       {invites.length === 0 ? (
         <p>You have no pending requests.</p>
