@@ -55,7 +55,7 @@ const MediaPanel = ({ mediaType }) => { // Luodaan MediaPanel-komponentti ja ann
         } else if (screenWidth >= 400) {
             itemsPerPage = 4;
         } else {
-            itemsPerPage = 2;
+            itemsPerPage = 3;
         }
         return itemsPerPage;
     };
