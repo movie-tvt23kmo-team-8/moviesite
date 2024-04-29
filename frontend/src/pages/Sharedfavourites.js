@@ -14,7 +14,7 @@ export default function Sharedfavourites() {
                 const sharekey = urlParams.get('sharekey');
                 const response = await axios.get(`http://localhost:3001/sharedfavourites?sharekey=${sharekey}`);
                 const favoritesData = response.data.favourites;
-                console.log("favouritesdata:",favoritesData);
+                console.log("favouritesdata:", favoritesData);
                 setUsername(response.data.username)
 
                 if (favoritesData && favoritesData.length > 0) {
