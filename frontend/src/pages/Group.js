@@ -75,23 +75,23 @@ export default function Group() {
         idgroup: groupId,
         idaccountReceiver: accountReceiverId
       });
-  
+
       const jwtToken = sessionStorage.getItem('token');
       if (!jwtToken) {
         console.error('JWT token not found');
         return;
       }
-  
+
       const headers = {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${jwtToken}`
         }
       };
-  
+
       const response = await axios.post('http://localhost:3001/invite/sendRequest',
         { idgroup: groupId, idaccountReceiver: accountReceiverId }, headers);
-  
+
       if (response.status === 200) {
         console.log('Request sent successfully');
         fetchUserGroups();
@@ -102,7 +102,7 @@ export default function Group() {
       console.error('Error sending request:', error);
     }
   };
-  
+
 
   const submitGroup = async () => {
     const groupData = {
@@ -112,7 +112,7 @@ export default function Group() {
 
       grouprole: 'admin'
     }
-    const jwtToken = sessionStorage.getItem('token'); 
+    const jwtToken = sessionStorage.getItem('token');
     if (!jwtToken) {
       console.error('JWT token not found');
       return;
@@ -120,7 +120,7 @@ export default function Group() {
     const result = await fetch('http://localhost:3001/group/addGroup', {
       method: 'POST',
       headers: {
-        'Content-type': 'application/json','Authorization': `Bearer ${jwtToken}`
+        'Content-type': 'application/json', 'Authorization': `Bearer ${jwtToken}`
       },
       body: JSON.stringify(groupData)
     })
@@ -168,4 +168,3 @@ export default function Group() {
     </div>
   );
 }
-

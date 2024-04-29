@@ -18,7 +18,7 @@ export default function Login() {
         const token = resp.data.jwtToken;
         if (token) {
           jwtToken.value = token;
-          console.log("Login successful");
+          //console.log("Login successful");
           navigate("/");
           window.location.reload();
         } else {

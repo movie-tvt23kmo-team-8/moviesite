@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { jwtToken } from '../components/Signals'
 import './favourite.css'
 
-
+function Popup(props) {
+  return (props.trigger) ? (
+    <div className='popup'>
+      <div className='popup-inner'>
+        <button className='close-btn' onClick={() => props.setTrigger(false)}>close</button>
+        {props.children}
+      </div>
+    </div>
+  ) : "";
+}
 
 export default function Favourite() {
   const [favourites, setFavourites] = useState([]);
   const [buttonPopup, setButtonPopup] = useState(false);
   const [idAccount, setIdAccount] = useState('')
-  const [searchTerm, setSearchTerm] = useState('');
   const [sharekey, setSharekey] = useState("");
-
- 
 
   useEffect(() => {
     const fetchFavourites = async () => {
@@ -32,10 +37,6 @@ export default function Favourite() {
 
         const favoritesData = response.data.favourites;
         const sharekey1 = response.data.sharekey;
-        /*console.log('favouritesData: ', favoritesData)
-        console.log('type of favouritedata: ', typeof favoritesData)
-        console.log('favoritesData length:', favoritesData.length);
-        console.log("Sharekey haettu: ", sharekey1);*/
         setSharekey(sharekey1);
         if (favoritesData && favoritesData.length > 0) {
           const favouritesWithPosters = await Promise.all(favoritesData.map(async (favourites) => {
@@ -84,12 +85,36 @@ export default function Favourite() {
 
   }, [idAccount]);
 
-   return (
+  const handleAddFavourite = async (mdbData, mediaType) => {
+    try {
+      const jwtToken = sessionStorage.getItem('token');
+      if (!jwtToken) {
+        console.error('JWT token not found');
+        return;
+      }
+
+      const response = await axios.post('/favourite/addFavourite', {
+        idaccount: idAccount,
+        mdbdata: mdbData,
+        type: mediaType,
+      }, {
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        }
+      });
+      setButtonPopup(false);
+    } catch (error) {
+      console.error('Error adding favourite:', error);
+    }
+  };
+
+  return (
+
     <div className='favourite-container'>
       <h1>Suosikit</h1>
       <div className='favourite-sharing'>
-      <p>Voit jakaa suosikkisi linkillä:</p>
-      <a className='favourite-link' href={`http://localhost:3000/sharedfavourites?sharekey=${sharekey}`} target="_blank">{`http://localhost:3000/sharedfavourites?sharekey=${sharekey}`}</a>
+        <p>Voit jakaa suosikkisi linkillä:</p>
+        <a className='favourite-link' href={`http://localhost:3000/sharedfavourites?sharekey=${sharekey}`} target="_blank">{`http://localhost:3000/sharedfavourites?sharekey=${sharekey}`}</a>
       </div>
       <div className='favourites-container'>
         <section className='allFavourites'>

@@ -24,4 +24,4 @@ async function deleteGroupChoice(idgroupchoice) {
     return result.rows;
 }
 
-module.exports = {add2GroupChoices, getGroupChoices, deleteGroupChoice}
+module.exports = { add2GroupChoices, getGroupChoices, deleteGroupChoice }

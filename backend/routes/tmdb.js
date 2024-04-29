@@ -98,11 +98,11 @@ router.get('/poster', async (req, res) => {
     const ID = parseInt(req.query.id);
     const type = req.query.type;
     //console.log(type, ID);
-    if (type=="movie"){
+    if (type == "movie") {
       const response = await axios.get(`https://api.themoviedb.org/3/movie/${ID}?api_key=${apiKey}&language=fi-FI`);
       const result = response.data;
       res.json(result);
-    }else {
+    } else {
       const response = await axios.get(`https://api.themoviedb.org/3/tv/${ID}?api_key=${apiKey}&language=fi-FI`);
       const result = response.data;
       res.json(result);
