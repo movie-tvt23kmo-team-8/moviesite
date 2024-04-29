@@ -4,6 +4,7 @@ import './profile.css';
 
 export default function SeeInvites() {
   const [invites, setInvites] = useState([]);
+  const [accepting, setAccepting] = useState(false); 
 
   useEffect(() => {
     seeInvites();
@@ -37,7 +38,9 @@ export default function SeeInvites() {
   }
 
   async function handleAccept(idaccountsender, idgroup) {
+    if (accepting) return;
     try {
+      setAccepting(true);
       const jwtToken = sessionStorage.getItem('token');
       if (!jwtToken) {
         console.error('JWT token not found');
@@ -59,8 +62,11 @@ export default function SeeInvites() {
       }
     } catch (error) {
       console.error('Error accepting invite:', error);
+    } finally {
+      setAccepting(false); // Reset accepting state after completion
     }
   }
+  
 
   async function handleDeny(idaccountsender, idgroup) {
     try {
@@ -93,11 +99,11 @@ export default function SeeInvites() {
         <p>You have no pending requests.</p>
       ) : (
         invites.map(invite => (
-          <div style={{ margin: '2%', padding: '1%', background: 'lightgray' , borderRadius: '15px', color: 'black' }} key={invite.idinvites}>
-            <p>{/*Invite ID: {invite.idinvites},*/} Lähettäjä: {invite.sender_username}</p> 
-            <p> Ryhmän nimi: {invite.group_name}</p>
-            <button className='profile-group-button' onClick={() => handleAccept(invite.idaccountsender, invite.idgroup)}>Accept</button>
-            <button className='profile-group-button' onClick={() => handleDeny(invite.idaccountsender, invite.idgroup)}>Deny</button>
+          <div style={{ margin: '2%', padding: '1%', background: 'lightgray', borderRadius: '15px', color: 'black' }} key={invite.idinvites}>
+            <p>Lähettäjä: {invite.sender_username}</p> 
+            <p>Ryhmän nimi: {invite.group_name}</p>
+            <button className='profile-group-button' onClick={() => handleAccept(invite.idaccountsender, invite.idgroup)} disabled={accepting}>Accept</button> {/* Disable the button when accepting */}
+            <button className='profile-group-button' onClick={() => handleDeny(invite.idaccountsender, invite.idgroup)} disabled={accepting}>Deny</button>
           </div>
         ))
       )}
