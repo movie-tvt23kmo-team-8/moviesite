@@ -48,4 +48,8 @@ header {
     .home {
         margin-top: 5%;
     }
+
+    .home-header {
+        margin-left: 20%;
+    }
 }

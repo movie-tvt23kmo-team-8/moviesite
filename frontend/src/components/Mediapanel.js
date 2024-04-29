@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import PopupWindow from './Popupwindow'; 
+import PopupWindow from './Popupwindow';
 import Box from '@mui/material/Box'; // Tuodaan MUI-kirjaston Box-komponentti
 import Rating from '@mui/material/Rating'; // Tuodaan MUI-kirjaston Rating-komponentti
 import './mediapanel.css';
@@ -55,7 +55,7 @@ const MediaPanel = ({ mediaType }) => { // Luodaan MediaPanel-komponentti ja ann
         } else if (screenWidth >= 400) {
             itemsPerPage = 4;
         } else {
-            itemsPerPage = 2;
+            itemsPerPage = 3;
         }
         return itemsPerPage;
     };

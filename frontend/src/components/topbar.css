@@ -95,6 +95,27 @@
     list-style: none;
 }
 
+.redBall {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    position: absolute;
+    top: 20%;
+    right: 60%; 
+    transform: translateY(-50%); 
+}
+
+.topRightImgContainer {
+    position: relative;
+    display: inline-block;
+}
+
 @media (max-width: 1200px){
 
     .top {
@@ -166,21 +187,22 @@
 @media (max-width: 400px){
 
     .top {
-        font-size: 50%;
+        font-size: 60%;
     }
   
     .websitename{
         font-size: 70%;
         line-height: 2;
-        margin-top: 10%;
+        margin-top: 20%;
     }
 
     .topLeftImg{
-        width: 40%;
+        width: 60%;
     }
-       
+     
+
     .topRightImg{
-        margin-top: 10%;
+        margin-top: 0%;
     }
     
     .topRightList{

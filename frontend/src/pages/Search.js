@@ -7,7 +7,6 @@ const Search = () => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [error, setError] = useState('');
-  //kriteeriselailun kriteerit
   const [year, setYear] = useState('');
   const [language, setLanguage] = useState('');
   const [genre, setGenre] = useState('');
@@ -33,7 +32,6 @@ const Search = () => {
   };
 
   const selailuHaku = async () => {
-    //console.log("selailuhaku alkaa  year, language, genre, points", year, language, genre, points )
     try {
       const response = await axios.get(`http://localhost:3001/tmdb/movies?year=${year}&language=${language}&genre=${genre}&points=${points}`
       );
@@ -165,7 +163,7 @@ const Search = () => {
                     onChange={handlePointsChange}
                   />
                 </div>
-                <button className='etsi-button' type="button" onClick={selailuHaku}>Haje</button>
+                <button className='etsi-button' type="button" onClick={selailuHaku}>Etsi</button>
               </form>
               {error && <p>{error}</p>}
             </div>

@@ -15,7 +15,7 @@ export default function Register() {
 
   function handleRegister(event) {
     event.preventDefault();
-    
+
     if (!username || !password || !confirmPassword) {
       setError('Täytä kaikki pakolliset kentät.');
       return;
@@ -26,27 +26,27 @@ export default function Register() {
       return;
     }
 
-    axios.post('/register', {username, password})
+    axios.post('/register', { username, password })
       .then(resp => {
         loginUser(username, password)
-      .then(success => {
-        if (success) {
-          navigate("/");
-          window.location.reload();
-        } else {
-          setError("Error logging in. Please try again.");
-        }
-        });
+          .then(success => {
+            if (success) {
+              navigate("/");
+              window.location.reload();
+            } else {
+              setError("Error logging in. Please try again.");
+            }
+          });
       })
 
-    .catch(error => {
-      console.error("Register failed:", error.message);
+      .catch(error => {
+        console.error("Register failed:", error.message);
         if (error.response && error.response.status === 400) {
           setError(error.response.data.error);
         } else {
           setError("Rekisteröityminen epäonnistui. Yritä uudelleen myöhemmin.");
         }
-    });
+      });
   }
 
   return (
@@ -54,11 +54,11 @@ export default function Register() {
       <span className='register-title'>Rekisteröityminen</span>
       <form className="register-form" onSubmit={handleRegister}>
         <label>Käyttäjänimi</label>
-        <input type="text" name="username" placeholder="Käyttäjänimi" value={username} onChange={e => setUsername(e.target.value)} required /> <br/>
+        <input type="text" name="username" placeholder="Käyttäjänimi" value={username} onChange={e => setUsername(e.target.value)} required /> <br />
         <label>Salasana</label>
-        <input type="password" name="password" placeholder="Salasana" value={password} onChange={e => setPassword(e.target.value)} required /> <br/>
+        <input type="password" name="password" placeholder="Salasana" value={password} onChange={e => setPassword(e.target.value)} required /> <br />
         <label>Vahvista salasana</label>
-        <input type="password" name="confirmPassword" placeholder="Vahvista salasana" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required /> <br/>
+        <input type="password" name="confirmPassword" placeholder="Vahvista salasana" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required /> <br />
         <Button className='register-button' type="submit" variant="contained">Rekisteröidy</Button>
       </form>
       {error && <p>{error}</p>}

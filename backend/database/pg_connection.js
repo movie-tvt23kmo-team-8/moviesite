@@ -1,5 +1,5 @@
 require('dotenv').config();
-const {Pool} = require('pg');
+const { Pool } = require('pg');
 
 const pgPool = new Pool({
     host: process.env.PG_HOST,
@@ -11,8 +11,8 @@ const pgPool = new Pool({
 });
 
 pgPool.connect((err) => {
-    if(err){
-        console.log(err.message);
+    if (err) {
+        console.error(err.message);
     } else {
         console.log("Postgre connection ready");
     }

@@ -24,7 +24,7 @@ function MovieTrailer() {
           .sort((a, b) => {
             const dateA = new Date(a.querySelector('dtLocalRelease').textContent);
             const dateB = new Date(b.querySelector('dtLocalRelease').textContent);
-            return dateB - dateA; 
+            return dateB - dateA;
           });
 
         const today = new Date();
