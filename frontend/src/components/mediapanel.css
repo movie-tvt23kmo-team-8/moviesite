@@ -4,7 +4,7 @@
     align-items: center;
     font-size: 70%;
     margin-bottom: 5%;
-    margin-left: 0;
+    margin-left: -15%;
 }
 
 .poster-gallery {
@@ -17,6 +17,8 @@
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
     color: white;
+    width: 100%;
+
 }
 
 .media-poster {

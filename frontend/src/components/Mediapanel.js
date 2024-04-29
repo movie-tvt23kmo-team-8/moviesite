@@ -47,15 +47,15 @@ const MediaPanel = ({ mediaType }) => { // Luodaan MediaPanel-komponentti ja ann
         const screenWidth = window.innerWidth;
         let itemsPerPage;
         if (screenWidth >= 1200) {
-            itemsPerPage = 10;
-        } else if (screenWidth >= 1000) {
             itemsPerPage = 8;
-        } else if (screenWidth >= 800) {
+        } else if (screenWidth >= 1000) {
             itemsPerPage = 6;
-        } else if (screenWidth >= 400) {
+        } else if (screenWidth >= 800) {
             itemsPerPage = 4;
-        } else {
+        } else if (screenWidth >= 400) {
             itemsPerPage = 3;
+        } else {
+            itemsPerPage = 2;
         }
         return itemsPerPage;
     };
