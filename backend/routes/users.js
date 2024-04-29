@@ -1,5 +1,5 @@
 const { error } = require('console');
-const { getUsers, getUserID, deleteUser, getImageIdByUsername, updateImageIdByUsername, getUserGroups } = require('../database/users_db');
+const { getUsers, getUserID, deleteUser, getImageIdByUsername, updateImageIdByUsername, getUserGroups, removeUserFromGroup } = require('../database/users_db');
 const { auth } = require('../middleware/auth')
 const jwt = require('jsonwebtoken')
 
@@ -84,11 +84,8 @@ router.delete('/delete', auth, async (req, res) =>{
 router.delete('/removeFromGroup/:idgroup/:idAccount', auth, async (req, res) => {
     try {
         const { idgroup, idAccount } = req.params;
-
-        
-        console.log('idgroup:', idgroup);
-        console.log('idAccount:', idAccount);
-
+        //console.log('idgroup:', idgroup);
+        //console.log('idAccount:', idAccount);
         
         await removeUserFromGroup(idgroup, idAccount);
 
@@ -98,5 +95,5 @@ router.delete('/removeFromGroup/:idgroup/:idAccount', auth, async (req, res) => 
         res.status(500).json({ error: err.message });
     }
 });
-
+ 
 module.exports = router;

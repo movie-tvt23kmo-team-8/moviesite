@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { jwtToken } from '../components/Signals';
 
 export default function GroupContent() {
 
@@ -8,6 +9,8 @@ export default function GroupContent() {
     const [groupDetails, setGroupDetails] = useState([]);
     const [groupchoices, setGroupChoices] = useState([]);
     const { groupId } = useParams();
+
+
 
     const fetchGroupDetails = async () => {
         try {
@@ -18,6 +21,7 @@ export default function GroupContent() {
             });
             const { members, groupDetails, groupchoices } = response.data;
             setMembers(members);
+            console.log(members)
             setGroupDetails(groupDetails);
             setGroupChoices(groupchoices);
             if (groupchoices && groupchoices.length > 0) {
@@ -77,9 +81,19 @@ export default function GroupContent() {
         fetchGroupDetails();
     }, [groupId]);
 
-    const handleRemoveMember = async (memberId) => {
+    const handleRemoveMember = async (groupid, memberid) => {
+        const jwtToken = sessionStorage.getItem('token'); 
+        if (!jwtToken) {
+          console.error('JWT token not found');
+          return;
+        }
+        console.log(groupid, memberid);
+        console.log(jwtToken);
         try {
-            await axios.delete(`http://localhost:3001/users/removeFromGroup/${groupId}/${memberId}`);
+            await axios.delete(`http://localhost:3001/users/removeFromGroup/${groupid}/${memberid}`, {
+                headers: {
+                    Authorization: `Bearer ${jwtToken}`
+                  }});
             
             fetchGroupDetails();
         } catch (error) {
@@ -158,7 +172,7 @@ export default function GroupContent() {
                         <div className='group-member-card'>
                         {Array.isArray(members) &&
     members.map((groupmember, index) => {
-        const { id, username, imageid } = groupmember; // Removed 'grouprole'
+        const { id, username, imageid, idaccount } = groupmember; // Removed 'grouprole'
         return (
             <div key={index} className={`group-member-card-item group-member-${index}`}>
                 {imageid && (
@@ -170,7 +184,7 @@ export default function GroupContent() {
                 )}
                 <h3 className='group-member-username'>{username}</h3>
                 {/* Display remove button for all users */}
-                <button onClick={() => handleRemoveMember(groupId, id)}> 
+                <button onClick={() => handleRemoveMember(groupId, idaccount)}> 
                     Poista ryhmästä
                 </button>
             </div>
