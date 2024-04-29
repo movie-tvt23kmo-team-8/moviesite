@@ -43,6 +43,7 @@ export default function SeeInvites() {
     if (accepting) return;
     try {
       setAccepting(true);
+      
       const jwtToken = sessionStorage.getItem('token');
       if (!jwtToken) {
         console.error('JWT token not found');
