@@ -11,7 +11,8 @@ const sql = {
     GET_USER_BY_PASSKEY: 'SELECT "idaccount" FROM "account" WHERE "sharekey" = $1',
     GET_SHAREKEY: 'SELECT "sharekey" FROM "account" WHERE "idaccount" = $1',
     GET_USERNAME: 'SELECT "username" FROM "account" WHERE "idaccount" = $1',
-    GET_JOINDATE: 'SELECT "joindate" FROM "account" WHERE "idaccount" = $1'
+    GET_JOINDATE: 'SELECT "joindate" FROM "account" WHERE "idaccount" = $1',
+    REMOVE_USER_FROM_GROUP: 'DELETE FROM "groupmember" WHERE "idgroup" = $1 AND "idaccount" = $2'
 }
 
 async function getUsers() {
@@ -121,5 +122,19 @@ async function getJoinDate(idaccount) {
     return result.rows[0].joindate
 }
 
-module.exports = { getUsers, getUserID, deleteUser, getImageIdByUsername, updateImageIdByUsername, getUserGroups, updatePasswordById, getUserIDByPasskey, getSharekey, getUsername, getJoinDate };
+async function removeUserFromGroup(idgroup, idAccount) {
+    try {
+        const result = await pgPool.query(sql.REMOVE_USER_FROM_GROUP, [idgroup, idAccount]);
+        if (result.rowCount === 1) {
+            return result.rowCount;
+        } else {
+            throw new Error('Failed to remove user from group. No rows affected.');
+        }
+    } catch (error) {
+        console.error('Error in removeUserFromGroup:', error);
+        throw error;
+    }
+}
+
+module.exports = { getUsers, getUserID, deleteUser, getImageIdByUsername, updateImageIdByUsername, getUserGroups, updatePasswordById, getUserIDByPasskey, getSharekey, getUsername, getJoinDate, removeUserFromGroup };
 

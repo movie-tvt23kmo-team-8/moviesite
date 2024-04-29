@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import './GroupContent.css';
+import { jwtToken } from '../components/Signals';
 
 export default function GroupContent() {
 
@@ -9,77 +10,124 @@ export default function GroupContent() {
     const [groupDetails, setGroupDetails] = useState([]);
     const [groupchoices, setGroupChoices] = useState([]);
     const { groupId } = useParams();
-    useEffect(() => {
-        const fetchGroupDetails = async () => {
-            try {
-                const response = await axios.get(`http://localhost:3001/group/getGroupContent?idgroup=${groupId}`, {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-                const membersData = response.data.members;
-                const groupDetailsData = response.data.groupDetails[0];
-                const groupChoicesData = response.data.groupchoices;
-                setMembers(membersData);
-                setGroupDetails(groupDetailsData);
-                setGroupChoices(groupChoicesData);
-                if (groupChoicesData && groupChoicesData.length > 0) {
-                    const groupChoicesWithPosters = await Promise.all(groupChoicesData.map(async (groupChoices) => {
-                        if (groupChoices.type === "movie" || groupChoices.type === "series") {
-                            try {
-                                const tmdbResponse = await axios.get(`http://localhost:3001/tmdb/poster?id=${groupChoices.data}&type=${groupChoices.type}`);
-                                const tmdbData = tmdbResponse.data;
-                                if (tmdbData && tmdbData.poster_path) {
-                                    let linkType = null;
-                                    let title = null;
-                                    let posterUrl = null;
-                                    let details = null;
-                                    let link = null;
-                                    if (groupChoices.type === "movie") {
-                                        linkType = "movie";
-                                        title = tmdbData.title;
-                                        posterUrl = tmdbData.poster_path;
-                                        title = title;
-                                        details = tmdbData.overview;
-                                        link = `https://www.themoviedb.org/${linkType}/${tmdbData.id}`
-                                    } if (groupChoices.type === "series") {
-                                        linkType = "tv";
-                                        title = tmdbData.name;
-                                        posterUrl = tmdbData.poster_path;
-                                        title = title;
-                                        details = tmdbData.overview;
-                                        link = `https://www.themoviedb.org/${linkType}/${tmdbData.id}`
-                                    }
-                                    return {
-                                        ...groupChoices,
-                                        posterUrl: posterUrl,
-                                        title: title,
-                                        details: details,
-                                        link: link
-                                    };
-                                } else {
-                                    return groupChoices;
-                                }
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [username, setUsername] = useState("");
+    const [userId, setUserId] = useState("");
 
-                            } catch (error) {
-                                console.error('Failed to fetch poster from TMDB', error);
+
+    const fetchUsername = async () => {
+        try {
+            const response = await axios.get('http://localhost:3001/users/personal', {
+              headers: {
+                Authorization: `Bearer ${jwtToken.value}`
+              }
+            });
+            console.log(response.data.username);
+            setUsername(response.data.username);
+            console.log(response.data.idaccount)
+            setUserId(response.data.idaccount);
+          } catch (error) {
+            console.error('Error fetching username and imageid:', error);
+          }
+    }
+
+    const fetchGroupDetails = async () => {
+        console.log("haetaan ryhmän tietoja");
+        try {
+            const response = await axios.get(`http://localhost:3001/group/getGroupContent?idgroup=${groupId}`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const membersData = response.data.members;
+            const groupDetailsData = response.data.groupDetails[0];
+            const groupChoicesData = response.data.groupchoices;
+            setMembers(membersData);
+            const userIsAdmin = membersData.some((member) => member.idaccount === userId && member.grouprole === 'admin');
+            setIsAdmin(userIsAdmin);
+            setGroupDetails(groupDetailsData);
+            setGroupChoices(groupChoicesData);
+            if (groupChoicesData && groupChoicesData.length > 0) {
+                const groupChoicesWithPosters = await Promise.all(groupChoicesData.map(async (groupChoices) => {
+                    if (groupChoices.type === "movie" || groupChoices.type === "series") {
+                        try {
+                            const tmdbResponse = await axios.get(`http://localhost:3001/tmdb/poster?id=${groupChoices.data}&type=${groupChoices.type}`);
+                            const tmdbData = tmdbResponse.data;
+                            if (tmdbData && tmdbData.poster_path) {
+                                let linkType = null;
+                                let title = null;
+                                let posterUrl = null;
+                                let details = null;
+                                let link = null;
+                                if (groupChoices.type === "movie") {
+                                    linkType = "movie";
+                                    title = tmdbData.title;
+                                    posterUrl = tmdbData.poster_path;
+                                    title = title;
+                                    details = tmdbData.overview;
+                                    link = `https://www.themoviedb.org/${linkType}/${tmdbData.id}`
+                                } if (groupChoices.type === "series") {
+                                    linkType = "tv";
+                                    title = tmdbData.name;
+                                    posterUrl = tmdbData.poster_path;
+                                    title = title;
+                                    details = tmdbData.overview;
+                                    link = `https://www.themoviedb.org/${linkType}/${tmdbData.id}`
+                                }
+                                return {
+                                    ...groupChoices,
+                                    posterUrl: posterUrl,
+                                    title: title,
+                                    details: details,
+                                    link: link
+                                };
+                            } else {
                                 return groupChoices;
                             }
-                        } else {
+
+                        } catch (error) {
+                            console.error('Failed to fetch poster from TMDB', error);
                             return groupChoices;
                         }
-                    }));
-                    setGroupChoices(groupChoicesWithPosters);
-                } else {
-                    console.log('No favorites data found');
-                }
-            } catch (error) {
-                console.error('Failed to fetch favorites data from the backend', error);
+                    } else {
+                        return groupChoices;
+                    }
+                }));
+                setGroupChoices(groupChoicesWithPosters);
+                console.log("ryhmän tiedot haettu");
+            } else {
+                console.log('No favorites data found');
             }
-        };
+        } catch (error) {
+            console.error('Failed to fetch favorites data from the backend', error);
+        }
+    };
+
+    useEffect(() => {
+        const jwtToken = sessionStorage.getItem('token');
+        if (!jwtToken) {
+            console.error('JWT token not found');
+            return;
+        }else{
+        fetchUsername();}        
         fetchGroupDetails();
     }, [groupId]);
 
+    const handleRemoveMember = async (groupid, memberid) => {
+        console.log(groupid, memberid);
+        console.log(jwtToken);
+        try {
+            await axios.delete(`http://localhost:3001/users/removeFromGroup/${groupid}/${memberid}`, {
+                headers: {
+                    Authorization: `Bearer ${jwtToken}`
+                }
+            });
+
+            fetchGroupDetails();
+        } catch (error) {
+            console.error('Failed to remove member:', error);
+        }
+    };
 
     return (
         <div className='group-info-page'>
@@ -95,9 +143,9 @@ export default function GroupContent() {
                                 {Array.isArray(groupchoices) &&
                                     groupchoices
                                         .filter((groupchoice) => groupchoice.type === 'movie')
-                                        .map((groupchoice, mediaitem, index) => (
+                                        .map((groupchoice, index) => (
                                             <Link
-                                                key={mediaitem.id}
+                                                key={index}
                                                 className={`group-movie-card-item groupchoice-${index}`}
                                                 to={`${groupchoice.link}`}
                                                 style={{ textDecoration: 'none', color: 'inherit', margin: '0', padding: '0', background: 'none' }}>
@@ -114,9 +162,9 @@ export default function GroupContent() {
                                 {Array.isArray(groupchoices) &&
                                     groupchoices
                                         .filter((groupchoice) => groupchoice.type === 'series')
-                                        .map((groupchoice, mediaitem, index) => (
+                                        .map((groupchoice, index) => (
                                             <Link
-                                                key={mediaitem.id}
+                                                key={index}
                                                 className={`group-movie-card-item groupchoice-${index}`}
                                                 to={`${groupchoice.link}`}>
                                                 <a href={groupchoice.link} target="_blank">{groupchoice.posterUrl && <img className="groupchoice-picture" src={`https://image.tmdb.org/t/p/original${groupchoice.posterUrl}`} alt="Serie Poster" />}</a>
@@ -155,7 +203,7 @@ export default function GroupContent() {
                         <div className='group-member-card'>
                             {Array.isArray(members) &&
                                 members.map((groupmember, index) => {
-                                    const { username, grouprole, imageid } = groupmember;
+                                    const { id, username, imageid, idaccount, grouprole } = groupmember; // Removed 'grouprole'
                                     return (
                                         <div key={index} className={`group-member-card-item group-member-${index}`}>
                                             {imageid && (
@@ -164,13 +212,15 @@ export default function GroupContent() {
                                                     src={require(`../img/avatar/${imageid}.png`)}
                                                     alt={`${username}'s avatar`}
                                                 />
+                                            )} 
+                                            <h3 className='group-member-username'>{username} {grouprole}</h3>
+                                            {/* Display remove button for all users */}
+                                            {isAdmin && (
+                                                <button onClick={() => handleRemoveMember(groupId, idaccount)}>
+                                                    Poista ryhmästä
+                                                </button>
                                             )}
-                                            <div className='group-member-text'>
-                                            <h3 className='group-member-username'>{username}</h3>
-                                            <p className='group-member-role'>Rooli: {grouprole}</p>
-                                            </div>
-                                        </div>
-                                    );
+                                        </div>);
                                 })}
                         </div>
                     </section>
