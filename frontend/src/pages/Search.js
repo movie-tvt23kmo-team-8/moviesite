@@ -163,7 +163,7 @@ const Search = () => {
                     onChange={handlePointsChange}
                   />
                 </div>
-                <button className='etsi-button' type="button" onClick={selailuHaku}>Haje</button>
+                <button className='etsi-button' type="button" onClick={selailuHaku}>Etsi</button>
               </form>
               {error && <p>{error}</p>}
             </div>
