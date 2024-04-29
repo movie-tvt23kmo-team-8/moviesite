@@ -12,18 +12,11 @@ export default function Sharedfavourites() {
             try {
                 const urlParams = new URLSearchParams(window.location.search);
                 const sharekey = urlParams.get('sharekey');
-                //console.log("kokeillaan hakea suosikkeja sharekey: ", sharekey);
                 const response = await axios.get(`http://localhost:3001/sharedfavourites?sharekey=${sharekey}`);
                 const favoritesData = response.data.favourites;
                 console.log("favouritesdata:",favoritesData);
                 setUsername(response.data.username)
-                /*console.log('respone username: ', response.data.username)
-                console.log('type of respone username: ', typeof response.data.username)
-                console.log('respone username length:', response.data.username.length);
-                console.log("username: ", username);
-                console.log('favouritesData: ', favoritesData)
-                console.log('type of favouritedata: ', typeof favoritesData)
-                console.log('favoritesData length:', favoritesData.length);*/
+
                 if (favoritesData && favoritesData.length > 0) {
                     const favouritesWithPosters = await Promise.all(favoritesData.map(async (favourites) => {
                         try {
@@ -34,12 +27,10 @@ export default function Sharedfavourites() {
                                 let title = null;
                                 if (favourites.type === "movie") {
                                     linkType = "movie";
-                                    //console.log(favourites.type, linkType);
                                     title = tmdbData.title;
                                 } else {
                                     linkType = "tv";
                                     title = tmdbData.name;
-                                    //console.log(favourites.type, linkType);
                                 }
                                 return {
                                     ...favourites,
@@ -49,7 +40,6 @@ export default function Sharedfavourites() {
                                     link: `https://www.themoviedb.org/${linkType}/${tmdbData.id}`
                                 };
                             } else {
-                                //console.log("lisätään ilman imdb tietoja")
                                 return favourites
                             }
 
@@ -59,8 +49,6 @@ export default function Sharedfavourites() {
                         }
                     }));
                     setFavourites(favouritesWithPosters);
-                } else {
-                    //console.log('No favorites data found');
                 }
             } catch (error) {
                 console.error('Failed to fetch favorites data from the backend', error);

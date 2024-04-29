@@ -38,7 +38,7 @@ router.get('/allGroups', async (req, res) => {
 
 router.post('/addToWatchlist', async (req, res) => {
     let idgroup = req.body.idgroup;
-    console.log("backendissä idgroup heti alkuun:", idgroup);
+    //console.log("backendissä idgroup heti alkuun:", idgroup);
     let isNumeric = !isNaN(Number(idgroup)); // true, jos numero
     if (!isNumeric) {
         try {
@@ -54,16 +54,16 @@ router.post('/addToWatchlist', async (req, res) => {
     }
     const data = req.body.data;
     const mediatype = req.body.mediaType;
-    console.log("backend ennen tietokantapyyntöä: ", idgroup, data, mediatype);
+    //console.log("backend ennen tietokantapyyntöä: ", idgroup, data, mediatype);
     try {
         await add2GroupChoices(idgroup, data, mediatype)
         res.status(200).json({ message: 'Lisätty ryhmään!' });
-        console.log("lisätty ryhmän tietoihin")
+        //console.log("lisätty ryhmän tietoihin")
     } catch (error) {
-        console.log("virhe ilmoitus backendistä:");
+        //console.log("virhe ilmoitus backendistä:");
         console.error('Error adding to watchlist:', error);
         res.status(500).json({ error: 'Error adding to watchlist' });
-    } 
+    }
 
 });
 
@@ -96,17 +96,17 @@ router.delete('/deleteGroup', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
- 
+
 router.get('/getGroupContent', async (req, res) => {
     try {
         const idgroup = req.query.idgroup;
-        console.log("backend, haetaan ryhmän tietoja", idgroup);
+        //console.log("backend, haetaan ryhmän tietoja", idgroup);
         const members = await getGroupMembers(idgroup);
         const groupDetails = await getGroupDetails(idgroup);
         const groupchoices = await getGroupChoices(idgroup);
-        res.json({members: members, groupDetails:groupDetails, groupchoices:groupchoices});
-    } catch(err) {
-        console.log("virhe koko haussa");
+        res.json({ members: members, groupDetails: groupDetails, groupchoices: groupchoices });
+    } catch (err) {
+        console.error("Error to get groupContent", err);
         res.status(500).json({ error: err.message })
     }
 })

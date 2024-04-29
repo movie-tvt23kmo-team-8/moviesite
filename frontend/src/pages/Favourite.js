@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { jwtToken } from '../components/Signals'
 import './favourite.css'
-
-const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
 
 function Popup(props) {
   return (props.trigger) ? (
@@ -21,22 +18,7 @@ export default function Favourite() {
   const [favourites, setFavourites] = useState([]);
   const [buttonPopup, setButtonPopup] = useState(false);
   const [idAccount, setIdAccount] = useState('')
-  const [searchTerm, setSearchTerm] = useState('');
-  const [results, setResults] = useState([]);
   const [sharekey, setSharekey] = useState("");
-
-  const handleSearch = async () => {
-    try {
-      const response = await fetch(
-        `https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&query=${searchTerm}&include_adult=false`
-      );
-      const data = await response.json();
-      //console.log('Search results:', data.results);
-      setResults(data.results || []);
-    } catch (error) {
-      console.error('Error fetching results:', error);
-    }
-  };
 
   useEffect(() => {
     const fetchFavourites = async () => {
@@ -55,10 +37,6 @@ export default function Favourite() {
 
         const favoritesData = response.data.favourites;
         const sharekey1 = response.data.sharekey;
-        /*console.log('favouritesData: ', favoritesData)
-        console.log('type of favouritedata: ', typeof favoritesData)
-        console.log('favoritesData length:', favoritesData.length);
-        console.log("Sharekey haettu: ", sharekey1);*/
         setSharekey(sharekey1);
         if (favoritesData && favoritesData.length > 0) {
           const favouritesWithPosters = await Promise.all(favoritesData.map(async (favourites) => {
@@ -130,16 +108,13 @@ export default function Favourite() {
     }
   };
 
-  const handleChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
   return (
+
     <div className='favourite-container'>
       <h1>Suosikit</h1>
       <div className='favourite-sharing'>
-      <p>Voit jakaa suosikkisi linkillä:</p>
-      <a className='favourite-link' href={`http://localhost:3000/sharedfavourites?sharekey=${sharekey}`} target="_blank">{`http://localhost:3000/sharedfavourites?sharekey=${sharekey}`}</a>
+        <p>Voit jakaa suosikkisi linkillä:</p>
+        <a className='favourite-link' href={`http://localhost:3000/sharedfavourites?sharekey=${sharekey}`} target="_blank">{`http://localhost:3000/sharedfavourites?sharekey=${sharekey}`}</a>
       </div>
       <div className='favourites-container'>
         <section className='allFavourites'>

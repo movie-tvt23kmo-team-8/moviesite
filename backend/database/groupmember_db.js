@@ -3,20 +3,8 @@ const pgPool = require('./pg_connection');
 const sql = {
     MAKE_USER: 'INSERT INTO "groupmember" (idaccount, idgroup, joindate, grouprole) VALUES ($1, $2, $3, $4)',
     MAKE_ADMIN: 'INSERT INTO "groupmember" (idaccount, idgroup, joindate, grouprole) VALUES ($1, $2, $3, $4)',
-    GET_USER_GROUPS: `
-    SELECT 
-    "group".idgroup, 
-    "group".idaccount, 
-    "group".groupname, 
-    "group".groupdetails,
-    "groupmember"."grouprole" 
-FROM 
-    "group" 
-JOIN 
-    groupmember ON "group".idgroup = groupmember.idgroup 
-WHERE 
-    groupmember.idaccount = $1
-`
+    GET_USER_GROUPS: `SELECT "group".idgroup, "group".idaccount, "group".groupname, "group".groupdetails, "groupmember"."grouprole" 
+                        FROM  "group" JOIN  groupmember ON "group".idgroup = groupmember.idgroup WHERE  groupmember.idaccount = $1`
 }
 
 async function makeUser(idaccount, idgroup, joindate, grouprole) {

@@ -10,23 +10,23 @@ router.post('/makeUser', auth, async (req, res) => {
     const idgroup = req.body.idgroup;
     const now = new Date();
     const grouprole = 'user'
-    const options = {timeZone: 'Europe/Helsinki'};
+    const options = { timeZone: 'Europe/Helsinki' };
     const finlandTime = now.toLocaleString('en-US', options)
     const joindate = finlandTime
 
     try {
         const idinvites = await getIdinvitesForUser(idaccount, idgroup);
         const isAccepted = await checkIfAccepted(idinvites)
-    if(isAccepted === true){
-        await makeUser(idaccount, idgroup, joindate, grouprole);
-    
-        res.status(200).json({ message: 'Tervetuloa ryhmään!' });
-    } else {
-        res.status(500).json({error: 'You are not accepted'});
-    }
+        if (isAccepted === true) {
+            await makeUser(idaccount, idgroup, joindate, grouprole);
+
+            res.status(200).json({ message: 'Tervetuloa ryhmään!' });
+        } else {
+            res.status(500).json({ error: 'You are not accepted' });
+        }
     } catch (error) {
-        console.log(error);
-        res.status(500).json({error: 'User not authorized'});
+        console.error(error);
+        res.status(500).json({ error: 'User not authorized' });
     }
 });
 
@@ -40,5 +40,5 @@ router.get('/userGroups', auth, async (req, res) => {
         res.status(500).json({ error: 'Error fetching user groups' });
     }
 });
- 
+
 module.exports = router;
