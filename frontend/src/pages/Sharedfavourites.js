@@ -15,6 +15,7 @@ export default function Sharedfavourites() {
                 //console.log("kokeillaan hakea suosikkeja sharekey: ", sharekey);
                 const response = await axios.get(`http://localhost:3001/sharedfavourites?sharekey=${sharekey}`);
                 const favoritesData = response.data.favourites;
+                console.log("favouritesdata:",favoritesData);
                 setUsername(response.data.username)
                 /*console.log('respone username: ', response.data.username)
                 console.log('type of respone username: ', typeof response.data.username)

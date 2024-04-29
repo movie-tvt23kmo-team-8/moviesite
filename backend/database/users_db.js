@@ -6,7 +6,7 @@ const sql = {
     DELETE_USER: 'DELETE FROM "account" WHERE "idaccount" = $1',
     GET_PIC: 'SELECT imageid FROM "account" WHERE "username" = $1',
     UPDATE_PIC: 'UPDATE "account" SET imageid = $1 WHERE "idaccount" = $2',
-    GET_USER_GROUPS:'SELECT "group"."groupname" FROM "groupmember" JOIN "group" ON "groupmember"."idgroup" = "group"."idgroup" WHERE "groupmember"."idaccount" = $1',
+    GET_USER_GROUPS:'SELECT DISTINCT "group"."groupname" FROM "groupmember" JOIN "group" ON "groupmember"."idgroup" = "group"."idgroup" WHERE "groupmember"."idaccount" = $1',
     UPDATE_PASSWORD: 'UPDATE "account" SET "password" = $1 WHERE "idaccount" = $2',
     GET_USER_BY_PASSKEY: 'SELECT "idaccount" FROM "account" WHERE "sharekey" = $1',
     GET_SHAREKEY: 'SELECT "sharekey" FROM "account" WHERE "idaccount" = $1',

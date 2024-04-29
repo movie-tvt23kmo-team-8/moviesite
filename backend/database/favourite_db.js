@@ -2,8 +2,8 @@ const pgPool = require('./pg_connection');
 
 const sql = {
     ADD_FAVOURITE: 'INSERT INTO "favourite" (idaccount, mdbdata, type) VALUES ($1, $2, $3)',
-    GET_FAVOURITES: 'SELECT * FROM "favourite" WHERE "idaccount" = $1',
-    GET_5FAVOURITES: 'SELECT * FROM "favourite" WHERE "idaccount" = $1 ORDER BY "idfavourite" DESC LIMIT $2;'
+    GET_FAVOURITES: 'SELECT DISTINCT idaccount, mdbdata, type FROM "favourite" WHERE "idaccount" = $1 ORDER BY idaccount',
+    GET_5FAVOURITES: 'SELECT DISTINCT mdbdata, type FROM "favourite" WHERE "idaccount" = $1 ORDER BY "mdbdata" DESC LIMIT $2;'
 }
 
 async function addFavourite(idaccount, mdbdata, type) {

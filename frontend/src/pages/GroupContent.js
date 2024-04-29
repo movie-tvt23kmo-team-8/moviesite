@@ -9,10 +9,14 @@ export default function GroupContent() {
     const [groupDetails, setGroupDetails] = useState([]);
     const [groupchoices, setGroupChoices] = useState([]);
     const { groupId } = useParams();
-
-
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const fetchGroupDetails = async () => {
+        const jwtToken = sessionStorage.getItem('token'); 
+        if (!jwtToken) {
+          console.error('JWT token not found');
+          return;
+        }
         try {
             const response = await axios.get(`http://localhost:3001/group/getGroupContent?idgroup=${groupId}`, {
                 headers: {
@@ -82,11 +86,6 @@ export default function GroupContent() {
     }, [groupId]);
 
     const handleRemoveMember = async (groupid, memberid) => {
-        const jwtToken = sessionStorage.getItem('token'); 
-        if (!jwtToken) {
-          console.error('JWT token not found');
-          return;
-        }
         console.log(groupid, memberid);
         console.log(jwtToken);
         try {
