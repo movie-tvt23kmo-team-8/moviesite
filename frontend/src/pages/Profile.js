@@ -36,7 +36,7 @@ export default function Profile() {
         setUsername(response.data.username);
         setImageId(response.data.imageid);
         const joinDate = new Date(response.data.joindate);
-        const finlandDate = joinDate.toLocaleDateString('fi-FI', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', timeZone: 'Europe/Helsinki' });
+        const finlandDate = joinDate.toLocaleDateString('fi-FI', { day: 'numeric', month: 'long', year: 'numeric',});
         setJoinDate(finlandDate);
         setLoading(false); // Set loading to false after data is fetched
       } catch (error) {
