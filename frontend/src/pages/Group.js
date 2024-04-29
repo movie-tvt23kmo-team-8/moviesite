@@ -22,6 +22,15 @@ export default function Group() {
   const [groupName, setGroupName] = useState('');
   const [groupDetails, setGroupDetails] = useState('');
   const [selectedGroup, setSelectedGroup] = useState(null);
+  const [notification, setNotification] = useState(null);
+  const [activeNotificationGroupId, setActiveNotificationGroupId] = useState(null);
+
+  const showNotification = (message) => {
+    setNotification(message);
+    setTimeout(() => {
+        setNotification(null);
+    }, 5000);
+};
 
   const fetchGroups = async () => {
     try {
@@ -94,6 +103,8 @@ export default function Group() {
 
       if (response.status === 200) {
         console.log('Request sent successfully');
+        setActiveNotificationGroupId(groupId);
+        setTimeout(() => setActiveNotificationGroupId(null), 5000);
         fetchUserGroups();
       } else {
         console.error('Failed to send request');
@@ -146,7 +157,26 @@ export default function Group() {
                     </Link>
                   </button>
                 ) : (
-                  isLoggedIn && <button className="show-group-info-button" onClick={() => handleJoinGroup(group.idgroup, group.idaccount)}>Lähetä liittymispyyntö</button>
+                  isLoggedIn && (
+                    <div>
+                      <button className="show-group-info-button"
+                        onClick={() => handleJoinGroup(group.idgroup, group.idaccount)}>
+                        Lähetä liittymispyyntö
+                      </button>
+                      {activeNotificationGroupId === group.idgroup && (
+                        <div className="notification">
+                          <br></br>
+                          Liittymispyyntö lähetetty onnistuneesti!
+                        </div>
+
+                      )}
+                    </div>
+                  )
+                )}
+                  {notification && (
+                  <div className="notification">
+                    {notification}
+                  </div>
                 )}
               </div>
             ))}
