@@ -9,10 +9,11 @@ export default function Shows() {
   const [selectedGroup, setSelectedGroup] = useState('');
   const [results, setResults] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [openPopupForMovie, setOpenPopupForMovie] = useState(null);
   let ryhma = "";
 
   const GroupPopup = ({ userGroups, onSelectGroup }) => (
-    <div className="group-popup">
+    <div className="show-group-popup">
       {userGroups.map((group, index) => (
         <div key={index} className="group-option" onClick={() => onSelectGroup(group.groupname)}>
           {group.groupname}
@@ -21,9 +22,8 @@ export default function Shows() {
     </div>
   );
 
-  const handleTogglePopup = () => {
-    console.log("vaihdetaan popupin tilaa, tila oli", isPopupOpen);
-    setIsPopupOpen(!isPopupOpen);
+  const handleTogglePopup = (movieId) => {
+    setOpenPopupForMovie(openPopupForMovie === movieId ? null : movieId);
   };
 
   const handleSelectGroup = async (groupName, result) => {
@@ -195,16 +195,25 @@ export default function Shows() {
         </div>
         <div className="elokuvat-container">
           <div className='elokuvat-area'>
-            <div id="elokuvat">
+            <div className='elokuvat-areas'>
               {results.map((result, index) => (
-                <div key={result.id}>
-                  <h3>{result.title}</h3>
+                <div id="elokuvat" key={result.id}>
+                  <div className='show-group-popup-area'>
+                  <img className='show-image' src={result.image} alt={result.title} />
+                    {isLoggedIn && (
+                      <i
+                        className="show-popupIcon-group fa-solid fa-users-rectangle"
+                        onClick={() => handleTogglePopup(result.id)} // Pass movie ID to the handler
+                      ></i>
+                    )}
+                    {openPopupForMovie === result.id && ( // Check if popup should be open for this movie
+                      <GroupPopup userGroups={userGroups} onSelectGroup={(groupName) => handleSelectGroup(groupName, result)} />
+                    )}
+                  </div>
+                  <p>{result.title}</p>
                   <p>Teatteri: {result.theatre}</p>
                   <p>Showtime: {result.showtime}</p>
-                  <img src={result.image} alt={result.title} />
-                  <a href={result.linkki} target="_blank">Osta liput!</a>
-                  {isLoggedIn && <i className="popupIcon-group fa-solid fa-users-rectangle" onClick={handleTogglePopup}></i>}
-                  {isPopupOpen && (<GroupPopup userGroups={userGroups} onSelectGroup={(groupName) => handleSelectGroup(groupName, result)} />)}
+                  <a className='buy-ticket' href={result.linkki} target="_blank">Osta liput!</a>                 
                 </div>
               ))}
             </div>
