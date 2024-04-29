@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
+import './GroupContent.css';
 
 export default function GroupContent() {
 
@@ -17,7 +18,7 @@ export default function GroupContent() {
                     }
                 });
                 const membersData = response.data.members;
-                const groupDetailsData = response.data.groupDetails;
+                const groupDetailsData = response.data.groupDetails[0];
                 const groupChoicesData = response.data.groupchoices;
                 setMembers(membersData);
                 setGroupDetails(groupDetailsData);
@@ -81,72 +82,73 @@ export default function GroupContent() {
 
 
     return (
-        <>
+        <div className='group-info-page'>
             <div className='group-info'>
-                <h1>Group Content</h1>
-                <p>Group ID: {groupId}</p>
-                <p>Group name: {groupDetails.groupname}</p>
-                <p>Group decription: {groupDetails.groupdetails}</p>
+                <h1>{groupDetails.groupname}</h1>
+                <p className='group-choices-description'>{groupDetails.groupdetails}</p>
             </div>
-            <div className='Group-content-container'>
-                <div className='group-movies-container'>
-                    <section className='all-group-movies'>
-                        <div className='group-movie-card'>
-                            {Array.isArray(groupchoices) &&
-                                groupchoices
-                                    .filter((groupchoice) => groupchoice.type === 'movie')
-                                    .map((groupchoice, mediaitem, index) => (
-                                        <Link
-                                            key={mediaitem.id}
-                                            className={`group-movie-card-item groupchoice-${index}`}
-                                            to={`${groupchoice.link}`}>
-                                            <a href={groupchoice.link} target="_blank">{groupchoice.posterUrl && <img className="groupchoice-picture" src={`https://image.tmdb.org/t/p/original${groupchoice.posterUrl}`} alt="Movie Poster" />}</a>
-                                            <h3 className='groupchoice-title'>{groupchoice.title}</h3>
-                                        </Link>
-                                    ))}
-                        </div>
-                    </section>
-                </div>
-                <div className='group-series-container'>
-                    <section className='all-group-series'>
-                        <div className='group-serie-card'>
-                            {Array.isArray(groupchoices) &&
-                                groupchoices
-                                    .filter((groupchoice) => groupchoice.type === 'series')
-                                    .map((groupchoice, mediaitem, index) => (
-                                        <Link
-                                            key={mediaitem.id}
-                                            className={`group-serie-card-item groupchoice-${index}`}
-                                            to={`${groupchoice.link}`}>
-                                            <a href={groupchoice.link} target="_blank">{groupchoice.posterUrl && <img className="groupchoice-picture" src={`https://image.tmdb.org/t/p/original${groupchoice.posterUrl}`} alt="Serie Poster" />}</a>
-                                            <h3 className='groupchoice-title'>{groupchoice.title}</h3>
-                                        </Link>
-                                    ))}
-                        </div>
-                    </section>
-                </div>
-                <div className='group-shows-container'>
-                    <section className='all-group-shows'>
-                        <div className='group-show-card'>
-                            {Array.isArray(groupchoices) &&
-                                groupchoices
-                                    .filter((groupchoice) => groupchoice.type === 'show')
-                                    .map((groupchoice, index) => {
-                                        const data = JSON.parse(groupchoice.data);
-                                        return (
+            <div className='group-choices-members'>
+                <div className='group-content-container'>
+                    <div className='group-movies-container'>
+                        <section className='all-group-movies'>
+                            <div className='group-movie-card'>
+                                {Array.isArray(groupchoices) &&
+                                    groupchoices
+                                        .filter((groupchoice) => groupchoice.type === 'movie')
+                                        .map((groupchoice, mediaitem, index) => (
                                             <Link
-                                                key={index}
-                                                className={`group-show-card-item groupchoice-${index}`}
-                                                to={data.linkki}>
-                                                <a href={data.linkki} target="_blank">{data.image && <img className="groupchoice-picture" src={data.image} alt="Show Poster" />}</a>
-                                                <h3 className='groupchoice-title'>Elokuvan nimi: {data.title} Teatteri: {data.theatre} Esitysaika: {data.showtime}</h3>
+                                                key={mediaitem.id}
+                                                className={`group-movie-card-item groupchoice-${index}`}
+                                                to={`${groupchoice.link}`}
+                                                style={{ textDecoration: 'none', color: 'inherit', margin: '0', padding: '0', background: 'none' }}>
+                                                <a href={groupchoice.link} target="_blank">{groupchoice.posterUrl && <img className="groupchoice-picture" src={`https://image.tmdb.org/t/p/original${groupchoice.posterUrl}`} alt="Movie Poster" />}</a>
+                                                <h3 className='groupchoice-title'>{groupchoice.title}</h3>
                                             </Link>
-                                        )
-                                    }
+                                        ))}
+                            </div>
+                        </section>
+                    </div>
+                    <div className='group-movies-container'>
+                        <section className='all-group-movies'>
+                            <div className='group-movie-card'>
+                                {Array.isArray(groupchoices) &&
+                                    groupchoices
+                                        .filter((groupchoice) => groupchoice.type === 'series')
+                                        .map((groupchoice, mediaitem, index) => (
+                                            <Link
+                                                key={mediaitem.id}
+                                                className={`group-movie-card-item groupchoice-${index}`}
+                                                to={`${groupchoice.link}`}>
+                                                <a href={groupchoice.link} target="_blank">{groupchoice.posterUrl && <img className="groupchoice-picture" src={`https://image.tmdb.org/t/p/original${groupchoice.posterUrl}`} alt="Serie Poster" />}</a>
+                                                <h3 className='groupchoice-title'>{groupchoice.title}</h3>
+                                            </Link>
+                                        ))}
+                            </div>
+                        </section>
+                    </div>
+                    <div className='group-movies-container'>
+                        <section className='all-group-movies'>
+                            <div className='group-movie-card'>
+                                {Array.isArray(groupchoices) &&
+                                    groupchoices
+                                        .filter((groupchoice) => groupchoice.type === 'show')
+                                        .map((groupchoice, index) => {
+                                            const data = JSON.parse(groupchoice.data);
+                                            return (
+                                                <Link
+                                                    key={index}
+                                                    className={`group-movie-card-item groupchoice-${index}`}
+                                                    to={data.linkki}>
+                                                    <a href={data.linkki} target="_blank">{data.image && <img className="groupchoice-picture" src={data.image} alt="Show Poster" />}</a>
+                                                    <h3 className='groupchoice-title'>{data.title} <br /> {data.theatre}<br />{data.showtime}</h3>
+                                                </Link>
+                                            )
+                                        }
 
-                                    )}
-                        </div>
-                    </section>
+                                        )}
+                            </div>
+                        </section>
+                    </div>
                 </div>
                 <div className='group-members-container'>
                     <section className='all-group-members'>
@@ -163,8 +165,10 @@ export default function GroupContent() {
                                                     alt={`${username}'s avatar`}
                                                 />
                                             )}
+                                            <div className='group-member-text'>
                                             <h3 className='group-member-username'>{username}</h3>
                                             <p className='group-member-role'>Rooli: {grouprole}</p>
+                                            </div>
                                         </div>
                                     );
                                 })}
@@ -172,6 +176,6 @@ export default function GroupContent() {
                     </section>
                 </div>
             </div>
-        </>
+        </div>
     );
 }

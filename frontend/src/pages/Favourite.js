@@ -20,8 +20,6 @@ export default function Favourite() {
   const [idAccount, setIdAccount] = useState('')
   const [sharekey, setSharekey] = useState("");
 
-
-
   useEffect(() => {
     const fetchFavourites = async () => {
       try {
@@ -111,6 +109,7 @@ export default function Favourite() {
   };
 
   return (
+
     <div className='favourite-container'>
       <h1>Suosikit</h1>
       <div className='favourite-sharing'>

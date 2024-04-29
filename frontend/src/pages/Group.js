@@ -159,7 +159,7 @@ export default function Group() {
             <br></br>
             <p>Name: <input value={groupName} onChange={e => setGroupName(e.target.value)}></input></p>
             <br></br>
-            <p>Description: <input value={groupDetails} onChange={e => setGroupDetails(e.target.value)}></input></p>
+            <p>Description:<br></br> <input value={groupDetails} onChange={e => setGroupDetails(e.target.value)}></input></p>
             <br></br>
             <button onClick={submitGroup}>Submit</button>
           </Popup>

@@ -79,17 +79,32 @@ export default function Reviews() {
 
 const BasicRating = ({ value }) => {
   return (
-    <div className='rating'>
-      <Box
+    <div>
+    <Box className='rating'
         sx={{
-          '& > legend': { mt: 2 },
-          '& .MuiRating-icon': {
-            fontSize: '1vw',
-          },
+            '& > legend': { mt: 2 },
+            '& .MuiRating-icon': {
+                fontSize: '16px', // Default font size
+            },
+            '@media (max-width: 1200px)': {
+                '& .MuiRating-icon': {
+                    fontSize: '14px', // Adjust for screens up to 1200px
+                },
+            },
+            '@media (max-width: 800px)': {
+                '& .MuiRating-icon': {
+                    fontSize: '12px', // Adjust for screens up to 800px
+                },
+            },
+            '@media (max-width: 400px)': {
+                '& .MuiRating-icon': {
+                    fontSize: '10px', // Adjust for screens up to 400px
+                },
+            },
         }}
-      >
+    >
         <Rating className="read-only" value={value} readOnly />
-      </Box>
-    </div>
+    </Box>
+</div>
   );
 };
