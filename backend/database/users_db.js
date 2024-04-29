@@ -117,10 +117,26 @@ async function getUsername(idaccount) {
     return result.rows[0].username
 }
 
+
+async function removeUserFromGroup(idgroup, idAccount) {
+    try {
+        const result = await pgPool.query(sql.REMOVE_USER_FROM_GROUP, [idgroup, idAccount]);
+        if (result.rowCount === 1) {
+            return result.rowCount;
+        } else {
+            throw new Error('Failed to remove user from group. No rows affected.');
+        }
+    } catch (error) {
+        console.error('Error in removeUserFromGroup:', error);
+        throw error;
+    }
+}
+
 async function getJoinDate(idaccount) {
     let result = await pgPool.query(sql.GET_JOINDATE, [idaccount]);
     return result.rows[0].joindate
 }
+
 
 async function removeUserFromGroup(idgroup, idAccount) {
     try {

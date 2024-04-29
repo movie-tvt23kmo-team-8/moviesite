@@ -45,10 +45,12 @@ export default function GroupContent() {
             const groupChoicesData = response.data.groupchoices;
             setMembers(membersData);
             const userIsAdmin = membersData.some((member) => member.idaccount === userId && member.grouprole === 'admin');
+
             isAdmin = userIsAdmin;
             setOnkoAdmin(userIsAdmin);
             console.log(isAdmin);
             console.log(onkoAdmin);
+
             setGroupDetails(groupDetailsData);
             setGroupChoices(groupChoicesData);
             if (groupChoicesData && groupChoicesData.length > 0) {
@@ -128,7 +130,6 @@ export default function GroupContent() {
                     Authorization: `Bearer ${jwtToken}`
                 }
             });
-
             fetchGroupDetails();
         } catch (error) {
             console.error('Failed to remove member:', error);
@@ -220,8 +221,7 @@ export default function GroupContent() {
                                                 />
                                             )} 
                                             <h3 className='group-member-username'>{username} {grouprole}</h3>
-                                            {/* Display remove button for all users */}
-                                            
+                                            {/* Display remove button for all users */}                                         
                                             {onkoAdmin && ( 
                                                 <button onClick={() => handleRemoveMember(groupId, idaccount)}>
                                                     Poista ryhmästä

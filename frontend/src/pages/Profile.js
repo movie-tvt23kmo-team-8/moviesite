@@ -36,7 +36,7 @@ export default function Profile() {
         setUsername(response.data.username);
         setImageId(response.data.imageid);
         const joinDate = new Date(response.data.joindate);
-        const finlandDate = joinDate.toLocaleDateString('fi-FI', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', timeZone: 'Europe/Helsinki' });
+        const finlandDate = joinDate.toLocaleDateString('fi-FI', { day: 'numeric', month: 'long', year: 'numeric',});
         setJoinDate(finlandDate);
         setLoading(false); // Set loading to false after data is fetched
       } catch (error) {
@@ -267,14 +267,13 @@ export default function Profile() {
 
         <div className='profile-text'>
           <p>Käyttäjätunnus: {username}</p>
-          <p>Kuvaus?</p>
           <p>Liittynyt: {joindate}</p>
           <div className='profile-buttons'>
             <Button aria-describedby={id} type="button" onClick={togglePasswordPopup} className='change-password'>
               Vaihda salasana
             </Button>
             <Button deleteButton={true} onClick={handleDeleteUser}>
-              {deleteConfirmed ? "Confirm Delete" : "Delete User"}
+              {deleteConfirmed ? "Haluatko varmasti poistaa" : "Poista käyttäjä"}
             </Button>
           </div>
           <BasePopup id={id} open={openPasswordPopup} anchor={anchorEl} onClose={handleClosePopup}>
@@ -318,11 +317,13 @@ export default function Profile() {
             {adminGroups.map((group, index) => (
               <li key={group.idgroup} className='profile-group-list-item'>
                 {group.groupname}
+                <div className="centered-button-container">
                 {group.grouprole === "admin" && (
                   <button className='profile-group-button' onClick={() => handleDeleteGroup(group.idgroup)}>
                     Poista ryhmä
                   </button>
                 )}
+                </div>
               </li>
             ))}
           </ul>
@@ -340,11 +341,6 @@ export default function Profile() {
         <div className='profile-invites'>
           <SeeInvites /> { }
         </div>
-      </div>
-      <div className='delete-user'>
-        <button onClick={handleDeleteUser}>
-          {deleteConfirmed ? "Confirm Delete" : "Delete User"}
-        </button>
       </div>
 
       {openPhotoPopup && <ProfilePicUpdate closePhotoPopup={handleClosePopup} setImageId={setImageId} username={username} />}
@@ -412,7 +408,15 @@ const Button = styled('button')(
     transition: 'all 150ms ease',
     cursor: 'pointer',
     borderRadius: 8,
-    padding: '8px 16px',
+    padding: '4px 10px',
+    '@media (max-width: 800px)': {
+      padding: '4px 10px', // Adjust padding for smaller screens
+      fontSize: '0.6rem', // Decrease font size for smaller screens
+    },
+    '@media (max-width: 400px)': {
+      padding: '2px 8px', // Adjust padding for smaller screens
+      fontSize: '0.25rem', // Decrease font size for smaller screens
+    },
     ...(deleteButton
       ? {
         backgroundColor: darkRed[500],

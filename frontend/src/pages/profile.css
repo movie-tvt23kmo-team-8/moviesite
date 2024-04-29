@@ -85,6 +85,7 @@ input{
 
 
 .profile-favorite{
+    min-width: 80%;
     width: 80%;
     background-color: rgba(37, 37, 37, 0.5);
     color: aliceblue;
@@ -126,7 +127,7 @@ input{
     background-color: rgba(37, 37, 37, 0.5);
     margin: 2%;
     padding: 2%;
-   
+    margin-bottom: 10%;
 }
 
 .profile-group-list{
@@ -138,22 +139,155 @@ input{
 
 .profile-group-list-item{
     padding: 2%;
+    display: flex;
+    flex-direction: column;
 }
 
 .profile-invites{
     background-color: rgba(37, 37, 37, 0.5);
-    margin-bottom: 2%;
     padding: 2%;
     text-align: center;
     flex: 50%;
     margin: 2%;
+    margin-bottom: 10%;
 }
+
+.centered-button-container {
+    display: flex;
+    justify-content: center;
+  }
 
 .profile-group-button{
     margin: 2%;
 }
 
+.profile-image-container {
+    position: relative;
+  }
+  
+  .invite-count {
+    position: absolute;
+    top: -10px; /* Adjust position */
+    right: -10px; /* Adjust position */
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+}
 
+.seeinvites-container{
+    margin: 2%; 
+    padding: 1%; 
+    background: lightgray; 
+    border-radius: 15px; 
+    color: black; 
+}
 
+.seeinvites-button{
+    margin-right: 5%;
+}
+  
 
+@media (max-width: 800px){
+    
+    .profile-text{
+        font-size: 70%;
+    }
+        
+    .profile-favourite-title{
+        font-size: 80%;
+    }
+    
+    .profile-group-container{
+        width: 85%;
+    }
+    
+    .profile-group-name{
+        font-size: 100%;
+    }
+    
+    .centered-button-container {
+        display: flex;
+        justify-content: center;
+      }
+    
+    .profile-group-button{
+        width: 80%;
+    }
+    
+    .profile-group-list-item{
+        width: 100%;
+        font-size: 70%;
+    }
 
+    .seeinvites-container p{
+      font-size: 60%;
+    }
+    
+    .seeinvites-button{
+        font-size: 70%;
+    }
+       
+}
+
+@media (max-width: 400px){
+
+    .profile-container {
+        top: 10%;
+    }
+
+    .profile-photo{
+        width: 60%;
+        border-radius: 50%;
+    }
+
+    .photo-add {
+        font-size: 50%;
+        padding: 5%;
+        bottom: 10%;
+    }
+    
+    .profile-text{
+        font-size: 40%;
+    }
+
+    .profile-buttons{
+        bottom: -20%;
+    }
+        
+    .profile-favourite-title{
+        font-size: 50%;
+    }
+    
+    .profile-group-container{
+        width: 90%;
+    }
+    
+    .profile-group-name{
+        font-size: 60%;
+    }
+        
+    .profile-group-button{
+        width: 70%;
+        font-size: 60%;
+    }
+    
+    .profile-group-list-item{
+        width: 100%;
+        font-size: 50%;
+    }
+
+    .seeinvites-container p{
+      font-size: 50%;
+    }
+    
+    .seeinvites-button{
+        font-size: 40%;
+    }
+       
+}
