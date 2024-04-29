@@ -137,4 +137,4 @@ async function getJoinDate(idaccount) {
     return result.rows[0].joindate
 }
 
-module.exports = { getUsers, getUserID, deleteUser, getImageIdByUsername, updateImageIdByUsername, getUserGroups, updatePasswordById, getUserIDByPasskey, getSharekey, getUsername, removeUserFromGroup };
+module.exports = { getUsers, getUserID, deleteUser, getImageIdByUsername, updateImageIdByUsername, getUserGroups, updatePasswordById, getUserIDByPasskey, getSharekey, getUsername, removeUserFromGroup, getJoinDate };
