@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.f0c5fd90.css",
-    "main.js": "/static/js/main.0e9a9ffd.js",
+    "main.css": "/static/css/main.fbb16031.css",
+    "main.js": "/static/js/main.3cfbc0bc.js",
     "reactPlayerYouTube.js": "/static/js/reactPlayerYouTube.0a6f330e.chunk.js",
     "reactPlayerSoundCloud.js": "/static/js/reactPlayerSoundCloud.a7405afb.chunk.js",
     "reactPlayerVimeo.js": "/static/js/reactPlayerVimeo.af90a770.chunk.js",
@@ -33,10 +33,10 @@
     "static/media/1.png": "/static/media/1.b209a93d1a159deaca6e.png",
     "static/media/7.png": "/static/media/7.1b2e4e3b5b5a29a3516b.png",
     "static/media/11.png": "/static/media/11.f0dfb6dee361b956f2e6.png",
-    "static/media/logo_nimi.png": "/static/media/logo_nimi.69df17cb320989840543.png",
+    "static/media/logo_nimi.png": "/static/media/logo_nimi.fb13c6ed2ef5e9d657f9.png",
     "index.html": "/index.html",
-    "main.f0c5fd90.css.map": "/static/css/main.f0c5fd90.css.map",
-    "main.0e9a9ffd.js.map": "/static/js/main.0e9a9ffd.js.map",
+    "main.fbb16031.css.map": "/static/css/main.fbb16031.css.map",
+    "main.3cfbc0bc.js.map": "/static/js/main.3cfbc0bc.js.map",
     "reactPlayerYouTube.0a6f330e.chunk.js.map": "/static/js/reactPlayerYouTube.0a6f330e.chunk.js.map",
     "reactPlayerSoundCloud.a7405afb.chunk.js.map": "/static/js/reactPlayerSoundCloud.a7405afb.chunk.js.map",
     "reactPlayerVimeo.af90a770.chunk.js.map": "/static/js/reactPlayerVimeo.af90a770.chunk.js.map",
@@ -53,7 +53,7 @@
     "reactPlayerPreview.3c1da0a9.chunk.js.map": "/static/js/reactPlayerPreview.3c1da0a9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f0c5fd90.css",
-    "static/js/main.0e9a9ffd.js"
+    "static/css/main.fbb16031.css",
+    "static/js/main.3cfbc0bc.js"
   ]
 }
