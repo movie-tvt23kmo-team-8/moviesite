@@ -2,18 +2,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 70%;
-    margin-bottom: 5%;
-    margin-left: -15%;
-}
+    flex-wrap: wrap; /* Allow items to wrap to next line */
+    margin-bottom: 2rem; /* Add margin between media panels */
+  }
 
-.poster-gallery {
+  .poster-gallery {
     display: flex;
-}
+  }
 
 .media-container {
-    margin-right: 2%;
-    margin-bottom: 0;
+    margin-right: 1rem; /* Add spacing between media items */
+    margin-bottom: 1rem;
     text-align: center;
     color: white;
     width: 100%;
@@ -32,7 +31,8 @@
 }
 
 .media-poster-container {
-    position: relative; /* Ensure the container is positioned relative to its parent */
+    position: relative; 
+    font-size: 70%;
 }
 
 .media-poster-container:hover {
