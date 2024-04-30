@@ -18,5 +18,5 @@
 
 
 ## REST-dokumentaatio
-[Postman](https://documenter.getpostman.com/view/29936650/2sA35D4Neh)
+[Postman](https://documenter.getpostman.com/view/29936650/2sA3JDhRKW)
  
