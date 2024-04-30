@@ -44,10 +44,12 @@
 
     .register{
         margin-top: 15%;
+        height: 300px;
     }
 
     .register-title{
         font-size: 100%;
+        margin-top: 2%;
     }
 
     .register-form{
@@ -62,5 +64,6 @@
 
     .register-button{
         width: 80%;
+        font-size: 16px;
     }
   }

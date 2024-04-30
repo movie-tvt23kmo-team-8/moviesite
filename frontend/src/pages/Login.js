@@ -40,7 +40,7 @@ export default function Login() {
         <input type="text" name="username" placeholder="Käyttäjänimi" value={username} onChange={e => setUsername(e.target.value)} autoComplete="username" /><br />
         <label>Salasana</label>
         <input type="password" name="password" placeholder="Salasana" value={password} onChange={e => setPassword(e.target.value)} autoComplete="current-password" /><br />
-        <Button className='login-button' type="submit" variant="contained">Kirjaudu</Button>
+        <Button className='login-button' type="submit" variant="contained" style={{fontSize: '100%'}}>Kirjaudu</Button>
       </form>
       {error && <p>{error}</p>}
     </div>

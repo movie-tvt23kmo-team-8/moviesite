@@ -4,3 +4,9 @@
     color: rgb(214, 82, 104);
     cursor: pointer;
 }
+
+@media (max-width: 800px){
+    .addfavouriteicon{
+        font-size: 200%;
+    }
+}

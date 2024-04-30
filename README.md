@@ -1,4 +1,4 @@
-![logo](./frontend/src/img/logo_nimi.png) 
+![logo](./frontend/src/img/readmelogo.png) 
 
 
 ## ER Diagram

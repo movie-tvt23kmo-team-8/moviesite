@@ -47,7 +47,7 @@ h1 {
     border-radius: 15px;
     color: aliceblue;
     font-size: 90%;
-    width: 40%;   
+    width: 500px; 
 }
 
 .favourite-link{
@@ -94,7 +94,7 @@ h1 {
     }
 
     .favourite-sharing{
-        font-size: 70%;  
+        font-size: 60%;  
     }
 
   }

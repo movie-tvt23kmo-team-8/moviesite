@@ -130,6 +130,10 @@
     .topLeftImg{
         width: 60%;
     }
+
+    .topRight{
+        margin-top: 1%;
+    }
     
     .topRightImg{
         width: 20%;

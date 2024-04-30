@@ -3,12 +3,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: black;
-  height: 80%;
+  background-color: black; 
   width: 100%;
-  position: absolute;
-  top: -5%;
-  left: 0%;
+  height: 800px;
+  margin-top: -3%;
 }
 
 .center-video h2 {
@@ -16,48 +14,37 @@
 }
 
 .movie-trailer{
-  position: absolute;
-  right: 2%;
-  bottom: 30%;
   color: aliceblue;
+  margin-bottom: 1rem;
+  position: absolute;
+  top: 40%;
+  right: 5%;
 }
 
-@media (max-width: 1200px){
-
-}
 
 @media (max-width: 800px){
 
   .center-video {
-    height: 50%;
-    width: 100%;
+    height: 400px;
+
   }
-  
-  .center-video h2 {
-    font-size: 120%;
-  }
-  
   .movie-trailer{
-    right: 3%;
-    bottom: 60%;
-  }
+    font-size: 90%;
+    top: 30%;
+  } 
 
 }
 
 @media (max-width: 400px){
+
   .center-video {
-    margin-top: 10%;
-    width: 500px;
-    height: 30vh;
-    margin-left: 10%;
+    height: 200px;
+
   }
-  
-  .center-video h2 {
-    font-size: 100%;
-  }
-  
   .movie-trailer{
-    bottom: 75%;
-  }
+    font-size: 80%;
+    top: 15%;
+  } 
+  
 
 }
