@@ -40,7 +40,7 @@ app.use('/favourite', favourite)
 app.use('/password', passwordRouter);
 app.use('/sharedfavourites', sharedfavourites);
 
-app.get('/', (req, res) => {
+app.get('/*', (req, res) => {
     res.sendFile(__dirname + '/public/index.html', function (err) {
         if (err) {
             res.status(500).send(err)
