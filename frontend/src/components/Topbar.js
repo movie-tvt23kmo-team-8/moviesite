@@ -52,11 +52,7 @@ export default function TopBar() {
   return (
     <div className='top'>
       <div className='topLeft'>
-        <div className='websitename'>
-          <p>Filmi <br />
-            verkko</p>
-        </div>
-        <a href="/"><img className='topLeftImg' src={require('../img/logo5.png')} alt="topimg" /></a>
+        <a href="/"><img className='topLeftImg' src={require('../img/logo_nimi.png')} alt="topimg" /></a>
 
 
       </div>

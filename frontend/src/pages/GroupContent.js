@@ -146,7 +146,8 @@ export default function GroupContent() {
                 <div className='group-content-container'>
                     <div className='group-movies-container'>
                         <section className='all-group-movies'>
-                            <div className='group-movie-card'>
+                        <h3 className='group-media-head'>Elokuvat</h3>
+                            <div className='group-movie-card'>  
                                 {Array.isArray(groupchoices) &&
                                     groupchoices
                                         .filter((groupchoice) => groupchoice.type === 'movie')
@@ -165,6 +166,7 @@ export default function GroupContent() {
                     </div>
                     <div className='group-movies-container'>
                         <section className='all-group-movies'>
+                        <h3 className='group-media-head'>Sarjat</h3>
                             <div className='group-movie-card'>
                                 {Array.isArray(groupchoices) &&
                                     groupchoices
@@ -183,6 +185,7 @@ export default function GroupContent() {
                     </div>
                     <div className='group-movies-container'>
                         <section className='all-group-movies'>
+                        <h3 className='group-media-head'>Näytökset</h3>
                             <div className='group-movie-card'>
                                 {Array.isArray(groupchoices) &&
                                     groupchoices
@@ -220,13 +223,16 @@ export default function GroupContent() {
                                                     alt={`${username}'s avatar`}
                                                 />
                                             )} 
-                                            <h3 className='group-member-username'>{username} {grouprole}</h3>
+                                            <div className='group-member-info'>
+                                            <h3 className='group-member-username'>{username} </h3>
+                                            <h3 className='group-member-role'>{grouprole}</h3>
                                             {/* Display remove button for all users */}                                         
                                             {onkoAdmin && ( 
-                                                <button onClick={() => handleRemoveMember(groupId, idaccount)}>
+                                                <button className='delete-groupmember' onClick={() => handleRemoveMember(groupId, idaccount)}>
                                                     Poista ryhmästä
                                                 </button>
                                             )}
+                                            </div>
                                         </div>); 
                                 })}
                         </div>
