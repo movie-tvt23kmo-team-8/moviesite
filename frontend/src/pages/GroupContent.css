@@ -12,6 +12,13 @@
     color: aliceblue;
 }
 
+.group-media-head{
+    font-size: 200%;
+    font-weight: bold;
+    font-family: "Poiret One", sans-serif;
+    color: aliceblue;
+}
+
 .group-choices-members{
     display: flex;
 }
@@ -56,15 +63,10 @@
     white-space: normal;
 }
 
-.group-movie-card-item {
-    max-width: 200px; /* Adjust the maximum width as needed */
-    margin: 10px; /* Add some spacing between items */
-}
-
 .group-members-container{
     display: flex;
     margin-left: 2%;
-    width: 50%;
+    width: 40%;
 }
 
 .group-member-card {
@@ -75,23 +77,178 @@
     margin-left: 10%;
     border-radius: 50px;
     color: aliceblue;
+    margin-top: 10%;
 }
 
-.group-member-photo{
+.group-member-photo {
     width: 30%;
     border-radius: 50%;
     padding: 2%;
 }
 
-.group-member-card-item{
+.group-member-card-item {
     display: flex;
+    align-items: center; /* Align items vertically */
+    margin-bottom: 10px; /* Add some margin between each member */
 }
 
-.group-member-text{
+.group-member-info {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-top: 2%;
+    justify-content: flex-start; /* Align items to the start of the container */
+    margin-left: 10px; /* Add space between the image and text */
 }
 
+.group-member-username {
+    margin: 0; /* Remove default margin for h3 */
+    text-align: left; /* Align the text to the left */
+}
+
+.group-member-role{
+    margin: 0; /* Remove default margin for h3 */
+    text-align: left; /* Align the text to the left */
+    font-size: 70%;
+}
+
+.delete-groupmember {
+    font-size: 90%;
+    width: 120px;
+}
+
+@media (max-width: 1200px){
+    .group-info-page{
+        top: 10%;
+    }
+
+    .group-movie-card {
+        padding: 2%;
+        border-radius: 15px;
+    }
+    
+    .group-choices-description{
+        font-size: 80%;
+    }
+    
+    .group-media-head{
+        font-size: 150%;
+    }
+     
+    .group-movies-container{
+        margin-bottom: 10%;
+    }
+
+    .groupchoice-picture{
+        width: 140px;
+        height: 200px;
+        padding: 3%;
+    }
+    
+    .groupchoice-title{
+        font-size: 60%;
+    }  
+      
+    .group-member-card {
+        margin-left: 5%;
+        border-radius: 15px;
+        margin-top: 15%;
+    }
+    
+    .group-member-photo {
+        padding: 1%;
+    }
+     
+    .group-member-username {
+        font-size: 80%;
+    }
+    
+    .group-member-role{
+        font-size: 50%;
+    }
+    
+    .delete-groupmember {
+        font-size: 50%;
+        width: 70px;
+    }
+}
+
+@media (max-width: 800px){
+
+    
+    .group-choices-description{
+        font-size: 60%;
+    }
+    
+    .group-media-head{
+        font-size: 150%;
+    }
+
+    .group-member-card {
+        margin-top: 30%;
+    }
+         
+    .group-member-username {
+        font-size: 50%;
+    }
+    
+    .group-member-role{
+        font-size: 30%;
+    }
+    
+    .delete-groupmember {
+        font-size: 30%;
+        width: 40px;
+    }
+}
+
+@media (max-width: 400px){
+    .group-info-page{
+        top: 5%;
+    }
+
+    
+    .group-choices-description{
+        font-size: 50%;
+    }
+    
+    .group-media-head{
+        font-size: 100%;
+    }
+     
+    .group-movies-container{
+        margin-bottom: 20%;
+    }
+
+    .groupchoice-picture{
+        width: 80px;
+        height: 100px;
+    }
+    
+    .groupchoice-title{
+        font-size: 40%;
+    }  
+
+    .group-members-container{
+        width: 70%;
+    }
+
+    .group-member-card {
+        border-radius: 5px;
+    }
+          
+    .group-member-photo {
+        padding: 1%;
+    }
+     
+    .group-member-username {
+        font-size: 50%;
+    }
+    
+    .group-member-role{
+        font-size: 30%;
+    }
+    
+    .delete-groupmember {
+        font-size: 30%;
+        width: 40px;
+    }
+}

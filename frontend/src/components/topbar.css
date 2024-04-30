@@ -37,9 +37,8 @@
 }
 
 .topLeftImg{
-    width: 50%;
+    width: 70%;
     cursor: pointer;
-    margin-bottom: 10%;
     padding-left: 5%;
 }
 
@@ -145,6 +144,14 @@
         font-size: 50%;
     }
 
+    .redBall {
+        width: 15px;
+        height: 15px;
+        font-size: 10px;
+        top: 10%;
+        right: 55%; 
+    }
+
 }
 
 @media (max-width: 800px){
@@ -161,6 +168,15 @@
     .topRightImg{
         margin-top: 5%;
     }
+
+    .redBall {
+        width: 15px;
+        height: 15px;
+        font-size: 11px;
+        top: 10%;
+        right: 55%; 
+    }
+
     
 }
 
@@ -181,6 +197,15 @@
     .topRightList{
         margin-top: 10%;
     }
+
+    .redBall {
+        width: 10px;
+        height: 10px;
+        font-size: 8px;
+        top: 15%;
+        right: 55%; 
+    }
+
     
 }
 
@@ -197,7 +222,7 @@
     }
 
     .topLeftImg{
-        width: 60%;
+        width: 80%;
     }
      
 

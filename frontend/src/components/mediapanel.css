@@ -61,6 +61,9 @@
 }
 
 @media (max-width: 1200px){
+    .media-poster {
+        max-width: 190px;
+      }
    
 }
 
@@ -72,7 +75,7 @@
     
     .media-poster {
         max-width: 120px; 
-      }
+    }
   
 }
 

@@ -1,5 +1,4 @@
-![logo](./frontend/src/img/readmelogo.png) 
-# FILMI VERKKO 
+![logo](./frontend/src/img/logo_nimi.png) 
 
 
 ## ER Diagram

@@ -29,9 +29,8 @@
 @media (max-width: 800px){
 
   .center-video {
-    margin-top: 20%;
-    height: 50vh;
-    width: 800px;
+    height: 50%;
+    width: 100%;
   }
   
   .center-video h2 {

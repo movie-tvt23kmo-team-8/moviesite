@@ -26,13 +26,17 @@ header {
 
 @media (max-width: 1200px){
     .home-container {
-        margin-top: 110%;
+        margin-top: 130%;
+    }
+
+    .home-header {
+        margin-left: 20%;
     }
 }
 
 @media (max-width: 800px){
     .home-container {
-        margin-top: 100%;
+        margin-top: 140%;
     }
 
 }
