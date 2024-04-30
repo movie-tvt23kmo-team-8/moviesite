@@ -59,7 +59,7 @@ export default function Register() {
         <input type="password" name="password" placeholder="Salasana" value={password} onChange={e => setPassword(e.target.value)} required /> <br />
         <label>Vahvista salasana</label>
         <input type="password" name="confirmPassword" placeholder="Vahvista salasana" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required /> <br />
-        <Button className='register-button' type="submit" variant="contained">Rekisteröidy</Button>
+        <Button className='register-button' type="submit" variant="contained" style={{fontSize: '100%'}}>Rekisteröidy</Button>
       </form>
       {error && <p>{error}</p>}
     </div>

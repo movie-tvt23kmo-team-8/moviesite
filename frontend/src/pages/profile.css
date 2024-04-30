@@ -100,10 +100,17 @@ input{
 
 }
 
-.profile-favourite-picture{
-    width: 80%;
-    height: 80%;
+.profile-favorite-items .favourite-card-item {
+    width: 100%; /* Ensure full width for single favourite */
 }
+
+.profile-favourite-picture{
+    max-width: 100%; /* Ensures the image does not exceed its container width */
+    height: 400px;
+    padding: 2%;
+}
+
+
 
 .profile-favourite-title{
     padding-top: 5%;
@@ -214,7 +221,21 @@ input{
     .centered-button-container {
         display: flex;
         justify-content: center;
-      }
+    }
+
+
+    .profile-favourite-picture{
+        max-width: 100%; /* Ensures the image does not exceed its container width */
+        height: 180px;
+    }
+
+    .profile-favorite-items .favourite-card-item {
+        width: calc(100% / 3);
+    }
+
+    .profile-favourite-title{
+        font-size: 60%;
+    }
     
     .profile-group-button{
         width: 80%;

@@ -1,4 +1,4 @@
-![logo](./frontend/src/img/logo_nimi.png) 
+![logo](./frontend/src/img/readmelogo.png) 
 
 
 ## ER Diagram
@@ -18,5 +18,5 @@
 
 
 ## REST-dokumentaatio
-[Postman](https://documenter.getpostman.com/view/29936650/2sA35D4Neh)
+[Postman](https://documenter.getpostman.com/view/29936650/2sA3JDhRKW)
  

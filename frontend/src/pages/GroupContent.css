@@ -28,18 +28,18 @@
     flex-direction: column;
 }
 
-.group-movies-container{
+.group-media-container{
     display: flex;
     margin-bottom: 5%;
     justify-content: center;
     align-items: center;
 }
 
-.all-group-movies{
+.all-group-media{
     flex: 100%;
 }
 
-.group-movie-card {
+.group-media-card {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -61,6 +61,15 @@
     color: aliceblue;
     width: 100%; 
     white-space: normal;
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200px;
+}
+
+.empty-text{
+    text-align: center;
+    font-size: 100%;
 }
 
 .group-members-container{
@@ -120,7 +129,7 @@
         top: 10%;
     }
 
-    .group-movie-card {
+    .group-media-card {
         padding: 2%;
         border-radius: 15px;
     }
@@ -133,7 +142,7 @@
         font-size: 150%;
     }
      
-    .group-movies-container{
+    .group-media-container{
         margin-bottom: 10%;
     }
 
@@ -145,6 +154,7 @@
     
     .groupchoice-title{
         font-size: 60%;
+        max-width: 140px;
     }  
       
     .group-member-card {
@@ -183,20 +193,25 @@
     }
 
     .group-member-card {
-        margin-top: 30%;
+        margin-top: 20%;
     }
          
     .group-member-username {
-        font-size: 50%;
+        font-size: 70%;
     }
     
     .group-member-role{
-        font-size: 30%;
+        font-size: 40%;
     }
     
     .delete-groupmember {
-        font-size: 30%;
-        width: 40px;
+        margin-top: 1%;
+        font-size: 40%;
+        width: 60px;
+    }
+
+    .empty-text{
+        font-size: 70%;
     }
 }
 
@@ -214,7 +229,7 @@
         font-size: 100%;
     }
      
-    .group-movies-container{
+    .group-media-container{
         margin-bottom: 20%;
     }
 

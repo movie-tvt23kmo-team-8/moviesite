@@ -32,7 +32,7 @@ export default function GroupContent() {
         } catch (error) {
             console.error('Error fetching username and imageid:', error);
         }
-    } 
+    }
 
     const fetchGroupDetails = async () => {
         console.log("haetaan ryhmän tietoja");
@@ -90,7 +90,7 @@ export default function GroupContent() {
                                     link: link
                                 };
                             } else {
-                                return groupChoices; 
+                                return groupChoices;
                             }
 
                         } catch (error) {
@@ -146,32 +146,38 @@ export default function GroupContent() {
             </div>
             <div className='group-choices-members'>
                 <div className='group-content-container'>
-                    <div className='group-movies-container'>
+                    <div className='group-media-container'>
                         <section className='all-group-movies'>
-                        <h3 className='group-media-head'>Elokuvat</h3>
-                            <div className='group-movie-card'>  
-                                {Array.isArray(groupchoices) &&
-                                    groupchoices
-                                        .filter((groupchoice) => groupchoice.type === 'movie')
+                            <h3 className='group-media-head'>Elokuvat</h3>
+                            {Array.isArray(groupchoices) && groupchoices.some(groupchoice => groupchoice.type === 'movie') ? (
+                                <div className='group-media-card'>
+                                    {groupchoices
+                                        .filter(groupchoice => groupchoice.type === 'movie')
                                         .map((groupchoice, index) => (
                                             <Link
                                                 key={index}
                                                 className={`group-movie-card-item groupchoice-${index}`}
-                                                to={`${groupchoice.link}`}
+                                                to={groupchoice.link}
                                                 style={{ textDecoration: 'none', color: 'inherit', margin: '0', padding: '0', background: 'none' }}>
-                                                <a href={groupchoice.link} target="_blank">{groupchoice.posterUrl && <img className="groupchoice-picture" src={`https://image.tmdb.org/t/p/original${groupchoice.posterUrl}`} alt="Movie Poster" />}</a>
+                                                <a href={groupchoice.link} target="_blank">
+                                                    {groupchoice.posterUrl && <img className="groupchoice-picture" src={`https://image.tmdb.org/t/p/original${groupchoice.posterUrl}`} alt="Movie Poster" />}
+                                                </a>
                                                 <h3 className='groupchoice-title'>{groupchoice.title}</h3>
                                             </Link>
                                         ))}
-                            </div>
+                                </div>
+                            ) : (
+                                <p className='empty-text'>Ei valittuja elokuvia</p>
+
+                            )}
                         </section>
                     </div>
-                    <div className='group-movies-container'>
-                        <section className='all-group-movies'>
-                        <h3 className='group-media-head'>Sarjat</h3>
-                            <div className='group-movie-card'>
-                                {Array.isArray(groupchoices) &&
-                                    groupchoices
+                    <div className='group-media-container'>
+                        <section className='all-group-media'>
+                            <h3 className='group-media-head'>Sarjat</h3>
+                            {Array.isArray(groupchoices) && groupchoices.some(groupchoice => groupchoice.type === 'movie') ? (
+                                <div className='group-media-card'>
+                                    {groupchoices
                                         .filter((groupchoice) => groupchoice.type === 'series')
                                         .map((groupchoice, index) => (
                                             <Link
@@ -182,15 +188,19 @@ export default function GroupContent() {
                                                 <h3 className='groupchoice-title'>{groupchoice.title}</h3>
                                             </Link>
                                         ))}
-                            </div>
+                                </div>
+                            ) : (
+                                <p className='empty-text'>Ei valittuja sarjoja</p>
+
+                            )}
                         </section>
                     </div>
-                    <div className='group-movies-container'>
-                        <section className='all-group-movies'>
-                        <h3 className='group-media-head'>Näytökset</h3>
-                            <div className='group-movie-card'>
-                                {Array.isArray(groupchoices) &&
-                                    groupchoices
+                    <div className='group-media-container'>
+                        <section className='all-group-media'>
+                            <h3 className='group-media-head'>Näytökset</h3>
+                            {Array.isArray(groupchoices) && groupchoices.some(groupchoice => groupchoice.type === 'show') ? (
+                                <div className='group-media-card'>
+                                    {groupchoices
                                         .filter((groupchoice) => groupchoice.type === 'show')
                                         .map((groupchoice, index) => {
                                             const data = JSON.parse(groupchoice.data);
@@ -202,12 +212,14 @@ export default function GroupContent() {
                                                     <a href={data.linkki} target="_blank">{data.image && <img className="groupchoice-picture" src={data.image} alt="Show Poster" />}</a>
                                                     <h3 className='groupchoice-title'>{data.title} <br /> {data.theatre}<br />{data.showtime}</h3>
                                                 </Link>
-                                            )
-                                        }
-
-                                        )}
-                            </div>
+                                            );
+                                        })}
+                                </div>
+                            ) : (
+                                <p className='empty-text'>Ei valittuja näytöksiä</p>
+                            )}
                         </section>
+
                     </div>
                 </div>
                 <div className='group-members-container'>
@@ -224,18 +236,18 @@ export default function GroupContent() {
                                                     src={require(`../img/avatar/${imageid}.png`)}
                                                     alt={`${username}'s avatar`}
                                                 />
-                                            )} 
-                                            <div className='group-member-info'>
-                                            <h3 className='group-member-username'>{username} </h3>
-                                            <h3 className='group-member-role'>{grouprole}</h3>
-                                            {/* Display remove button for all users */}                                         
-                                            {onkoAdmin && ( 
-                                                <button className='delete-groupmember' onClick={() => handleRemoveMember(groupId, idaccount)}>
-                                                    Poista ryhmästä
-                                                </button>
                                             )}
+                                            <div className='group-member-info'>
+                                                <h3 className='group-member-username'>{username} </h3>
+                                                <h3 className='group-member-role'>{grouprole}</h3>
+                                                {/* Display remove button for all users */}
+                                                {onkoAdmin && (
+                                                    <button className='delete-groupmember' onClick={() => handleRemoveMember(groupId, idaccount)}>
+                                                        Poista ryhmästä
+                                                    </button>
+                                                )}
                                             </div>
-                                        </div>); 
+                                        </div>);
                                 })}
                         </div>
                     </section>

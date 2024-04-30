@@ -91,7 +91,7 @@ function MovieTrailer() {
         playing={autoplay} // Aseta autoplay skrollaustilan perusteella
         controls // Näytä videon hallintaelementit
         muted // Mykistä video, jotta autoplay on mahdollinen moderneissa selaimissa
-        width="95%"
+        width="100%"
         height="100%"
       />
     </div>

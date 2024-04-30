@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './logout.css'
 
 export default function Logout() {
@@ -12,7 +12,7 @@ export default function Logout() {
 }, []);
 
   return (
-    <div>
+    <div className='logout-container'>
       <p>Olet kirjautunut ulos!</p>
     </div>
   );

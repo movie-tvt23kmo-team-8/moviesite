@@ -1,0 +1,10 @@
+.logout-container{
+    position: absolute;
+    top: 30%;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10%;
+    font-family: "Raleway", sans-serif;
+    color: aliceblue;
+    font-size: 120%;
+}

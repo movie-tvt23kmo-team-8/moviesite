@@ -208,6 +208,7 @@ const Popupwindow = ({ mediaItem, onClose }) => {
                                     </li>
                                 ))}
                             </ul>
+                            {!isLoggedIn && <p>Kirjaudu sisään lisätäksesi arvosteluita</p>}
                         </div>
                         {isLoggedIn && (
                             <div className='write-Review'>
