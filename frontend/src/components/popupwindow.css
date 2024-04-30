@@ -54,6 +54,12 @@
     cursor: pointer;
 }
 
+.group-icon-container{
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+
 .popupIcon-heart{
     color: rgb(214, 82, 104);
 }

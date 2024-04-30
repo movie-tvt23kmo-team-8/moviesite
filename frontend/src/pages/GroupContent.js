@@ -10,26 +10,29 @@ export default function GroupContent() {
     const [groupDetails, setGroupDetails] = useState([]);
     const [groupchoices, setGroupChoices] = useState([]);
     const { groupId } = useParams();
-    const [isAdmin, setIsAdmin] = useState(false);
+    let isAdmin = false;
+    const [onkoAdmin, setOnkoAdmin] = useState(false)
     const [username, setUsername] = useState("");
     const [userId, setUserId] = useState("");
 
-
     const fetchUsername = async () => {
         try {
+
             const response = await axios.get('/users/personal', {
               headers: {
                 Authorization: `Bearer ${jwtToken.value}`
               }
+
             });
-            console.log(response.data.username);
+            console.log("Haetaan käyttäjän tietoja")
+            //console.log(response.data.username);
             setUsername(response.data.username);
-            console.log(response.data.idaccount)
+            //console.log(response.data.idaccount)
             setUserId(response.data.idaccount);
-          } catch (error) {
+        } catch (error) {
             console.error('Error fetching username and imageid:', error);
-          }
-    }
+        }
+    } 
 
     const fetchGroupDetails = async () => {
         console.log("haetaan ryhmän tietoja");
@@ -44,7 +47,12 @@ export default function GroupContent() {
             const groupChoicesData = response.data.groupchoices;
             setMembers(membersData);
             const userIsAdmin = membersData.some((member) => member.idaccount === userId && member.grouprole === 'admin');
-            setIsAdmin(userIsAdmin);
+
+            isAdmin = userIsAdmin;
+            setOnkoAdmin(userIsAdmin);
+            console.log(isAdmin);
+            console.log(onkoAdmin);
+
             setGroupDetails(groupDetailsData);
             setGroupChoices(groupChoicesData);
             if (groupChoicesData && groupChoicesData.length > 0) {
@@ -82,7 +90,7 @@ export default function GroupContent() {
                                     link: link
                                 };
                             } else {
-                                return groupChoices;
+                                return groupChoices; 
                             }
 
                         } catch (error) {
@@ -108,10 +116,12 @@ export default function GroupContent() {
         if (!jwtToken) {
             console.error('JWT token not found');
             return;
-        }else{
-        fetchUsername();}        
-        fetchGroupDetails();
-    }, [groupId]);
+        } else {
+            fetchUsername();
+            fetchGroupDetails();
+        }
+
+    }, [userId]);
 
     const handleRemoveMember = async (groupid, memberid) => {
         console.log(groupid, memberid);
@@ -122,7 +132,6 @@ export default function GroupContent() {
                     Authorization: `Bearer ${jwtToken}`
                 }
             });
-
             fetchGroupDetails();
         } catch (error) {
             console.error('Failed to remove member:', error);
@@ -139,7 +148,8 @@ export default function GroupContent() {
                 <div className='group-content-container'>
                     <div className='group-movies-container'>
                         <section className='all-group-movies'>
-                            <div className='group-movie-card'>
+                        <h3 className='group-media-head'>Elokuvat</h3>
+                            <div className='group-movie-card'>  
                                 {Array.isArray(groupchoices) &&
                                     groupchoices
                                         .filter((groupchoice) => groupchoice.type === 'movie')
@@ -158,6 +168,7 @@ export default function GroupContent() {
                     </div>
                     <div className='group-movies-container'>
                         <section className='all-group-movies'>
+                        <h3 className='group-media-head'>Sarjat</h3>
                             <div className='group-movie-card'>
                                 {Array.isArray(groupchoices) &&
                                     groupchoices
@@ -176,6 +187,7 @@ export default function GroupContent() {
                     </div>
                     <div className='group-movies-container'>
                         <section className='all-group-movies'>
+                        <h3 className='group-media-head'>Näytökset</h3>
                             <div className='group-movie-card'>
                                 {Array.isArray(groupchoices) &&
                                     groupchoices
@@ -213,14 +225,17 @@ export default function GroupContent() {
                                                     alt={`${username}'s avatar`}
                                                 />
                                             )} 
-                                            <h3 className='group-member-username'>{username} {grouprole}</h3>
-                                            {/* Display remove button for all users */}
-                                            {isAdmin && (
-                                                <button onClick={() => handleRemoveMember(groupId, idaccount)}>
+                                            <div className='group-member-info'>
+                                            <h3 className='group-member-username'>{username} </h3>
+                                            <h3 className='group-member-role'>{grouprole}</h3>
+                                            {/* Display remove button for all users */}                                         
+                                            {onkoAdmin && ( 
+                                                <button className='delete-groupmember' onClick={() => handleRemoveMember(groupId, idaccount)}>
                                                     Poista ryhmästä
                                                 </button>
                                             )}
-                                        </div>);
+                                            </div>
+                                        </div>); 
                                 })}
                         </div>
                     </section>

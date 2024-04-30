@@ -13,6 +13,7 @@ const Popupwindow = ({ mediaItem, onClose }) => {
     const [userGroups, setUserGroups] = useState([]);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [selectedGroup, setSelectedGroup] = useState('');
+    const [notificationMessage, setNotificationMessage] = useState(null);
     let ryhma = "";
 
     const GroupPopup = ({ userGroups, onSelectGroup }) => (
@@ -155,8 +156,16 @@ const Popupwindow = ({ mediaItem, onClose }) => {
         return ''; // Return empty string if dateString is undefined
     };
 
+    const showNotification = (message) => {
+        setNotificationMessage(message);
+        setTimeout(() => {
+            setNotificationMessage(null);
+        }, 5000);
+    };
+
     const handleAddToFavorites = () => {
-        //console.log('Added to favorites');
+        console.log('Added to favorites');
+        showNotification('Lisättiin suosikkeihin!')
     };
 
     return (
@@ -167,12 +176,14 @@ const Popupwindow = ({ mediaItem, onClose }) => {
                         <img className='popup-img' src={`https://image.tmdb.org/t/p/w400/${mediaItem.poster_path}`} alt={mediaItem.title} />
                         <div className="group-icon-container">
                             <button className='popupbutton' onClick={onClose}>Close</button>
-                            {isLoggedIn && <AddToFavoritesIcon mdbdata={mediaItem} onAddToFavorites={handleAddToFavorites} />}
-                            {isLoggedIn && <i className="popupIcon-group fa-solid fa-users-rectangle" onClick={handleTogglePopup}></i>}
-                            {isPopupOpen && (
-                                <GroupPopup userGroups={userGroups} onSelectGroup={handleSelectGroup} />
+                            {isLoggedIn && (<div><AddToFavoritesIcon mdbdata={mediaItem} onAddToFavorites={handleAddToFavorites} />
+                            {notificationMessage && (
+                            <div className="notification">{notificationMessage}</div>
                             )}
-
+                            </div>
+                            )}
+                            {isLoggedIn && <i className="popupIcon-group fa-solid fa-users-rectangle" onClick={handleTogglePopup}></i>}
+                            {isPopupOpen && (<GroupPopup userGroups={userGroups} onSelectGroup={handleSelectGroup} />)}
                         </div>
                     </div>
                     <div className='popup-detail'>
