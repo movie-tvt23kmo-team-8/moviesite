@@ -1,4 +1,5 @@
-![logo](./frontend/src/img/readmelogo.png) 
+![logo](./frontend/src/img/readmelogo.png#gh-light-mode-only) 
+![logo](./frontend/src/img/logo_nimi.png#gh-dark-mode-only) 
 
 
 ## ER Diagram
