@@ -6,6 +6,8 @@
 ![ER-Diagram](./documents/ER-kaavio.png)
 
 ## UI Design
+
+![FULLDESINGPLAN](./documents/UI-suunnitelma/UI-suunnitelma.png)
 ### Login page
 ![LOGINPAGE](./documents/UI-suunnitelma/Kirjautuminen.png)
 ### Logged in user view
