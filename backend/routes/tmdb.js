@@ -29,8 +29,8 @@ router.get('/popular-series', async (req, res) => {
 router.get('/movies', async (req, res) => {
   try {
     const apiKey = process.env.TMDB_API_KEY;
-    const year = parseInt(req.query.year);
-    const endYear = year + 9;
+    let year = parseInt(req.query.year);
+    let endYear = year + 9;
     if (year == 1) {
       year = 1850;
       endYear = 1959;

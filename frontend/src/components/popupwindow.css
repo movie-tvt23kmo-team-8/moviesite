@@ -127,7 +127,7 @@
     background-color: #f0f0f0;
 }
 
-.movietitle{
+.movietitle, .seriesTitle{
     color: black;
 }
 
@@ -156,13 +156,10 @@
         margin-right: 1%;
     }
     
-    .popupIcon-heart, .popupIcon-group{
+    .popupIcon-group{
         font-size: 200%;
     }
     
-    .popupIcon-heart{
-        color: rgb(214, 82, 104);
-    }
 
     .popup-reviewtitle{
         font-size: 150%;

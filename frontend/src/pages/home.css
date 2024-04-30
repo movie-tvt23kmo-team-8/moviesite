@@ -36,14 +36,19 @@ header {
 
 @media (max-width: 800px){
     .home-container {
-        margin-top: 140%;
+        margin-top: 115%;
+    }
+
+    .home-header {
+        margin-left: 0%;
+        font-size: 80%;
     }
 
 }
 
 @media (max-width: 400px){
     .home-container {
-        margin-top: 150%;
+        margin-top: 190%;
     }
 
     header {

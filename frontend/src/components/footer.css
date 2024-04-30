@@ -45,6 +45,17 @@
     right: 0;
 }
 
+@media (max-width: 800px){
+    .footer{
+        font-size: 80%;
+    }
+    
+    .footerCopy{
+        font-size: 70%;
+    }
+    
+}
+
 @media (max-width: 400px){
     .footer{
         font-size: 60%;
