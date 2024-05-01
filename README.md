@@ -90,53 +90,14 @@ Toteutusvaiheessa hyödynsimme Discordia sekä GitHubin projektin hallintaa Kanb
 
 ### Ryhmän esittely ja vastuualueet 
 
-<div style="display: flex; align-items: center;">
-    <a href="https://github.com/ArttuA02">
-        <img src="https://github.com/ArttuA02.png" alt="Arttu Aalto" width="100px">
-    </a>
-    <div>
-        Arttu Aalto - Ryhmän luonti ja ryhmien haku sivulle tietokannasta sekä ryhmän oman sivun alustava layout, suosikkien lisääminen- ja haku tietokannasta, infotekstien lisäämistä sekä kaikkea muuta pientä säätöä eri sivuille.
-    </div>
-</div>
- 
-<div style="display: flex; align-items: center;">
-    <a href="https://github.com/Ville-A">
-        <img src="https://github.com/Ville-A.png" alt="Ville Ahola" width="100px" >
-    </a>
-    <div>
-        Ville Ahola – Sovelluksen tietokannan luonti, ylläpito ja muokkaukset. Backendin runko. Käyttäjän rekisteröinti, kirjautuminen ja poistaminen (fullstack). Token-middleware suojattuihin endpointeihin. Ryhmäsivujen liittymispyyntöjen lähetys ja vastaanottaminen profiilisivulle (fullstack).   Ryhmän roolien luonti, admin ja user (fullstack)
-    </div>
-</div>
+| Tekijä | Vastuualueet |
+| :---------------: | --- |
+|[<img src="https://github.com/Ereride.png" width="100px;"/>](https://github.com/Ereride)|
+Minna Leppänen - React-sovelluksen runko sekä sivuston tyylittely ja responsiivisuus. Lisäksi aloitussivu (fullstack), profiilisivu (fullstack) ja median ponnahdusikkunan (fullstack) sekä kaikkea muuta.|
 
-<div style="display: flex; align-items: center;">
-    <a href="https://github.com/AvaRaGane">
-        <img src="https://github.com/AvaRaGane.png" alt="Juha-Matti Huhta" width="100px">
-    </a>
-    <div>
-        Juha-Matti Huhta – React-sovelluksen runko, oman näkymän(suosikkilistan) jakaminen, ryhmän sisällön lisääminen, ryhmän jäsenen poistaminen(frontend), leffa-arvostelujen selaaminen, leffa-arvostelujen lisääminen(backend), suodatettu haku(kriteerit), Finnkinon näytösaikojen hakeminen ja lisääminen ryhmään, suosikkien tulostuksen muokkaus sekä kaikkea muuta.
-    </div>
-</div>
- 
-<div style="display: flex; align-items: center;">
-    <a href="https://github.com/MikkoKom">
-        <img src="https://github.com/MikkoKom.png" alt="Mikko Komulainen" width="100px" >
-    </a>
-    <div>
-        Mikko Komulainen - Haunrunko. Jäsenen poistaminen ryhmästä. Salasanan vaihto. Esittelyvideon kuvaus, juontaminen, editointi ja julkaiseminen.
-    </div>
-</div>
  
 
-<div style="display: flex; align-items: center;">
-    <a href="https://github.com/Ereride">
-        <img src="https://github.com/Ereride.png" alt="Minna Leppänen" width="100px">
-    </a>
-    <div>
-        Minna Leppänen - React-sovelluksen runko sekä sivuston tyylittely ja responsiivisuus. Lisäksi aloitussivu (fullstack), profiilisivu (fullstack) ja median ponnahdusikkunan (fullstack) sekä kaikkea muuta.
-    </div>
-</div>
 
-| [<img src="https://github.com/Ereride.png" width="150px;"/><br /><sub><a href="https://github.com/Ereride">Minna Leppänen</a></sub>](https://github.com/Ereride) |
 
 
 
