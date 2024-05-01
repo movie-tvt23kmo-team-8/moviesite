@@ -143,20 +143,16 @@
     z-index: 10000;
     overflow-y: auto; 
     font-weight: bold;
+    color: black;
 }
 
 .notification.success {
-    color: black;
     border: 5px solid rgb(2, 112, 21);
     width: 10%;
     height: 10%;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
 }
 
 .notification.failure {
-    color: black;
     border: 5px solid rgb(175, 19, 19);
     width: 15%;
     height: 15%;

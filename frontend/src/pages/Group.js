@@ -168,7 +168,7 @@ export default function Group() {
                         Lähetä liittymispyyntö
                       </button>
                       {activeNotificationGroupId === group.idgroup && (
-                        <div className="notification">
+                        <div>
                           <br></br>
                           Liittymispyyntö lähetetty onnistuneesti!
                         </div>
@@ -178,7 +178,7 @@ export default function Group() {
                   )
                 )}
                 {notification && (
-                  <div className="notification">
+                  <div className="notification group-notification">
                     {notification}
                   </div>
                 )}
