@@ -13,7 +13,7 @@ export default function Sharedfavourites() {
                 const urlParams = new URLSearchParams(window.location.search);
                 const sharekey = urlParams.get('sharekey');
 
-                const response = await axios.get(`sharedfavourites/suosikkijako?sharekey=${sharekey}`);
+                const response = await axios.get(`sharedfavourites?sharekey=${sharekey}`);
 
                 const favoritesData = response.data.favourites;
                 setUsername(response.data.username)
