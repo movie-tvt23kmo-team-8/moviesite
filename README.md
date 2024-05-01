@@ -33,10 +33,12 @@ Projektin esittely [Youtube-video](https://www.youtube.com/watch?v=HQ_kgyvaYF0) 
 ### Sovelluksen ominaisuudet
 Sovelluksesta löytyy monenlaisia ominaisuuksia elokuvien ja sarjojen tutkimiseen. 
 
+
 Aloitussivulle (kuva 1) saapuessa tulee näkyviin Finnkinon uusimman elokuvan traileri. Selatessa sivua alaspäin löytyy The Movie Databasen suosituimmat elokuvat ja sarjat.
 
 ![Aloitus-sivu](./documents/Readme/aloitussivu.png)
 *Kuva 1 Aloitussivu*
+
 
 Haku-sivulta voidaan etsiä elokuvia ja sarjoja hakusanan, genren, vuosikymmenen ja arvosana-asteikon mukaan (kuva 2). Elokuvan tai sarjan kuvaa klikkaamalla saat kyseisestä elokuvasta tai sarjasta enemmän tietoa ja tietokannasta mahdollisesti löytyvät arvostelut (kuva 3). Jos olet kirjautuneena sivulle voit lisätä valitun elokuvan tai sarjan suosikkeihin, omiin ryhmiisi sekä kirjoittaa arvostelun elokuvasta. 
 
@@ -46,10 +48,12 @@ Haku-sivulta voidaan etsiä elokuvia ja sarjoja hakusanan, genren, vuosikymmenen
 ![Ponnahdusikkuna](./documents/Readme/popupwindow.png)
 *Kuva 3 Haku-sivun media elementistä*
 
+
 Näytökset-sivulta (kuva 4) pystytään etsimään elokuvanäytöksiä eri teattereista päivämäärän mukaan. Jos olet kirjautuneena sivulle, voit lisätä näytöksen omiin ryhmiisi. 
 
 ![Näytös-sivu](./documents/Readme/naytos.png)
 *Kuva 4 Näytökset-sivusta*
+
 
 Ryhmät-sivulla (kuva 5) voidaan selailla ryhmiä ja kirjautuneena pyytää pääsyä ryhmiin, luoda ryhmä sekä nähdä niiden ryhmien sisällön (kuva 6), mihin kuulut. 
 
@@ -58,14 +62,18 @@ Ryhmät-sivulla (kuva 5) voidaan selailla ryhmiä ja kirjautuneena pyytää pä�
 ![Ryhmä-sivu](./documents/Readme/ryhmasivu.png)
 *Kuva 6 Yksittäisen ryhmän sivusta*
 
-Suosikit-sivuilta (kuva 7) löytyy kirjautuneena käyttäjän oma suosikkilista, jota pystyy jakamaan myös muille sivulla olevan linkin avulla. Täällä pystytään myös hallinnoimaan omaa suosikkilistaa eli poistamaan elokuvia tai sarjoja listalta. 
+
+Suosikit-sivuilta (kuva 7) löytyy kirjautuneena käyttäjän oma suosikkilista, jota pystyy jakamaan myös muille sivulla olevan linkin avulla. 
 
 ![Suosikit-sivu](./documents/Readme/suosikki.png)
 *Kuva 7 Suosikit-sivusta*
 
+
 Arvostelut-sivulta (kuva 8) pystytään lukemaan arvosteluja, joita käyttäjät ovat elokuvista antaneet. 
+
 ![Arvostelu-sivu](./documents/Readme/arvostelut.png)
 *Kuva 8 Arvostelut-sivusta*
+
 
 Kirjautuneena profiilikuvaa klikkaamalla päästään profiilisivulle (kuva 9), jossa näkyy tunnuksen tiedot ja profiilikuva, jonka voi vaihtaa. Tämän lisäksi näkyy viisi viimeisintä sinun suosikkilistallesi lisäämää elokuvaa tai sarjaa ja klikkaamalla Näytä lisää mennään Suosikit-sivulle. Viimeisenä näkyy alue, jossa on ryhmät, joihin käyttäjä kuuluu, sekä hallinnoimiesi ryhmien jäsenpyynnöt. 
 
