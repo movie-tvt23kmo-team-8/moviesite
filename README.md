@@ -78,6 +78,7 @@ Kirjautuneena profiilikuvaa klikkaamalla päästään profiilisivulle (kuva 9), 
 Projektit toteutettiin osana Tieto- ja viestintätekniikan koulutusta keväällä 2024. Projekti aloitettiin luennoilla sovelluksen rakentamisesta. Tämän jälkeen alkoi projektin toteutus. Ensimmäiset kaksi viikko olivat projektiryhmän muodostamista ja suunnittelua varten. Suunnittelun aikana teimme alustavat ER-kaaviot (kuvassa 10 lopullinen ER-kaavio), UI-suunnitelmat (kuva 11) ja Rest-dokumentaatio (lopullinen [Rest-dokumentaatio](https://documenter.getpostman.com/view/29936650/2sA3JDhRKW)). Suunnittelussa käytimme apuna Miro-sovellusta. 
 
 ![ER-Diagram](./documents/ER-kaavio.png)
+
 *Kuva 10 ER-kaavio*
 
 ![FULLDESINGPLAN](./documents/UI-suunnitelma/UI-suunnitelma.png)
