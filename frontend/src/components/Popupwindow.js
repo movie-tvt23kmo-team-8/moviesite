@@ -14,6 +14,7 @@ const Popupwindow = ({ mediaItem, onClose }) => {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [selectedGroup, setSelectedGroup] = useState('');
     const [notificationMessage, setNotificationMessage] = useState(null);
+    const [notificationType, setNotificationType] = useState(null);
     let ryhma = "";
 
     const GroupPopup = ({ userGroups, onSelectGroup }) => (
@@ -140,10 +141,10 @@ const Popupwindow = ({ mediaItem, onClose }) => {
                 data: mediaItem.id,
                 mediaType: type
             });
-            showNotification('Lisättiin ryhmään')
+            showNotification('Lisättiin ryhmään', 'success')
             //console.log("lisätty type: ", type, " ryhmään: ", ryhma, " id: ", mediaItem.id)
         } catch (error) {
-            showNotification('Ryhmään lisääminen epäonnistui, tarkista onko jo lisätty')
+            showNotification('Ryhmään lisääminen epäonnistui, tarkista onko jo lisätty', 'failure')
             console.error('Error when trying to add2group:', error);
         }
 
@@ -158,8 +159,9 @@ const Popupwindow = ({ mediaItem, onClose }) => {
         return ''; // Return empty string if dateString is undefined
     };
 
-    const showNotification = (message) => {
+    const showNotification = (message, type) => {
         setNotificationMessage(message);
+        setNotificationType(type); 
         setTimeout(() => {
             setNotificationMessage(null);
         }, 5000);
@@ -167,12 +169,12 @@ const Popupwindow = ({ mediaItem, onClose }) => {
 
     const handleAddToFavorites = () => {
         console.log('Added to favorites');
-        showNotification('Lisättiin suosikkeihin!')
+        showNotification('Lisättiin suosikkeihin!', 'success')
     };
 
     const handleAddToFavoritesFailure = () => {
         console.log('Failured to add favorites');
-        showNotification('Epäonnistuttiin lisäämään suosikkeihin!')
+        showNotification('Epäonnistuttiin lisäämään suosikkeihin! Tarkista onko jo lisätty.', 'failure')
     };
 
     return (
@@ -185,7 +187,7 @@ const Popupwindow = ({ mediaItem, onClose }) => {
                             <button className='popupbutton' onClick={onClose}>Close</button>
                             {isLoggedIn && (<div><AddToFavoritesIcon mdbdata={mediaItem} onAddToFavorites={handleAddToFavorites} onAddToFavoritesFailure={handleAddToFavoritesFailure} />
                             {notificationMessage && (
-                            <div className="notification">{notificationMessage}</div>
+                            <div className={`notification ${notificationType}`}>{notificationMessage}</div>
                             )}
                             </div>
                             )}
@@ -246,12 +248,32 @@ const BasicRating = ({ value }) => {
     return (
         <div className='rating'>
             <Box
-                sx={{
-                    '& > legend': { mt: 2 },
+               sx={{
+                '& > legend': { mt: 2 },
+                '& .MuiRating-icon': {
+                    fontSize: '16px', 
+                },
+                '@media (max-width: 1200px)': {
                     '& .MuiRating-icon': {
-                        fontSize: '1vw',
+                        fontSize: '14px',
                     },
-                }}
+                },
+                '@media (max-width: 800px)': {
+                    '& .MuiRating-icon': {
+                        fontSize: '12px',
+                    },
+                },
+                '@media (max-width: 500px)': {
+                    '& .MuiRating-icon': {
+                        fontSize: '10px', 
+                    },
+                },
+                '@media (max-width: 400px)': {
+                    '& .MuiRating-icon': {
+                        fontSize: '8px', 
+                    },
+                },
+            }}
             >
                 <Rating className="read-only" value={value} readOnly />
             </Box>

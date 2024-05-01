@@ -131,9 +131,40 @@
     color: black;
 }
 
+.notification{
+    position: fixed;
+    top: 50%; /* Position from the top */
+    left: 50%; /* Position from the left */
+    transform: translate(-50%, -50%);
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    overflow-y: auto; 
+    font-weight: bold;
+}
+
+.notification.success {
+    color: black;
+    border: 5px solid rgb(2, 112, 21);
+    width: 10%;
+    height: 10%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.notification.failure {
+    color: black;
+    border: 5px solid rgb(175, 19, 19);
+    width: 15%;
+    height: 15%;
+}
 
 
-@media (max-width: 800px){    
+
+@media (max-width: 950px){    
    
 
     .movietitle{
@@ -173,42 +204,69 @@
     .popup-reviewer{
         font-size: 60%;
     }
+
+    .notification{
+        font-size: 80%;
+    }
+
+    .notification.success {
+        width: 15%;
+        height: 15%;
+    }
+    
+    .notification.failure {
+        width: 20%;
+        height: 20%;
+    }
 }
 
-@media (max-width: 400px){  
+@media (max-width: 500px){  
     
     .movietitle{
         font-size: 100%;
-        font-weight: bold;
     }
-   
+
     .popup-img-container{
-        height: 200px;
+        width: 30%;
+        height: 150px;
     }
        
     .popupbutton{
-        font-size: 70%;
+        font-size: 50%;
     }
     
     .mediadetail{
-        font-size: 80%;
+        font-size: 70%;
     }
     
-    .popupIcon-heart, .popupIcon-group{
+    .popupIcon-group{
         font-size: 100%;
     }
+    
 
     .popup-reviewtitle{
         font-size: 100%;
-        font-weight: bold;
     }
     
     .popup-review{
         font-size: 70%;
     }
-
     
     .popup-reviewer{
         font-size: 50%;
+    }
+
+    .notification{
+        font-size: 80%;
+    }
+
+    .notification.success {
+        width: 15%;
+        height: 15%;
+    }
+    
+    .notification.failure {
+        width: 20%;
+        height: 20%;
     }
 }

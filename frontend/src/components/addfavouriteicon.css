@@ -10,3 +10,9 @@
         font-size: 200%;
     }
 }
+
+@media (max-width: 400px){
+    .addfavouriteicon{
+        font-size: 100%;
+    }
+}
