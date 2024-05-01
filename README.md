@@ -107,7 +107,7 @@ Toteutusvaiheessa hyödynsimme Discordia sekä GitHubin projektin hallintaa Kanb
 [<img src="https://www.svgrepo.com/show/303360/nodejs-logo.svg" height="80px;"/>](https://nodejs.org/en)
 [<img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Logo_PostgreSQL.png" height="80px;"/>](https://www.postgresql.org)
 [<img src="https://www.svgrepo.com/show/354202/postman-icon.svg" height="80px;"/>](https://www.postman.com)
-[<img src="https://landing.moqups.com/img/logo-light@2x.png" height="80px" style="background-color: white; display: inline-block; border-radius: 5px">](https://moqups.com)
+[<img src="https://landing.moqups.com/img/logo-light@2x.png" height="80px">](https://moqups.com)
 
 
 
