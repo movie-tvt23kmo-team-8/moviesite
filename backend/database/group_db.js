@@ -9,12 +9,7 @@ const sql = {
     GET_GROUP_ID_BY_NAME: 'SELECT (idgroup) FROM "group" WHERE groupname= $1',
     GET_GROUP_MEMBERS: 'SELECT DISTINCT groupmember.*, account.imageid, account.username AS username FROM groupmember JOIN  account ON groupmember.idaccount = account.idaccount WHERE idgroup=$1 ORDER BY "grouprole"',
     GET_GROUP_DETAILS: 'SELECT * FROM "group" WHERE idgroup=$1',
-    GET_GROUP_ID_BY_NAME: 'SELECT (idgroup) FROM "group" WHERE groupname= $1', 
-    DELETE_GROUP: ` BEGIN;
-        DELETE FROM "groupchoices" WHERE idgroup = $1;
-        DELETE FROM "groupmember" WHERE idgroup = $1;
-        DELETE FROM "group" WHERE idgroup = $1;
-        COMMIT;`
+    GET_GROUP_ID_BY_NAME: 'SELECT (idgroup) FROM "group" WHERE groupname= $1'
 }
 
 async function addGroup(idaccount, groupname, groupdetails) {

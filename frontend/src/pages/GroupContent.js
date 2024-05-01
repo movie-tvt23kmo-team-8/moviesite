@@ -173,7 +173,7 @@ export default function GroupContent() {
                     <div className='group-media-container'>
                         <section className='all-group-media'>
                             <h3 className='group-media-head'>Sarjat</h3>
-                            {Array.isArray(groupchoices) && groupchoices.some(groupchoice => groupchoice.type === 'movie') ? (
+                            {Array.isArray(groupchoices) && groupchoices.some(groupchoice => groupchoice.type === 'series') ? (
                                 <div className='group-media-card'>
                                     {groupchoices
                                         .filter((groupchoice) => groupchoice.type === 'series')

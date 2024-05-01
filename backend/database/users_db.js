@@ -1,12 +1,14 @@
 const pgPool = require('./pg_connection');
-
+const { deleteGroup } = require('../database/group_db');
 const sql = {
     GET_ALL_USERS: 'SELECT "username" FROM "account"',
     GET_USER: 'SELECT "idaccount" FROM "account" WHERE "username" = $1',
+    SET_REVIEWNAME_NULL: 'UPDATE "review" SET idaccount = NULL WHERE "idaccount"=$1',
     DELETE_USER: 'DELETE FROM "account" WHERE "idaccount" = $1',
     GET_PIC: 'SELECT imageid FROM "account" WHERE "username" = $1',
     UPDATE_PIC: 'UPDATE "account" SET imageid = $1 WHERE "idaccount" = $2',
-    GET_USER_GROUPS:'SELECT DISTINCT "group"."groupname" FROM "groupmember" JOIN "group" ON "groupmember"."idgroup" = "group"."idgroup" WHERE "groupmember"."idaccount" = $1 ORDER BY "groupname"', 
+    GET_USER_GROUPS:'SELECT DISTINCT "group"."groupname", "group"."idgroup"  FROM "groupmember" JOIN "group" ON "groupmember"."idgroup" = "group"."idgroup" WHERE "groupmember"."idaccount" = $1 ORDER BY "groupname"', 
+    GET_USER_ADMIN_GROUPS:'SELECT * FROM "group" WHERE "idaccount" = $1 ',
     UPDATE_PASSWORD: 'UPDATE "account" SET "password" = $1 WHERE "idaccount" = $2',
     GET_USER_BY_PASSKEY: 'SELECT "idaccount" FROM "account" WHERE "sharekey" = $1',
     GET_SHAREKEY: 'SELECT "sharekey" FROM "account" WHERE "idaccount" = $1',
@@ -84,12 +86,24 @@ async function updatePasswordById(idaccount, newPasswordHash) {
     }
 }
 
-
-
 async function deleteUser(idaccount) {
+    console.log("db:n puolella", idaccount)
+    try{
+    const groupsResult = await pgPool.query(sql.GET_USER_ADMIN_GROUPS, [idaccount])
+    const groups = groupsResult.rows;
+    console.log(groups)    
+    for(let i = 0; i<groups.length; i++){
+        const groupID=groups[i].idgroup
+        console.log("loopissa",groupID)
+        await deleteGroup(groupID);
+    }
+    await pgPool.query(sql.SET_REVIEWNAME_NULL, [idaccount]);
     let result = await pgPool.query(sql.DELETE_USER, [idaccount]);
     return result.rows;
-}
+    } catch (err){
+        console.error("virhe käyttäjän poistossa:", err)
+    }
+} 
 
 async function getUserGroups(idaccount) {
     let result = await pgPool.query(sql.GET_USER_GROUPS, [idaccount]);
