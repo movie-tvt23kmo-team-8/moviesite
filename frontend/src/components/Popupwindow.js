@@ -140,8 +140,10 @@ const Popupwindow = ({ mediaItem, onClose }) => {
                 data: mediaItem.id,
                 mediaType: type
             });
+            showNotification('Lisättiin ryhmään')
             //console.log("lisätty type: ", type, " ryhmään: ", ryhma, " id: ", mediaItem.id)
         } catch (error) {
+            showNotification('Ryhmään lisääminen epäonnistui, tarkista onko jo lisätty')
             console.error('Error when trying to add2group:', error);
         }
 
@@ -168,6 +170,11 @@ const Popupwindow = ({ mediaItem, onClose }) => {
         showNotification('Lisättiin suosikkeihin!')
     };
 
+    const handleAddToFavoritesFailure = () => {
+        console.log('Failured to add favorites');
+        showNotification('Epäonnistuttiin lisäämään suosikkeihin!')
+    };
+
     return (
         <div className="popup-overlay">
             <div className="popup-window">
@@ -176,7 +183,7 @@ const Popupwindow = ({ mediaItem, onClose }) => {
                         <img className='popup-img' src={`https://image.tmdb.org/t/p/w400/${mediaItem.poster_path}`} alt={mediaItem.title} />
                         <div className="group-icon-container">
                             <button className='popupbutton' onClick={onClose}>Close</button>
-                            {isLoggedIn && (<div><AddToFavoritesIcon mdbdata={mediaItem} onAddToFavorites={handleAddToFavorites} />
+                            {isLoggedIn && (<div><AddToFavoritesIcon mdbdata={mediaItem} onAddToFavorites={handleAddToFavorites} onAddToFavoritesFailure={handleAddToFavoritesFailure} />
                             {notificationMessage && (
                             <div className="notification">{notificationMessage}</div>
                             )}
