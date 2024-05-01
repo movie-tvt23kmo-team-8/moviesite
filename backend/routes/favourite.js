@@ -5,10 +5,17 @@ const { getUserID, getUserIDByPasskey, getSharekey } = require('../database/user
 const router = require('express').Router();
 
 router.post('/addFavourite', auth, async (req, res) => {
-    const idaccount = await getUserID(res.locals.username);
-    const mdbdata = req.body.mdbdata;
-    const type = req.body.type;
     try {
+        const idaccount = await getUserID(res.locals.username);
+        const mdbdata = req.body.mdbdata;
+        const type = req.body.type;
+        const currentFavourites = await getFavourites(idaccount, 0); //haetaan nykyiset suosikit
+        const isFavouriteAlreadyAdded = currentFavourites.some(fav => fav.mdbdata === mdbdata.toString() && fav.type === type); //tarkistetaan onko jo suosikeissa
+        
+        if (isFavouriteAlreadyAdded) {
+            return res.status(400).json({ error: 'Suosikki on jo olemassa' });
+        }
+
         await addFavourite(idaccount, mdbdata, type)
         res.status(200).json({ message: 'Suosikki lisätty!' });
     } catch (error) {
@@ -24,7 +31,7 @@ router.get('/getFavourites', auth, async (req, res) => {
     //console.log("items: ", items)
     const favourites = await getFavourites(idAccount, items);
     const sharekey = await getSharekey(idAccount);
-    //console.log('favourites: ', favourites)
+    console.log('favourites: ', favourites)
     res.status(200).json({ idaccount: idAccount, favourites: favourites, sharekey: sharekey });
 });
 

@@ -1,10 +1,13 @@
-![logo](./frontend/src/img/readmelogo.png) 
+![logo](./frontend/src/img/readmelogo.png#gh-light-mode-only) 
+![logo](./frontend/src/img/logo_nimi.png#gh-dark-mode-only) 
 
 
 ## ER Diagram
 ![ER-Diagram](./documents/ER-kaavio.png)
 
 ## UI Design
+
+![FULLDESINGPLAN](./documents/UI-suunnitelma/UI-suunnitelma.png)
 ### Login page
 ![LOGINPAGE](./documents/UI-suunnitelma/Kirjautuminen.png)
 ### Logged in user view

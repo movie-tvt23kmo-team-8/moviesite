@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './addfavouriteicon.css';
 
-const AddToFavoritesIcon = ({ mdbdata, onAddToFavorites }) => {
+const AddToFavoritesIcon = ({ mdbdata, onAddToFavorites, onAddToFavoritesFailure }) => {
     const [addedToFavorites, setAddedToFavorites] = useState(false);
 
     const handleAddToFavorites = async () => {
@@ -36,7 +36,9 @@ const AddToFavoritesIcon = ({ mdbdata, onAddToFavorites }) => {
                 setAddedToFavorites(true); // Update state to indicate added to favorites
                 onAddToFavorites(); // Trigger a callback to update UI or state
             } else {
+                onAddToFavoritesFailure()
                 console.error('Error adding to favorites');
+                
             }
         } catch (error) {
             console.error('Error adding to favorites:', error);

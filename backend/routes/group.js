@@ -10,20 +10,27 @@ const router = require('express').Router();
 // Auth middleware requires token to be able to use endpoint
 
 router.post('/addGroup', auth, async (req, res) => {
-    const groupname = req.body.groupname;
-    const groupdetails = req.body.groupdetails;
-    const idaccount = await getUserID(res.locals.username);
-    const now = new Date();
-    const grouprole = 'admin';
-    const options = { timeZone: 'Europe/Helsinki' };
-    const finlandTime = now.toLocaleString('en-US', options);
-    const joindate = finlandTime;
-
     try {
+        const groupname = req.body.groupname;
+        const groupdetails = req.body.groupdetails;
+        const idaccount = await getUserID(res.locals.username);
+        const now = new Date();
+        const grouprole = 'admin';
+        const options = { timeZone: 'Europe/Helsinki' };
+        const finlandTime = now.toLocaleString('en-US', options);
+        const joindate = finlandTime;
+        const currentGroups = await getGroups()
+        console.log(currentGroups)
+        const isGroupnameAlreadyTaken = currentGroups.some(group => group.groupname === groupname)
+        if (isGroupnameAlreadyTaken) {
+            return res.status(409).json({ error: 'Ryhmä on jo olemassa' });
+        }
+
         await addGroup(idaccount, groupname, groupdetails);
         const idgroup = await getGroupID(idaccount)
         await makeAdmin(idaccount, idgroup, joindate, grouprole);
         res.status(200).json({ message: 'Ryhmä luotu!' });
+        console.log("ryhmä luotu");
     } catch (error) {
         console.error('Error adding group:', error);
         res.status(500).json({ error: 'Error adding group' });
@@ -54,13 +61,29 @@ router.post('/addToWatchlist', async (req, res) => {
     }
     const data = req.body.data;
     const mediatype = req.body.mediaType;
-    //console.log("backend ennen tietokantapyyntöä: ", idgroup, data, mediatype);
+    const currentWatchlist = await getGroupChoices(idgroup);
+    let isWatchlistAllready = false
+    if (mediatype==="movie" || mediatype==="series"){
+        console.log("testataan löytyykö ryhmästä jo elokuvaa tai sarjaa")
+        isWatchlistAllready = currentWatchlist.some(wl => wl.data===data.toString() && wl.type === mediatype)
+    } else{
+        console.log("testataan löytyy ryhmästä jo näytöstä")
+        const stringifiedData = JSON.stringify(data)
+        isWatchlistAllready = currentWatchlist.some(wl => wl.data===stringifiedData && wl.type === mediatype)
+    }
+    console.log("current watchlist:",currentWatchlist) 
+    console.log("data: ", data, "mediatype:", mediatype)
+    if (isWatchlistAllready) {
+        console.log("Löytyi entuudestaan jo ryhmästä")
+        return res.status(400).json({ error: 'Löytyi entuudestaan jo ryhmästä' });
+    }
+
     try {
         await add2GroupChoices(idgroup, data, mediatype)
         res.status(200).json({ message: 'Lisätty ryhmään!' });
-        //console.log("lisätty ryhmän tietoihin")
+        console.log("lisätty ryhmän tietoihin")
     } catch (error) {
-        //console.log("virhe ilmoitus backendistä:");
+        console.log("virhe ilmoitus backendistä:");
         console.error('Error adding to watchlist:', error);
         res.status(500).json({ error: 'Error adding to watchlist' });
     }

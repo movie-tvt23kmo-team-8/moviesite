@@ -28,9 +28,9 @@ export default function Group() {
   const showNotification = (message) => {
     setNotification(message);
     setTimeout(() => {
-        setNotification(null);
+      setNotification(null);
     }, 5000);
-};
+  };
 
   const fetchGroups = async () => {
     try {
@@ -149,9 +149,13 @@ export default function Group() {
       },
       body: JSON.stringify(groupData)
     })
-    const resultInJson = await result.json()
-    console.log(resultInJson)
-    window.location.reload();
+    if (result.status===409) {
+      alert("Ryhmän nimi varattu.")
+    }else{
+      const resultInJson = await result.json()
+      console.log(resultInJson)
+      window.location.reload();
+    } 
   }
 
 
@@ -188,7 +192,7 @@ export default function Group() {
                     </div>
                   )
                 )}
-                  {notification && (
+                {notification && (
                   <div className="notification">
                     {notification}
                   </div>
@@ -198,19 +202,19 @@ export default function Group() {
           </div>
         </section>
         {isLoggedIn && (
-        <section className='createGroup'>
-          <button className='create-group-button' onClick={() => setButtonPopup(true)}>Luo ryhmä</button>
-          <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-            <h3>Luo uusi ryhmä</h3>
-            <br></br>
-            <p>Nimi: <input value={groupName} onChange={e => setGroupName(e.target.value)}></input></p>
-            <br></br>
-            <p>Kuvaus:<br></br> <input value={groupDetails} onChange={e => setGroupDetails(e.target.value)}></input></p>
-            <br></br>
-            <button onClick={submitGroup}>Lähetä</button>
-          </Popup>
-        </section>
-      )}
+          <section className='createGroup'>
+            <button className='create-group-button' onClick={() => setButtonPopup(true)}>Luo ryhmä</button>
+            <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+              <h3>Luo uusi ryhmä</h3>
+              <br></br>
+              <p>Nimi: <input value={groupName} onChange={e => setGroupName(e.target.value)}></input></p>
+              <br></br>
+              <p>Kuvaus:<br></br> <input value={groupDetails} onChange={e => setGroupDetails(e.target.value)}></input></p>
+              <br></br>
+              <button onClick={submitGroup}>Lähetä</button>
+            </Popup>
+          </section>
+        )}
       </div>
     </div>
   );
