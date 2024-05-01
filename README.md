@@ -92,7 +92,7 @@ Toteutusvaiheessa hyödynsimme Discordia sekä GitHubin projektin hallintaa Kanb
 
 <div style="display: flex; align-items: center;">
     <a href="https://github.com/ArttuA02">
-        <img src="https://github.com/ArttuA02.png" alt="Arttu Aalto" width="100px" style=" margin-right: 10px; padding-right: 10px">
+        <img src="https://github.com/ArttuA02.png" alt="Arttu Aalto" width="100px" style=" margin-right: 10px;x">
     </a>
     <div>
         Arttu Aalto - Ryhmän luonti ja ryhmien haku sivulle tietokannasta sekä ryhmän oman sivun alustava layout, suosikkien lisääminen- ja haku tietokannasta, infotekstien lisäämistä sekä kaikkea muuta pientä säätöä eri sivuille.
@@ -101,7 +101,7 @@ Toteutusvaiheessa hyödynsimme Discordia sekä GitHubin projektin hallintaa Kanb
  
 <div style="display: flex; align-items: center;">
     <a href="https://github.com/Ville-A">
-        <img src="https://github.com/Ville-A.png" alt="Ville Ahola" width="100px" style=" margin-right: 10px; padding-right: 10px">
+        <img src="https://github.com/Ville-A.png" alt="Ville Ahola" width="100px" style=" margin-right: 10px;">
     </a>
     <div>
         Ville Ahola – Sovelluksen tietokannan luonti, ylläpito ja muokkaukset. Backendin runko. Käyttäjän rekisteröinti, kirjautuminen ja poistaminen (fullstack). Token-middleware suojattuihin endpointeihin. Ryhmäsivujen liittymispyyntöjen lähetys ja vastaanottaminen profiilisivulle (fullstack).   Ryhmän roolien luonti, admin ja user (fullstack)
@@ -110,7 +110,7 @@ Toteutusvaiheessa hyödynsimme Discordia sekä GitHubin projektin hallintaa Kanb
 
 <div style="display: flex; align-items: center;">
     <a href="https://github.com/AvaRaGane">
-        <img src="https://github.com/AvaRaGane.png" alt="Juha-Matti Huhta" width="100px" style=" margin-right: 10px; padding-right: 10px">
+        <img src="https://github.com/AvaRaGane.png" alt="Juha-Matti Huhta" width="100px" style=" margin-right: 10px;">
     </a>
     <div>
         Juha-Matti Huhta – React-sovelluksen runko, oman näkymän(suosikkilistan) jakaminen, ryhmän sisällön lisääminen, ryhmän jäsenen poistaminen(frontend), leffa-arvostelujen selaaminen, leffa-arvostelujen lisääminen(backend), suodatettu haku(kriteerit), Finnkinon näytösaikojen hakeminen ja lisääminen ryhmään, suosikkien tulostuksen muokkaus sekä kaikkea muuta.
@@ -119,7 +119,7 @@ Toteutusvaiheessa hyödynsimme Discordia sekä GitHubin projektin hallintaa Kanb
  
 <div style="display: flex; align-items: center;">
     <a href="https://github.com/MikkoKom">
-        <img src="https://github.com/MikkoKom.png" alt="Mikko Komulainen" width="100px" style=" margin-right: 10px; padding-right: 10px">
+        <img src="https://github.com/MikkoKom.png" alt="Mikko Komulainen" width="100px" style=" margin-right: 10px;">
     </a>
     <div>
         Mikko Komulainen - Haunrunko. Jäsenen poistaminen ryhmästä. Salasanan vaihto. Esittelyvideon kuvaus, juontaminen, editointi ja julkaiseminen.
@@ -129,7 +129,7 @@ Toteutusvaiheessa hyödynsimme Discordia sekä GitHubin projektin hallintaa Kanb
 
 <div style="display: flex; align-items: center;">
     <a href="https://github.com/Ereride">
-        <img src="https://github.com/Ereride.png" alt="Minna Leppänen" width="100px" style=" margin-right: 10px; padding-right: 10px">
+        <img src="https://github.com/Ereride.png" alt="Minna Leppänen" width="100px" style=" margin-right: 10px;">
     </a>
     <div>
         Minna Leppänen - React-sovelluksen runko sekä sivuston tyylittely ja responsiivisuus. Lisäksi aloitussivu (fullstack), profiilisivu (fullstack) ja median ponnahdusikkunan (fullstack) sekä kaikkea muuta.
