@@ -136,6 +136,8 @@ Toteutusvaiheessa hyödynsimme Discordia sekä GitHubin projektin hallintaa Kanb
     </div>
 </div>
 
+[![Minna Leppänen](https://github.com/Ereride.png)](https://github.com/Ereride) Minna Leppänen - React-sovelluksen runko sekä sivuston tyylittely ja responsiivisuus. Lisäksi aloitussivu (fullstack), profiilisivu (fullstack) ja median ponnahdusikkunan (fullstack) sekä kaikkea muuta.
+
 
 
 
