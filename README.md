@@ -90,10 +90,27 @@ Toteutusvaiheessa hyödynsimme Discordia sekä GitHubin projektin hallintaa Kanb
 
 ### Ryhmän esittely ja vastuualueet 
 
-| Tekijä | Vastuualueet |
+| Kehittäjät | |
 | :---------------: | --- |
-|[<img src="https://github.com/Ereride.png" width="100px;"/>](https://github.com/Ereride)|
-Minna Leppänen - React-sovelluksen runko sekä sivuston tyylittely ja responsiivisuus. Lisäksi aloitussivu (fullstack), profiilisivu (fullstack) ja median ponnahdusikkunan (fullstack) sekä kaikkea muuta.|
+| [<img src="https://github.com/ArttuA02.png" width="150px;"/><br /><sub><a href="https://github.com/ArttuA02"></a></sub>](https://github.com/ArttuA02) | Arttu Aalto -Ryhmän luonti ja ryhmien haku sivulle tietokannasta sekä ryhmän oman sivun alustava layout, suosikkien lisääminen- ja haku tietokannasta, infotekstien lisäämistä sekä kaikkea muuta pientä säätöä eri sivuille. |
+| [<img src="https://github.com/Ville-A.png" width="150px;"/><br /><sub><a href="https://github.com/Ville-A"></a></sub>](https://github.com/Ville-A) | Ville Ahola – Sovelluksen tietokannan luonti, ylläpito ja muokkaukset. Backendin runko. Käyttäjän rekisteröinti, kirjautuminen ja poistaminen (fullstack). Token-middleware suojattuihin endpointeihin. Ryhmäsivujen liittymispyyntöjen lähetys ja vastaanottaminen profiilisivulle (fullstack).   Ryhmän roolien luonti, admin ja user (fullstack) |
+| [<img src="https://github.com/AvaRaGane.png" width="150px;"/><br /><sub><a href="https://github.com/AvaRaGane"></a></sub>](https://github.com/AvaRaGane) | Juha-Matti Huhta – React-sovelluksen runko, oman näkymän(suosikkilistan) jakaminen, ryhmän sisällön lisääminen, ryhmän jäsenen poistaminen(frontend), leffa-arvostelujen selaaminen, leffa-arvostelujen lisääminen(backend), suodatettu haku(kriteerit), Finnkinon näytösaikojen hakeminen ja lisääminen ryhmään, suosikkien tulostuksen muokkaus sekä kaikkea muuta. |
+| [<img src="https://github.com/MikkoKom.png" width="150px;"/><br /><sub><a href="https://github.com/MikkoKom"></a></sub>](https://github.com/MikkoKom) | Mikko Komulainen - Haunrunko. Jäsenen poistaminen ryhmästä. Salasanan vaihto. Esittelyvideon kuvaus, juontaminen, editointi ja julkaiseminen. |
+| [<img src="https://github.com/Ereride.png" width="150px;"/><br /><sub><a href="https://github.com/Ereride"></a></sub>](https://github.com/Ereride) | Minna Leppänen - React-sovelluksen runko sekä sivuston tyylittely ja responsiivisuus. Lisäksi aloitussivu (fullstack), profiilisivu (fullstack) ja median ponnahdusikkunan (fullstack) sekä kaikkea muuta.|
+</br>
+
+
+### Käytetyt tekniikat
+[<img src="https://pbs.twimg.com/profile_images/1735429515541938176/zOO1N7Su_400x400.jpg" height="80px;"/>](https://render.com)
+[<img src="https://cdn.pixabay.com/photo/2022/01/30/13/33/github-6980894_1280.png" height="80px;"/>](https://github.com)
+[<img src="https://www.svgrepo.com/show/303500/react-1-logo.svg" height="80px;"/>](https://react.dev)
+[<img src="https://www.svgrepo.com/show/303360/nodejs-logo.svg" height="80px;"/>](https://nodejs.org/en)
+[<img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Logo_PostgreSQL.png" height="80px;"/>](https://www.postgresql.org)
+[<img src="https://www.svgrepo.com/show/354202/postman-icon.svg" height="80px;"/>](https://www.postman.com)
+[<img src="https://landing.moqups.com/img/logo-light@2x.png" height="80px" style="background-color: white; display: inline-block; border-radius: 5px">](https://moqups.com)
+
+
+
 
  
 
