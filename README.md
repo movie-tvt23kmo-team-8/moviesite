@@ -39,48 +39,49 @@ Sovelluksesta löytyy monenlaisia ominaisuuksia elokuvien ja sarjojen tutkimisee
 🏠 Aloitussivulle (kuva 1) saapuessa tulee näkyviin Finnkinon uusimman elokuvan traileri. Selatessa sivua alaspäin löytyy The Movie Databasen suosituimmat elokuvat ja sarjat.
 
 ![Aloitus-sivu](./documents/Readme/aloitussivu.png)
-*Kuva 1 Aloitussivu*
+<sup><sub>*Kuva 1 Aloitussivu*</sup></sub>
 
 
 🔍 Haku-sivulta voidaan etsiä elokuvia ja sarjoja hakusanan, genren, vuosikymmenen ja arvosana-asteikon mukaan (kuva 2). Elokuvan tai sarjan kuvaa klikkaamalla saat kyseisestä elokuvasta tai sarjasta enemmän tietoa ja tietokannasta mahdollisesti löytyvät arvostelut (kuva 3). Jos olet kirjautuneena sivulle voit lisätä valitun elokuvan tai sarjan suosikkeihin, omiin ryhmiisi sekä kirjoittaa arvostelun elokuvasta. 
 
 ![Haku-sivu](./documents/Readme/haku.png)
-*Kuva 2 Hakusivu*
+<sup><sub>*Kuva 2 Hakusivu*</sup></sub>
 
 ![Ponnahdusikkuna](./documents/Readme/popupwindow.png)
-*Kuva 3 Haku-sivun media elementistä*
+<sup><sub>*Kuva 3 Haku-sivun media elementistä*</sup></sub>
 
 
 🎥 Näytökset-sivulta (kuva 4) pystytään etsimään elokuvanäytöksiä eri teattereista päivämäärän mukaan. Jos olet kirjautuneena sivulle, voit lisätä näytöksen omiin ryhmiisi. 
 
 ![Näytös-sivu](./documents/Readme/naytos.png)
-*Kuva 4 Näytökset-sivusta*
+<sup><sub>*Kuva 4 Näytökset-sivusta*</sup></sub>
 
 
 🧑‍🤝‍🧑 Ryhmät-sivulla (kuva 5) voidaan selailla ryhmiä ja kirjautuneena pyytää pääsyä ryhmiin, luoda ryhmä sekä nähdä niiden ryhmien sisällön (kuva 6), mihin kuulut. 
 
 ![Ryhmät-sivu](./documents/Readme/ryhma.png)
-*Kuva 5 Ryhmät-sivusta*
+<sup><sub>*Kuva 5 Ryhmät-sivusta*</sup></sub>
+
 ![Ryhmä-sivu](./documents/Readme/ryhmasivu.png)
-*Kuva 6 Yksittäisen ryhmän sivusta*
+<sup><sub>*Kuva 6 Yksittäisen ryhmän sivusta*</sup></sub>
 
 
 🥇 Suosikit-sivuilta (kuva 7) löytyy kirjautuneena käyttäjän oma suosikkilista, jota pystyy jakamaan myös muille sivulla olevan linkin avulla. 
 
 ![Suosikit-sivu](./documents/Readme/suosikki.png)
-*Kuva 7 Suosikit-sivusta*
+<sup><sub>*Kuva 7 Suosikit-sivusta*</sup></sub>
 
 
 ⭐ Arvostelut-sivulta (kuva 8) pystytään lukemaan arvosteluja, joita käyttäjät ovat elokuvista antaneet. Jos käyttäjä poistaa tunnuksensa hänen arvostelunsa säilyvät mutta niistä häviää nimimerkki.
 
 ![Arvostelu-sivu](./documents/Readme/arvostelut.png)
-*Kuva 8 Arvostelut-sivusta*
+<sup><sub>*Kuva 8 Arvostelut-sivusta*</sup></sub>
 
 
 🦸 Kirjautuneena profiilikuvaa klikkaamalla päästään profiilisivulle (kuva 9), jossa näkyy tunnuksen tiedot ja profiilikuva, jonka voi vaihtaa. Tämän lisäksi näkyy viisi viimeisintä sinun suosikkilistallesi lisäämää elokuvaa tai sarjaa ja klikkaamalla Näytä lisää mennään Suosikit-sivulle. Viimeisenä näkyy alue, jossa on ryhmät, joihin käyttäjä kuuluu, sekä hallinnoimiesi ryhmien jäsenpyynnöt. 
 
 ![Profiili-sivu](./documents/Readme/profile.png)
-*Kuva 9 Profiili-sivusta*
+<sup><sub>*Kuva 9 Profiili-sivusta*</sup></sub>
 
 ---
 
@@ -89,10 +90,10 @@ Sovelluksesta löytyy monenlaisia ominaisuuksia elokuvien ja sarjojen tutkimisee
 
 ![ER-Diagram](./documents/ER-kaavio.png)
 
-*Kuva 10 ER-kaavio*
+<sup><sub>*Kuva 10 ER-kaavio*</sup></sub>
 
 ![FULLDESINGPLAN](./documents/UI-suunnitelma/UI-suunnitelma.png)
-*Kuva 11 UI-suunnitelma*
+<sup><sub>*Kuva 11 UI-suunnitelma*</sup></sub>
 
 🔨Toteutusvaiheessa hyödynsimme Discordia sekä GitHubin projektin hallintaa Kanban-mallilla. Tämä mahdollisti selkeän projektinhallinnan ja töiden jakamisen.  Projekti toteutettiin Visual Studio Codella, jossa käytettiin Reactia ja Nodea. Projektin toteutus kesti hiukan yli kuukauden. Pysyimme hyvin aikataulussa ja saavutimme kaikki toiminnallisuudet, joita tavoittelimme. 
 
