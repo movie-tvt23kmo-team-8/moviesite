@@ -1,7 +1,7 @@
 ![logo](./frontend/src/img/readmelogo.png#gh-light-mode-only) 
 ![logo](./frontend/src/img/logo_nimi.png#gh-dark-mode-only) 
 
-[Esittely](#esittely) - [Sovelluksen käyttöönotto](#sovelluksen-käyttöönotto) - [Sovelluksen ominaisuudet](#sovelluksen-ominaisuudet) - [Projektin toteutus](#projektin-toteutus) - [Ryhmän esittely](#ryhmän-esittely) - [Käytetyt tekniikat](#käytetyt-tekniikat)
+[Sovelluksen käyttöönotto](#sovelluksen-käyttöönotto) - [Sovelluksen ominaisuudet](#sovelluksen-ominaisuudet) - [Projektin toteutus](#projektin-toteutus) - [Ryhmän esittely](#ryhmän-esittely) - [Käytetyt tekniikat](#käytetyt-tekniikat)
 
 ## Esittely
 Tässä projektissa luotiin sovellus, jolla voidaan etsiä elokuvia ja sarjoja sekä elokuvateattereiden näytösaikoja ja lisätä niitä omiin suosikkeihin sekä erinäisiin ryhmiin. Tämän sovelluksen toteutti Oulun ammattikorkeakoulun tieto- ja viestintätekniikan toisen vuosikurssin opiskelijat Web-ohjelmoinnin sovellusprojektin tuotoksena keväällä 2024. 
