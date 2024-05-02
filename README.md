@@ -1,6 +1,8 @@
 ![logo](./frontend/src/img/readmelogo.png#gh-light-mode-only) 
 ![logo](./frontend/src/img/logo_nimi.png#gh-dark-mode-only) 
 
+[Esittely](#esittely) - [Sovelluksen käyttöönotto](#sovelluksen-käyttöönotto) - [Sovelluksen ominaisuudet](#sovelluksen-ominaisuudet) - [Projektin toteutus](#projektin-toteutus) - [Ryhmän esittely](#ryhmän-esittely) - [Käytetyt tekniikat](#käytetyt-tekniikat)
+
 ## Esittely
 Tässä projektissa luotiin sovellus, jolla voidaan etsiä elokuvia ja sarjoja sekä elokuvateattereiden näytösaikoja ja lisätä niitä omiin suosikkeihin sekä erinäisiin ryhmiin. Tämän sovelluksen toteutti Oulun ammattikorkeakoulun tieto- ja viestintätekniikan toisen vuosikurssin opiskelijat Web-ohjelmoinnin sovellusprojektin tuotoksena keväällä 2024. 
 
@@ -96,7 +98,7 @@ Toteutusvaiheessa hyödynsimme Discordia sekä GitHubin projektin hallintaa Kanb
 
 ---
 
-### Ryhmän esittely ja vastuualueet 
+### Ryhmän esittely
 
 | Kehittäjät | |
 | :---------------: | --- |
@@ -110,7 +112,7 @@ Toteutusvaiheessa hyödynsimme Discordia sekä GitHubin projektin hallintaa Kanb
 
 ### Käytetyt tekniikat
 [<img src="https://pbs.twimg.com/profile_images/1735429515541938176/zOO1N7Su_400x400.jpg" height="80px;"/>](https://render.com)
-[<img src="https://cdn.pixabay.com/photo/2022/01/30/13/33/github-6980894_1280.png" height="80px;"/>](https://github.com)
+[<img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" height="80px;"/>](https://github.com)
 [<img src="https://www.svgrepo.com/show/303500/react-1-logo.svg" height="80px;"/>](https://react.dev)
 [<img src="https://www.svgrepo.com/show/303360/nodejs-logo.svg" height="80px;"/>](https://nodejs.org/en)
 [<img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Logo_PostgreSQL.png" height="80px;"/>](https://www.postgresql.org)
