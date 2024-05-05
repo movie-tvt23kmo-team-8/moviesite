@@ -7,6 +7,7 @@
 Tässä projektissa luotiin sovellus, jolla voidaan etsiä elokuvia ja sarjoja sekä elokuvateattereiden näytösaikoja ja lisätä niitä omiin suosikkeihin sekä erinäisiin ryhmiin. Tämän sovelluksen toteutti Oulun ammattikorkeakoulun tieto- ja viestintätekniikan toisen vuosikurssin opiskelijat Web-ohjelmoinnin sovellusprojektin tuotoksena keväällä 2024. 
 
 **Projektin esittelyvideo** [Sharepointissa](https://oamk-my.sharepoint.com/:v:/g/personal/c2komi04_students_oamk_fi/EZ4Ypuh5zhhAkEobBgFh6psBXxYjA51_Vamd_cTWgkRcyw?e=qcxGOc) ja **linkki** [sovellukseen](https://filmiverkko.onrender.com).
+
 <sup><sub>Projektin esittelyvideo linkki päivitetty 5.5.2024</sup></sub>
 ---
 ### Sovelluksen käyttöönotto
