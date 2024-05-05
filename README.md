@@ -8,7 +8,7 @@ Tässä projektissa luotiin sovellus, jolla voidaan etsiä elokuvia ja sarjoja s
 
 **Projektin esittelyvideo [Sharepointissa](https://oamk-my.sharepoint.com/:v:/g/personal/c2komi04_students_oamk_fi/EZ4Ypuh5zhhAkEobBgFh6psBXxYjA51_Vamd_cTWgkRcyw?e=qcxGOc) ja linkki [sovellukseen](https://filmiverkko.onrender.com).**
 
-<sup><sub>Projektin esittelyvideo linkki päivitetty 5.5.2024</sup></sub>
+<sup><sub>Projektin esittelyvideon linkki päivitetty 5.5.2024</sup></sub>
 ---
 ### Sovelluksen käyttöönotto
 1. Kloonaa repository 
